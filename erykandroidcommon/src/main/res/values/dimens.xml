@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base margins -->
+    <dimen name="margin_0x">4dp</dimen>
+    <dimen name="margin_1x">8dp</dimen>
+    <dimen name="margin_2x">16dp</dimen>
+    <dimen name="margin_3x">24dp</dimen>
+    <dimen name="margin_4x">32dp</dimen>
+    <dimen name="margin_5x">40dp</dimen>
+    <dimen name="margin_6x">48dp</dimen>
+
+    <!-- Base padding -->
+    <dimen name="padding_0x">4dp</dimen>
+    <dimen name="padding_1x">8dp</dimen>
+    <dimen name="padding_2x">16dp</dimen>
+    <dimen name="padding_3x">24dp</dimen>
+    <dimen name="padding_4x">32dp</dimen>
+    <dimen name="padding_5x">40dp</dimen>
+    <dimen name="padding_6x">48dp</dimen>
+
+    <!-- Base text size -->
+    <dimen name="default_text_size">14sp</dimen>
+    <dimen name="text_size_1x">12sp</dimen>
+    <dimen name="text_size_1.5x">15sp</dimen>
+    <dimen name="text_size_2x">18sp</dimen>
+    <dimen name="text_size_3x">22sp</dimen>
+
+    <!-- app bar -->
+    <dimen name="app_bar_height_collapsed">81dp</dimen>
+    <dimen name="app_bar_height">150dp</dimen>
+    <dimen name="app_bar_height_api22">40dp</dimen>
+
+    <dimen name="divider_height">0.5dp</dimen>
+    <dimen name="spinner_height">45dp</dimen>
+</resources>

@@ -54,3 +54,8 @@ google-services.json
 freeline.py
 freeline/
 freeline_project_description.json
+materials/
+*_db!.
+projectFilesBackup/
+temp*.json
+.idea/sonarlint
