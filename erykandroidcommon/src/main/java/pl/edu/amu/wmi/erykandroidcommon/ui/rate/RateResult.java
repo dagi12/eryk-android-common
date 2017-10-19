@@ -1,9 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.ui.rate;
 
-public class RateResult<T> {
+class RateResult<T> {
 
     private static final String SUCCESS_STATUS = "updated";
+
     private T item;
+
     private String status;
 
     public RateResult() {

@@ -11,8 +11,9 @@ import com.squareup.picasso.Picasso;
 
 public class PicassoCache {
 
+    private final Application application;
+
     private static final String TAG = PicassoCache.class.getName();
-    private Application application;
 
     public PicassoCache(Application application) {
         this.application = application;

@@ -17,9 +17,9 @@ public abstract class SelectRecyclerFragment<T, S extends SelectItemViewHolder<T
     @BindView(R2.id.btn_add)
     protected Button button;
 
-    protected OnAddClickedListener<T> addClickedListener;
+    private SelectViewAdapter<T, S> selectAdapter;
 
-    protected SelectViewAdapter<T, S> selectAdapter;
+    private OnAddClickedListener<T> addClickedListener;
 
     @OnClick(R2.id.btn_add)
     public void onButtonAddClick() {

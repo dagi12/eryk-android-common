@@ -27,6 +27,15 @@ import lombok.NonNull;
  */
 public abstract class EditTextDialogFragment extends AppCompatDialogFragment {
 
+    @StringRes
+    private final int title;
+
+    @LayoutRes
+    private final int layoutFragment;
+
+    @IdRes
+    private final int targetEditText;
+
     private AlertDialog dialog;
 
     private Button okButton;
@@ -34,15 +43,6 @@ public abstract class EditTextDialogFragment extends AppCompatDialogFragment {
     private MaybeSubject<String> dialogResultStream;
 
     private EditText target;
-
-    @StringRes
-    private int title;
-
-    @LayoutRes
-    public int layoutFragment;
-
-    @IdRes
-    public int targetEditText;
 
     public EditTextDialogFragment(int title, int layoutFragment, int targetEditText) {
         this.title = title;

@@ -45,7 +45,6 @@ public abstract class AbstractEditorResultActivity extends BaseActivity implemen
         super.onCreate(savedInstanceState);
         formVerificationManager = new FormVerificationManager(this, this);
         WindowUtil.enableActionBar(this);
-        changeNotificationBarColor(this);
     }
 
 }

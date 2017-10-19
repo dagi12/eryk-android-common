@@ -8,7 +8,7 @@ import android.location.LocationManager;
  */
 public class LocationService {
 
-    Context context;
+    private final Context context;
 
     public LocationService(Context context) {
         this.context = context;

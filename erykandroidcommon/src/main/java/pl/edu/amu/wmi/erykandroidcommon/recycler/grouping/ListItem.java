@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
 
-public interface ListItem {
+interface ListItem {
 
     ListItemType getType();
 

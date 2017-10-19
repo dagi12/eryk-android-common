@@ -11,7 +11,7 @@ import java.util.Map;
 import pl.edu.amu.wmi.erykandroidcommon.R;
 import pl.edu.amu.wmi.erykandroidcommon.util.DateUtils;
 
-public class GroupingService {
+class GroupingService {
 
     private final Context context;
 

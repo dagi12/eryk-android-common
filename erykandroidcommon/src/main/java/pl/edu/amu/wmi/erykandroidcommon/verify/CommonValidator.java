@@ -13,15 +13,15 @@ import pl.edu.amu.wmi.erykandroidcommon.R;
  */
 class CommonValidator {
 
-    public CommonValidator(Context context) {
-        this.context = context;
-    }
-
     private final Context context;
 
     private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
 
     private static final int MIN_PASSWORD_LENGTH = 7;
+
+    public CommonValidator(Context context) {
+        this.context = context;
+    }
 
     public boolean validateEmail(EditText email) {
         if (email == null) {

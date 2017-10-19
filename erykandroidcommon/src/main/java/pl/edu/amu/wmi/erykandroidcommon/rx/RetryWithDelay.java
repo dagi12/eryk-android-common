@@ -9,7 +9,7 @@ import io.reactivex.functions.Function;
 import lombok.NonNull;
 import timber.log.Timber;
 
-public class RetryWithDelay implements Function<Flowable<Throwable>, Publisher<?>> {
+class RetryWithDelay implements Function<Flowable<Throwable>, Publisher<?>> {
     private final int maxRetries;
 
     private final int retryDelaySeconds;

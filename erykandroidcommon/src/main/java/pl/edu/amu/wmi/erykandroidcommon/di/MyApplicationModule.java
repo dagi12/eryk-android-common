@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -12,16 +13,12 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
-import java.io.IOException;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 import pl.edu.amu.wmi.erykandroidcommon.BuildConfig;
 import pl.edu.amu.wmi.erykandroidcommon.location.LocationService;
@@ -35,12 +32,12 @@ public class MyApplicationModule {
 
     private final Application application;
 
-    private final Class mainActivity;
-
     private final String apiUrl;
 
+    private final Class<? extends Activity> mainActivity;
 
-    public MyApplicationModule(Application application, Class mainActivity, String apiUrl) {
+
+    public MyApplicationModule(Application application, Class<? extends Activity> mainActivity, String apiUrl) {
         this.application = application;
         this.mainActivity = mainActivity;
         this.apiUrl = apiUrl;
@@ -90,25 +87,22 @@ public class MyApplicationModule {
                 .create();
     }
 
-    @Provides
-    @Singleton
-    protected UserService provideUserService() {
-        return new UserService(application, mainActivity);
-    }
+//    @Provides
+//    @Singleton
+//    protected UserService provideUserService() {
+//        return new UserService(application, mainActivity);
+//    }
 
     @Provides
     @Singleton
-    protected OkHttpClient provideOkHttpClient(final UserService UserService) {
+    protected OkHttpClient provideOkHttpClient(final UserService userService) {
         final OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.addInterceptor(new Interceptor() {
-            @Override
-            public Response intercept(Chain chain) throws IOException {
-                Request request = chain.request();
-                if (UserService.user() != null) {
-                    request = request.newBuilder().addHeader("token", UserService.user().getToken()).build();
-                }
-                return chain.proceed(request);
+        clientBuilder.addInterceptor(chain -> {
+            Request request = chain.request();
+            if (userService.user() != null) {
+                request = request.newBuilder().addHeader("token", userService.user().getToken()).build();
             }
+            return chain.proceed(request);
         });
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();

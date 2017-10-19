@@ -6,8 +6,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v7.app.AlertDialog;
 
-
-
 import io.reactivex.Completable;
 import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -20,7 +18,7 @@ import pl.edu.amu.wmi.erykandroidcommon.R;
  *
  * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 23.06.2017.
  */
-public class ReactiveDialogs {
+class ReactiveDialogs {
 
     private ReactiveDialogs() {
 

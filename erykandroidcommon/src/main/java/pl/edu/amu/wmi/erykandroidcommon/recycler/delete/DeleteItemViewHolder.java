@@ -16,14 +16,12 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
  */
 public abstract class DeleteItemViewHolder<T> extends AbstractViewHolder<T> {
 
-    protected T item;
-
     @BindView(R2.id.btn_delete)
     protected ImageButton deleteButton;
 
     private final PublishSubject<T> onDeleteClickSubject = PublishSubject.create();
 
-    public DeleteItemViewHolder(View itemView) {
+    protected DeleteItemViewHolder(View itemView) {
         super(itemView);
         ButterKnife.bind(this, itemView);
     }

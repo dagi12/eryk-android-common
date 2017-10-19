@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.erykandroidcommon.verify;
 public class VerificationResult {
 
     private final String errorMessage;
+
     private final boolean failure;
 
     public VerificationResult() {

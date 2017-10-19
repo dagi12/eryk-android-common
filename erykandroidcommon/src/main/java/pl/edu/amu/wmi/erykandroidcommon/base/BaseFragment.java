@@ -16,7 +16,7 @@ import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException;
  */
 public class BaseFragment extends Fragment {
 
-    protected BaseAdapter baseAdapter;
+    private BaseAdapter baseAdapter;
 
     @Override
     public void onAttach(final Context context) {
@@ -27,11 +27,6 @@ public class BaseFragment extends Fragment {
         } catch (ClassCastException e) {
             throw new AdapterLackException(context, BaseAdapter.class);
         }
-    }
-
-    @Nullable
-    public String title() {
-        return null;
     }
 
     public <T> SingleTransformer<T, T> singleWithThrobber() {

@@ -14,11 +14,11 @@ public class UserService<T extends Token, S> {
 
     private final Class<S> startActivity;
 
+    private final Context context;
+
     @Getter
     @Setter
     private T user;
-
-    private Context context;
 
     public UserService(Application application, Class<S> startActivity) {
         this.context = application;

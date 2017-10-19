@@ -1,19 +1,13 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.add;
 
-import android.view.ViewGroup;
-
-
-
-
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
-import lombok.NonNull;
 import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter;
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
  */
-public abstract class AddViewAdapter<T, S extends AddItemViewHolder<T>> extends BasicViewAdapter<T, S> {
+abstract class AddViewAdapter<T, S extends AddItemViewHolder<T>> extends BasicViewAdapter<T, S> {
 
     private final PublishSubject<T> onAddClickSubject = PublishSubject.create();
 

@@ -1,10 +1,5 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.delete;
 
-import android.view.ViewGroup;
-
-
-
-
 import io.reactivex.Observable;
 import io.reactivex.subjects.PublishSubject;
 import lombok.NonNull;

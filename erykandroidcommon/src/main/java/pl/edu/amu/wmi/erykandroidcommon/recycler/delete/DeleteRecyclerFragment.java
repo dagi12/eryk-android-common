@@ -9,7 +9,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment;
 public abstract class DeleteRecyclerFragment<T, S extends DeleteItemViewHolder<T>> extends BasicRecyclerFragment<T, S> {
 
     @SuppressWarnings("unchecked")
-    public void initAdapter() {
+    protected void initAdapter() {
         if (adapter == null) {
             adapter = getAdapter();
         }

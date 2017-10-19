@@ -5,12 +5,12 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 
 
-public class NetworkService {
+class NetworkService {
 
     private NetworkService() {
     }
 
-    public static boolean isOffline(Context application) {
+    private static boolean isOffline(Context application) {
         ConnectivityManager cm =
                 (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netInfo = cm.getActiveNetworkInfo();

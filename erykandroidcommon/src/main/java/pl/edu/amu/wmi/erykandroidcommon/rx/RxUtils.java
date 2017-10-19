@@ -10,7 +10,7 @@ import lombok.NonNull;
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 19.07.17.
  */
-public class RxUtils {
+class RxUtils {
 
     private RxUtils() {
     }

@@ -1,4 +1,4 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.rate.spinner;
+package pl.edu.amu.wmi.erykandroidcommon.ui.spinner;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -16,7 +16,7 @@ import pl.edu.amu.wmi.erykandroidcommon.R;
 import pl.edu.amu.wmi.erykandroidcommon.recycler.UniqueItem;
 
 
-public class MySpinnerAdapter<T extends UniqueItem> extends ArrayAdapter<T> {
+class MySpinnerAdapter<T extends UniqueItem> extends ArrayAdapter<T> {
 
     private List<T> values = new ArrayList<>();
 
@@ -59,12 +59,12 @@ public class MySpinnerAdapter<T extends UniqueItem> extends ArrayAdapter<T> {
     }
 
     private View setLabelForView(int position, View view) {
-        TextView label = (TextView) view.findViewById(android.R.id.text1);
+        TextView label = view.findViewById(android.R.id.text1);
         label.setText(getLabel(values.get(position)));
         return view;
     }
 
-    String getLabel(T item) {
+    private String getLabel(T item) {
         return item.getName();
     }
 

@@ -14,9 +14,9 @@
     <string name="please_wait">Please wait a moment…</string>
     <string name="authorization">Authorization</string>
     <string name="delete">Delete</string>
-    <string name="widget">Widget</string>
+    <string name="widget" translatable="false">Widget</string>
     <string name="no_data">No data</string>
-    <string name="default_rating">0</string>
+    <string name="default_rating" translatable="false">0</string>
     <string name="comments">Comments</string>
     <string name="publish">Publish</string>
 

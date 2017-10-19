@@ -1,13 +1,5 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.select;
 
-import android.view.ViewGroup;
-import android.widget.RadioButton;
-
-
-
-
-
-import lombok.NonNull;
 import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter;
 import pl.edu.amu.wmi.erykandroidcommon.util.ListUtils;
 
@@ -16,19 +8,19 @@ import pl.edu.amu.wmi.erykandroidcommon.util.ListUtils;
  */
 public abstract class SelectViewAdapter<T, S extends SelectItemViewHolder<T>> extends BasicViewAdapter<T, S> {
 
-    protected OnFirstSelectListener listener;
+    private final OnFirstSelectListener listener;
 
     private int selectedItem = -1;
 
-    private RadioButton lastChecked = null;
+//    private RadioButton lastChecked = null;
 
     public SelectViewAdapter(OnFirstSelectListener listener) {
         this.listener = listener;
     }
 
-    private void firstSelect() {
-        listener.firstSelect();
-    }
+//    private void firstSelect() {
+//        listener.firstSelect();
+//    }
 
     T getSelectedItem() {
         if (selectedItem != -1 && !ListUtils.isEmpty(items)) {

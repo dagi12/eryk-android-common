@@ -35,12 +35,14 @@ public abstract class NotificationService<T extends Activity> {
 
     private final int launcherMipmap;
 
-    private int notificationId = 0;
-
     @DrawableRes
-    private int notificationDrawable;
+    private final int notificationDrawable;
 
-    private Class<T> mainActivityClass;
+    private final Class<T> mainActivityClass;
+
+    private static final String DEFAULT_CHANNEL = "default";
+
+    private int notificationId = 0;
 
     @SuppressWarnings("unchecked")
     public NotificationService(Context context, @DrawableRes int notificationDrawable, int launcherMipmap) {
@@ -83,7 +85,6 @@ public abstract class NotificationService<T extends Activity> {
         return Single.just(notificationId);
     }
 
-
     private NotificationCompat.Builder defaultNotificationBuilder(NotificationCompat.Builder builder) {
         builder.setCategory(NotificationCompat.CATEGORY_EVENT);
         final Bundle extras = builder.getExtras();
@@ -109,10 +110,6 @@ public abstract class NotificationService<T extends Activity> {
         if (notification.contentIntent == null) {
             notification.contentIntent = getPendingIntent();
         }
-        // If no indication set, then make it only beep.
-        if (notification.defaults == 0) {
-            notification.defaults |= Notification.DEFAULT_SOUND;
-        }
         return notification;
     }
 
@@ -134,9 +131,8 @@ public abstract class NotificationService<T extends Activity> {
      * @param message String the message of the {@link Notification}.
      * @param info    String with an additional info in the {@link Notification}. Can be null.
      */
-    public Single<Integer> showMessageWithInfo(@NonNull String title, @Nullable String message,
-                                               String info) {
-        return displayNotification(new NotificationCompat.Builder(context)
+    private Single<Integer> showMessageWithInfo(@NonNull String title, @Nullable String message, String info) {
+        return displayNotification(new NotificationCompat.Builder(context, DEFAULT_CHANNEL)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setContentInfo(info));

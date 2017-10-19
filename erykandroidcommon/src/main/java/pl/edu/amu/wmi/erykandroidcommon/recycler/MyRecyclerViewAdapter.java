@@ -8,21 +8,22 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyRecyclerViewAdapter<T extends UniqueItem, S extends AbstractViewHolder<T>> extends RecyclerView.Adapter<S> {
+class MyRecyclerViewAdapter<T extends UniqueItem, S extends AbstractViewHolder<T>> extends RecyclerView.Adapter<S> {
 
     private final AbstractFragmentGrid<T, S> abstractFragmentGrid;
-    private List<T> mValues = new ArrayList<>();
 
-    public MyRecyclerViewAdapter(AbstractFragmentGrid<T, S> abstractFragmentGrid) {
+    private List<T> values = new ArrayList<>();
+
+    MyRecyclerViewAdapter(AbstractFragmentGrid<T, S> abstractFragmentGrid) {
         this.abstractFragmentGrid = abstractFragmentGrid;
     }
 
-    public void setmValues(List<T> mValues) {
-        this.mValues = mValues;
+    void setValues(List<T> values) {
+        this.values = values;
     }
 
-    public void addValue(T value) {
-        mValues.add(value);
+    void addValue(T value) {
+        values.add(value);
     }
 
 
@@ -34,32 +35,32 @@ public class MyRecyclerViewAdapter<T extends UniqueItem, S extends AbstractViewH
 
     @Override
     public void onBindViewHolder(S holder, int position) {
-        abstractFragmentGrid.setListenerRow(holder, mValues.get(position));
+        abstractFragmentGrid.setListenerRow(holder, values.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return mValues.size();
+        return values.size();
     }
 
     public T getItemByPosition(int position) {
-        return mValues.get(position);
+        return values.get(position);
     }
 
     public void updateValue(T item) {
-        for (int i = 0; i < mValues.size(); ++i) {
-            T listItem = mValues.get(i);
+        for (int i = 0; i < values.size(); ++i) {
+            T listItem = values.get(i);
             if (listItem.getId() == item.getId()) {
-                mValues.set(i, item);
+                values.set(i, item);
             }
         }
     }
 
     public void delete(int id) {
-        for (int i = 0; i < mValues.size(); ++i) {
-            T listItem = mValues.get(i);
+        for (int i = 0; i < values.size(); ++i) {
+            T listItem = values.get(i);
             if (listItem.getId() == id) {
-                mValues.remove(i);
+                values.remove(i);
             }
         }
     }

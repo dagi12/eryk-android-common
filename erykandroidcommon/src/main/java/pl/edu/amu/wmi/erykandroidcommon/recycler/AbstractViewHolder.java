@@ -15,7 +15,7 @@ public abstract class AbstractViewHolder<T> extends RecyclerView.ViewHolder {
     @Setter
     protected T item;
 
-    public AbstractViewHolder(View itemView) {
+    protected AbstractViewHolder(View itemView) {
         super(itemView);
         view = itemView;
     }

@@ -16,13 +16,13 @@ import pl.edu.amu.wmi.erykandroidcommon.exception.WrongViewException;
 
 public abstract class AbstractFragmentGrid<T extends UniqueItem, S extends AbstractViewHolder<T>> extends Fragment {
 
-    protected static final String RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID";
+    private static final String RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID";
 
     private OnListFragmentInteractionListener<T> mListener;
 
     private MyRecyclerViewAdapter<T, S> myRecyclerViewAdapter;
 
-    protected void initRecyclerView(RecyclerView recyclerView) {
+    private void initRecyclerView(RecyclerView recyclerView) {
         recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
         myRecyclerViewAdapter = new MyRecyclerViewAdapter<>(this);
         recyclerView.setAdapter(myRecyclerViewAdapter);
@@ -51,7 +51,7 @@ public abstract class AbstractFragmentGrid<T extends UniqueItem, S extends Abstr
     protected abstract int getListWrapperId();
 
     public void setData(List<T> items) {
-        myRecyclerViewAdapter.setmValues(items);
+        myRecyclerViewAdapter.setValues(items);
         myRecyclerViewAdapter.notifyDataSetChanged();
     }
 
@@ -72,15 +72,12 @@ public abstract class AbstractFragmentGrid<T extends UniqueItem, S extends Abstr
     public void setListenerRow(final S holder, T t) {
         holder.item = t;
         holder.setRow();
-        holder.view.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                if (mListener != null) {
-                    mListener.onListFragmentInteraction(holder.item);
-                }
+        holder.view.setOnClickListener(view -> {
+            if (mListener != null) {
+                mListener.onListFragmentInteraction(holder.item);
             }
         });
+
     }
 
     public void addData(T items) {

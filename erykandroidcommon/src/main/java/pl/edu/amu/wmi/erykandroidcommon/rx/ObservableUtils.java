@@ -12,14 +12,16 @@ import io.reactivex.schedulers.Schedulers;
  *
  * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 09.06.2017
  */
-public class ObservableUtils {
+class ObservableUtils {
 
     private static final ObservableTransformer observableSchedulersTransformer
             = observable -> observable.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
+
     private static final SingleTransformer singleSchedulersTransformer
             = single -> single.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread());
+
     private static final MaybeTransformer maybeSchedulersTransformer = maybe -> maybe.subscribeOn(
             Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
 

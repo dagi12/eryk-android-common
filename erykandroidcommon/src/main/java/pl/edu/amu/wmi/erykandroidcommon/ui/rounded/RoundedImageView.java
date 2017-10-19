@@ -28,14 +28,14 @@ public class RoundedImageView extends AppCompatImageView {
     }
 
     private static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
-        Bitmap sbmp;
+        Bitmap bitmap;
 
         if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
             float smallest = Math.min(bmp.getWidth(), bmp.getHeight());
             float factor = smallest / radius;
-            sbmp = Bitmap.createScaledBitmap(bmp, (int) (bmp.getWidth() / factor), (int) (bmp.getHeight() / factor), false);
+            bitmap = Bitmap.createScaledBitmap(bmp, (int) (bmp.getWidth() / factor), (int) (bmp.getHeight() / factor), false);
         } else {
-            sbmp = bmp;
+            bitmap = bmp;
         }
 
         Bitmap output = Bitmap.createBitmap(radius, radius, Bitmap.Config.ARGB_8888);
@@ -56,7 +56,7 @@ public class RoundedImageView extends AppCompatImageView {
                 paint
         );
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(sbmp, rect, rect, paint);
+        canvas.drawBitmap(bitmap, rect, rect, paint);
 
         return output;
     }
