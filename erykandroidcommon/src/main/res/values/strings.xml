@@ -19,6 +19,7 @@
     <string name="default_rating" translatable="false">0</string>
     <string name="comments">Comments</string>
     <string name="publish">Publish</string>
+    <string name="initializing">Initializing...</string>
 
     <!-- plurals -->
     <plurals name="seconds">

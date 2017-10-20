@@ -26,6 +26,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -93,6 +94,7 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.greenrobot:greendao:3.2.2'
     provided 'org.projectlombok:lombok:1.16.18'
+    compile 'com.android.support:multidex:1.0.1'
 
     // support
 //    compile 'com.android.support:customtabs:26.0.1'
