@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.Light"/>
+    <style name="CommonTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
 
     <style name="AppTheme.MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">?android:attr/textColor</item>
         <item name="android:textColorPrimary">?android:attr/textColor</item>
         <item name="android:textColor">?android:attr/textColor</item>
         <item name="android:background">?android:attr/colorPrimaryDark</item>
-        <item name="android:alertDialogStyle">@style/AppTheme.ProgressDialogStyle</item>
+        <item name="android:alertDialogStyle">@style/CommonTheme.ProgressDialogStyle</item>
     </style>
 
-    <style name="AppTheme.ProgressDialogStyle">
+    <style name="CommonTheme.ProgressDialogStyle">
         <item name="android:bottomBright">?android:attr/colorPrimaryDark</item>
         <item name="android:bottomDark">?android:attr/colorPrimaryDark</item>
         <item name="android:bottomMedium">?android:attr/colorPrimaryDark</item>
@@ -43,10 +43,10 @@
     </style>
 
     <style name="AppTheme.BottomSheet" parent="Theme.Design.BottomSheetDialog">
-        <item name="android:dropDownListViewStyle">@style/AppTheme.Spinner</item>
+        <item name="android:dropDownListViewStyle">@style/CommonTheme.Spinner</item>
     </style>
 
-    <style name="AppTheme.Spinner">
+    <style name="CommonTheme.Spinner">
         <item name="android:divider">?android:attr/textColor</item>
         <item name="android:dividerHeight">@dimen/divider_height</item>
     </style>
@@ -56,7 +56,7 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="AppTheme.GroupingHeader">
+    <style name="CommonTheme.GroupingHeader">
         <item name="android:layout_marginStart">@dimen/margin_1x</item>
         <item name="android:layout_marginTop">@dimen/margin_0x</item>
         <item name="android:layout_marginBottom">@dimen/margin_0x</item>
