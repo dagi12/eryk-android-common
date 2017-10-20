@@ -21,7 +21,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @ColorRes
-    abstract int notificationColor();
+    public abstract int notificationColor();
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     void changeNotificationBarColor(Activity activity) {
