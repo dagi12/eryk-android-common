@@ -28,7 +28,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
-public class MyApplicationModule {
+public class CommonApplicationModule {
 
     private final Application application;
 
@@ -37,7 +37,7 @@ public class MyApplicationModule {
     private final Class<? extends Activity> mainActivity;
 
 
-    public MyApplicationModule(Application application, Class<? extends Activity> mainActivity, String apiUrl) {
+    public CommonApplicationModule(Application application, Class<? extends Activity> mainActivity, String apiUrl) {
         this.application = application;
         this.mainActivity = mainActivity;
         this.apiUrl = apiUrl;
