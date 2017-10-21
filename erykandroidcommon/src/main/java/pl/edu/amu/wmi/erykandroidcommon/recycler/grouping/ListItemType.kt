@@ -1,16 +1,10 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping
 
-import lombok.Getter;
+import lombok.Getter
 
-public enum ListItemType {
+enum class ListItemType private constructor(@field:Getter
+                                            private val type: Int) {
 
-    TYPE_HEADER(0), TYPE_ITEM(1);
-
-    @Getter
-    private final int type;
-
-    ListItemType(int type) {
-        this.type = type;
-    }
+    TYPE_HEADER(0), TYPE_ITEM(1)
 
 }

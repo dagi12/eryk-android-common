@@ -1,13 +1,15 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
+
+import android.content.Context
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 21.10.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 21.10.17.
  */
-public class InjectionUtil {
+class InjectionUtil {
 
-    CommonApplicationComponent getCommonComponent(Context context) {
-        return ((CommonApplication) context.getApplicationContext())
-                .commonApplicationComponent();
+    internal fun getCommonComponent(context: Context): CommonApplicationComponent? {
+        return (context.applicationContext as CommonApplication)
+                .commonApplicationComponent()
     }
 
 }

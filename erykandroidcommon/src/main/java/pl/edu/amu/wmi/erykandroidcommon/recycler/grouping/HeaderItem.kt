@@ -1,20 +1,12 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping
 
-import lombok.Getter;
+import lombok.Getter
 
-public class HeaderItem implements ListItem {
-
-    @Getter
-    private String header;
-
-    public HeaderItem(String header) {
-        this.header = header;
-    }
+class HeaderItem(@field:Getter
+                 private val header: String) : ListItem {
 
 
-    @Override
-    public ListItemType getType() {
-        return ListItemType.TYPE_HEADER;
-    }
+    override val type: ListItemType
+        get() = ListItemType.TYPE_HEADER
 
 }

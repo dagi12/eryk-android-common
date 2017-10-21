@@ -1,32 +1,31 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete
 
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteViewAdapter;
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteViewAdapter
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-abstract class EditDeleteViewAdapter<T, S extends EditDeleteItemViewHolder<T>> extends DeleteViewAdapter<T, S> {
+internal abstract class EditDeleteViewAdapter<T, S : EditDeleteItemViewHolder<T>> : DeleteViewAdapter<T, S>() {
 
-    private final PublishSubject<T> onEditClickSubject = PublishSubject.create();
+    private val onEditClickSubject = PublishSubject.create<T>()
 
-    Observable<T> getEditClicks() {
-        return onEditClickSubject.share();
-    }
+    val editClicks: Observable<T>
+        get() = onEditClickSubject.share()
 
-//    @Override
-//    public RecyclerViewWrapper<S> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        RecyclerViewWrapper<S> wrapper = super.onCreateViewHolder(parent, viewType);
-//        S view = wrapper.getView();
-//        view.getEditClicks().subscribe(onEditClickSubject::onNext);
-//        return wrapper;
-//    }
+    //    @Override
+    //    public RecyclerViewWrapper<S> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    //        RecyclerViewWrapper<S> wrapper = super.onCreateViewHolder(parent, viewType);
+    //        S view = wrapper.getView();
+    //        view.getEditClicks().subscribe(onEditClickSubject::onNext);
+    //        return wrapper;
+    //    }
 
-    public void add(@NonNull final T item) {
-        items.add(item);
-        notifyDataSetChanged();
+    fun add(@NonNull item: T) {
+        items.add(item)
+        notifyDataSetChanged()
     }
 
 }

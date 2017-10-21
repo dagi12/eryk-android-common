@@ -1,72 +1,71 @@
-package pl.edu.amu.wmi.erykandroidcommon.util;
+package pl.edu.amu.wmi.erykandroidcommon.util
 
 import android.annotation.SuppressLint
-import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
+
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
-public class DateUtils {
+import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
 
-    private static final long SECONDS_IN_MILLI = 1000;
+object DateUtils {
 
-    private static final long MINUTES_IN_MILLI;
+    private val SECONDS_IN_MILLI: Long = 1000
 
-    private static final long HOURS_IN_MILLI;
+    private val MINUTES_IN_MILLI: Long
 
-    private static final long DAYS_IN_MILLI;
+    private val HOURS_IN_MILLI: Long
 
-    static {
-        MINUTES_IN_MILLI = SECONDS_IN_MILLI * 60;
-        HOURS_IN_MILLI = MINUTES_IN_MILLI * 60;
-        DAYS_IN_MILLI = HOURS_IN_MILLI * 24;
+    private val DAYS_IN_MILLI: Long
+
+    init {
+        MINUTES_IN_MILLI = SECONDS_IN_MILLI * 60
+        HOURS_IN_MILLI = MINUTES_IN_MILLI * 60
+        DAYS_IN_MILLI = HOURS_IN_MILLI * 24
     }
 
-    private DateUtils() {
-
+    private fun dayDifference(start: Long, end: Long): Int {
+        return ((end - start) / DAYS_IN_MILLI).toInt()
     }
 
-    private static int dayDifference(long start, long end) {
-        return (int) ((end - start) / DAYS_IN_MILLI);
+    private fun getEndOfDay(date: Date): Date {
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        calendar.set(Calendar.HOUR_OF_DAY, 23)
+        calendar.set(Calendar.MINUTE, 59)
+        calendar.set(Calendar.SECOND, 59)
+        calendar.set(Calendar.MILLISECOND, 999)
+        return calendar.time
     }
 
-    private static Date getEndOfDay(Date date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        calendar.set(Calendar.HOUR_OF_DAY, 23);
-        calendar.set(Calendar.MINUTE, 59);
-        calendar.set(Calendar.SECOND, 59);
-        calendar.set(Calendar.MILLISECOND, 999);
-        return calendar.getTime();
+    fun dayDifferenceToday(timestamp: Long): Int {
+        return dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(Date()).time)
     }
 
-    public static int dayDifferenceToday(long timestamp) {
-        return dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(new Date()).getTime());
+    private fun eKeyTimestampToJavaTimestamp(timestamp: Long): Long {
+        return timestamp * 1000
     }
 
-    private static long eKeyTimestampToJavaTimestamp(long timestamp) {
-        return timestamp * 1000;
+    fun timeFromTimestamp(timestamp: Long): String {
+        val calendar = Calendar.getInstance()
+        calendar.time = Date(timestamp * 1000)
+        return StringUtils.addLeadingZeros(calendar.get(Calendar.HOUR_OF_DAY), 2) + ":" + StringUtils.addLeadingZeros(calendar.get(Calendar.MINUTE), 2)
     }
 
-    public static String timeFromTimestamp(long timestamp) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date(timestamp * 1000));
-        return StringUtils.addLeadingZeros(calendar.get(Calendar.HOUR_OF_DAY), 2) + ":" + StringUtils.addLeadingZeros(calendar.get(Calendar.MINUTE), 2);
-    }
-
-    public static String getMonthAndDate(long timestamp) {
+    fun getMonthAndDate(timestamp: Long): String {
         // ios app format
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat dayMonthDate = new SimpleDateFormat("dd. MMM.");
-        return dayMonthDate.format(eKeyTimestampToJavaTimestamp(timestamp));
+        @SuppressLint("SimpleDateFormat") val dayMonthDate = SimpleDateFormat("dd. MMM.")
+        return dayMonthDate.format(eKeyTimestampToJavaTimestamp(timestamp))
     }
 
-    public static boolean lessThanMinutesAgo(Long timestamp, int minutes) {
-        final Long currentTimestamp = System.currentTimeMillis() / 1000;
-        return (currentTimestamp - timestamp < (60 * minutes));
+    fun lessThanMinutesAgo(timestamp: Long?, minutes: Int): Boolean {
+        val currentTimestamp = System.currentTimeMillis() / 1000
+        return currentTimestamp - timestamp!! < 60 * minutes
     }
 
 
-    public static boolean debounce(Long timestamp, long timeout) {
-        final Long currentTimestamp = System.currentTimeMillis() / 1000;
-        return ((currentTimestamp - timestamp) > timeout);
+    fun debounce(timestamp: Long?, timeout: Long): Boolean {
+        val currentTimestamp = System.currentTimeMillis() / 1000
+        return currentTimestamp - timestamp!! > timeout
     }
 }

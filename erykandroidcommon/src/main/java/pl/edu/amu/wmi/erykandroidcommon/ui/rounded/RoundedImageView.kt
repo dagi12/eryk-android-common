@@ -1,84 +1,78 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.rounded;
+package pl.edu.amu.wmi.erykandroidcommon.ui.rounded
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
+import android.graphics.Paint
 import android.graphics.PorterDuff
+import android.graphics.PorterDuffXfermode
+import android.graphics.Rect
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.support.v7.widget.AppCompatImageView
+import android.util.AttributeSet
 
-public class RoundedImageView extends AppCompatImageView {
+class RoundedImageView : AppCompatImageView {
 
-    public RoundedImageView(Context context) {
-        super(context);
-    }
+    constructor(context: Context) : super(context) {}
 
-    public RoundedImageView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-    }
+    constructor(context: Context, attrs: AttributeSet) : super(context, attrs) {}
 
-    public RoundedImageView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-    }
+    constructor(context: Context, attrs: AttributeSet, defStyle: Int) : super(context, attrs, defStyle) {}
 
-    private static Bitmap getCroppedBitmap(Bitmap bmp, int radius) {
-        Bitmap bitmap;
+    private fun getCroppedBitmap(bmp: Bitmap, radius: Int): Bitmap {
+        val bitmap: Bitmap
 
-        if (bmp.getWidth() != radius || bmp.getHeight() != radius) {
-            float smallest = Math.min(bmp.getWidth(), bmp.getHeight());
-            float factor = smallest / radius;
-            bitmap = Bitmap.createScaledBitmap(bmp, (int) (bmp.getWidth() / factor), (int) (bmp.getHeight() / factor), false);
+        if (bmp.width != radius || bmp.height != radius) {
+            val smallest = Math.min(bmp.width, bmp.height).toFloat()
+            val factor = smallest / radius
+            bitmap = Bitmap.createScaledBitmap(bmp, (bmp.width / factor).toInt(), (bmp.height / factor).toInt(), false)
         } else {
-            bitmap = bmp;
+            bitmap = bmp
         }
 
-        Bitmap output = Bitmap.createBitmap(radius, radius, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(output);
+        val output = Bitmap.createBitmap(radius, radius, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(output)
 
-        final Paint paint = new Paint();
-        final Rect rect = new Rect(0, 0, radius, radius);
+        val paint = Paint()
+        val rect = Rect(0, 0, radius, radius)
 
-        paint.setAntiAlias(true);
-        paint.setFilterBitmap(true);
-        paint.setDither(true);
-        canvas.drawARGB(0, 0, 0, 0);
-        paint.setColor(Color.parseColor("#BAB399"));
+        paint.isAntiAlias = true
+        paint.isFilterBitmap = true
+        paint.isDither = true
+        canvas.drawARGB(0, 0, 0, 0)
+        paint.color = Color.parseColor("#BAB399")
         canvas.drawCircle(
                 getCircleParam(radius, 0.7f),
                 getCircleParam(radius, 0.7f),
                 getCircleParam(radius, 0.1f),
                 paint
-        );
-        paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
-        canvas.drawBitmap(bitmap, rect, rect, paint);
+        )
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC_IN)
+        canvas.drawBitmap(bitmap, rect, rect, paint)
 
-        return output;
+        return output
     }
 
-    private static float getCircleParam(int radius, float param) {
-        return ((float) radius / 2) + param;
+    private fun getCircleParam(radius: Int, param: Float): Float {
+        return radius.toFloat() / 2 + param
     }
 
-    @Override
-    protected void onDraw(Canvas canvas) {
+    override fun onDraw(canvas: Canvas) {
 
-        Drawable drawable = getDrawable();
+        val drawable = drawable ?: return
 
-        if (drawable == null) {
-            return;
+        if (width == 0 || height == 0) {
+            return
         }
+        val b = (drawable as BitmapDrawable).bitmap
+        val bitmap = b.copy(Bitmap.Config.ARGB_8888, true)
 
-        if (getWidth() == 0 || getHeight() == 0) {
-            return;
-        }
-        Bitmap b = ((BitmapDrawable) drawable).getBitmap();
-        Bitmap bitmap = b.copy(Bitmap.Config.ARGB_8888, true);
+        val w = width
 
-        int w = getWidth();
-
-        Bitmap roundBitmap = getCroppedBitmap(bitmap, w);
-        canvas.drawBitmap(roundBitmap, 0, 0, null);
+        val roundBitmap = getCroppedBitmap(bitmap, w)
+        canvas.drawBitmap(roundBitmap, 0f, 0f, null)
 
     }
 

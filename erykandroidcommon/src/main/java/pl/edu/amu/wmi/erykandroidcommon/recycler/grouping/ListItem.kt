@@ -1,7 +1,7 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping
 
-interface ListItem {
+internal interface ListItem {
 
-    ListItemType getType();
+    val type: ListItemType
 
 }

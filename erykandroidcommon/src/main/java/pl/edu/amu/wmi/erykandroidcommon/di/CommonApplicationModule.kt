@@ -1,99 +1,99 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.preference.PreferenceManager
+
+import com.google.gson.ExclusionStrategy
 import com.google.gson.FieldAttributes
 import com.google.gson.FieldNamingPolicy
+import com.google.gson.Gson
+import com.google.gson.GsonBuilder
 import com.google.gson.annotations.Expose
+
+import javax.inject.Singleton
+
 import dagger.Module
 import dagger.Provides
+import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import pl.edu.amu.wmi.erykandroidcommon.BuildConfig
-import javax.inject.Singleton
+import pl.edu.amu.wmi.erykandroidcommon.location.LocationService
+import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache
+import pl.edu.amu.wmi.erykandroidcommon.service.UserService
 
 @Module
-public class CommonApplicationModule {
+class CommonApplicationModule(private val context: Context) {
 
-    private final Context context;
-
-
-    public CommonApplicationModule(Context context) {
-        this.context = context;
-
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(): SharedPreferences {
+        return PreferenceManager.getDefaultSharedPreferences(context)
     }
 
     @Provides
     @Singleton
-    protected SharedPreferences provideSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
-    @Provides
-    @Singleton
-    protected Gson provideGson() {
-        return new GsonBuilder()
-                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).addSerializationExclusionStrategy(new ExclusionStrategy() {
-                    @Override
-                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
-                        return expose != null && !expose.serialize();
-                    }
-
-                    @Override
-                    public boolean shouldSkipClass(Class<?> aClass) {
-                        return false;
-                    }
-                })
-                .addDeserializationExclusionStrategy(new ExclusionStrategy() {
-                    @Override
-                    public boolean shouldSkipField(FieldAttributes fieldAttributes) {
-                        final Expose expose = fieldAttributes.getAnnotation(Expose.class);
-                        return expose != null && !expose.deserialize();
-                    }
-
-                    @Override
-                    public boolean shouldSkipClass(Class<?> aClass) {
-                        return false;
-                    }
-                })
-                .create();
-    }
-
-//    @Provides
-//    @Singleton
-//    protected UserService provideUserService() {
-//        return new UserService(context, mainActivity);
-//    }
-
-    @Provides
-    @Singleton
-    protected OkHttpClient provideOkHttpClient(final UserService userService) {
-        final OkHttpClient.Builder clientBuilder = new OkHttpClient.Builder();
-        clientBuilder.addInterceptor(chain -> {
-            Request request = chain.request();
-            if (userService.user() != null) {
-                request = request.newBuilder().addHeader("token", userService.user().getToken()).build();
+    fun provideGson(): Gson {
+        return GsonBuilder()
+                .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).addSerializationExclusionStrategy(object : ExclusionStrategy {
+            override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
+                val expose = fieldAttributes.getAnnotation(Expose::class.java)
+                return expose != null && !expose.serialize()
             }
-            return chain.proceed(request);
-        });
-        if (BuildConfig.DEBUG) {
-            HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-            clientBuilder.addInterceptor(interceptor).build();
+
+            override fun shouldSkipClass(aClass: Class<*>): Boolean {
+                return false
+            }
+        })
+                .addDeserializationExclusionStrategy(object : ExclusionStrategy {
+                    override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
+                        val expose = fieldAttributes.getAnnotation(Expose::class.java)
+                        return expose != null && !expose.deserialize()
+                    }
+
+                    override fun shouldSkipClass(aClass: Class<*>): Boolean {
+                        return false
+                    }
+                })
+                .create()
+    }
+
+    //    @Provides
+    //    @Singleton
+    //    protected UserService provideUserService() {
+    //        return new UserService(context, mainActivity);
+    //    }
+
+    @Provides
+    @Singleton
+    fun provideOkHttpClient(userService: UserService<*, *>): OkHttpClient {
+        val clientBuilder = OkHttpClient.Builder()
+        clientBuilder.addInterceptor { chain ->
+            var request = chain.request()
+            if (userService.user() != null) {
+                request = request.newBuilder().addHeader("token", userService.user()!!.token).build()
+            }
+            chain.proceed(request)
         }
-        return clientBuilder.build();
+        if (BuildConfig.DEBUG) {
+            val interceptor = HttpLoggingInterceptor()
+            interceptor.level = HttpLoggingInterceptor.Level.BODY
+            clientBuilder.addInterceptor(interceptor).build()
+        }
+        return clientBuilder.build()
     }
 
     @Provides
     @Singleton
-    protected PicassoCache provideCachedImageManager() {
-        return new PicassoCache(context);
+    fun provideCachedImageManager(): PicassoCache {
+        return PicassoCache(context)
     }
 
     @Provides
     @Singleton
-    protected LocationService provideLocationService() {
-        return new LocationService(context);
+    fun provideLocationService(): LocationService {
+        return LocationService(context)
     }
 
 }

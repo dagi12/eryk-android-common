@@ -1,29 +1,27 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.rate;
+package pl.edu.amu.wmi.erykandroidcommon.ui.rate
 
-class RateResult<T> {
+internal class RateResult<T> {
 
-    private static final String SUCCESS_STATUS = "updated";
+    val item: T
 
-    private T item;
+    private val status: String
 
-    private String status;
+    val isSuccess: Boolean
+        get() = SUCCESS_STATUS == status
 
-    public RateResult() {
+    constructor() {
         // retrofit need
     }
 
-    public RateResult(T item) {
-        this.item = item;
-        this.status = SUCCESS_STATUS;
+    constructor(item: T) {
+        this.item = item
+        this.status = SUCCESS_STATUS
 
     }
 
-    public T getItem() {
-        return item;
-    }
+    companion object {
 
-    public boolean isSuccess() {
-        return SUCCESS_STATUS.equals(status);
+        private val SUCCESS_STATUS = "updated"
     }
 
 }

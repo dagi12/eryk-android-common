@@ -1,55 +1,54 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping
 
 import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+
+import java.util.ArrayList
+
 import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
-public abstract class GroupedRecyclerAdapter<T extends ListItem, P extends View, U extends AbstractViewHolder<P>> extends RecyclerView.Adapter {
+abstract class GroupedRecyclerAdapter<T : ListItem, P : View, U : AbstractViewHolder<P>> : RecyclerView.Adapter<*>() {
 
-    private List<? extends ListItem> mItems = new ArrayList<>();
+    private var mItems: List<ListItem> = ArrayList()
 
-    public void setData(List<ListItem> items) {
-        this.mItems = items;
-        notifyDataSetChanged();
+    fun setData(items: List<ListItem>) {
+        this.mItems = items
+        notifyDataSetChanged()
     }
 
-    @Override
-    public int getItemCount() {
-        return mItems.size();
+    override fun getItemCount(): Int {
+        return mItems.size
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        return mItems.get(position).getType().type();
+    override fun getItemViewType(position: Int): Int {
+        return mItems[position].type.type()
     }
 
-    @Override
-    public AbstractViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AbstractViewHolder<*> {
         if (viewType == ListItemType.TYPE_HEADER.type()) {
-            View view = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_grouping_header, parent, false);
-            return new HeaderViewHolder(view);
+            val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.item_grouping_header, parent, false)
+            return HeaderViewHolder(view)
         } else {
-            return createMyViewHolder(parent);
+            return createMyViewHolder(parent)
         }
     }
 
-    protected abstract AbstractViewHolder createMyViewHolder(ViewGroup parent);
+    protected abstract fun createMyViewHolder(parent: ViewGroup): AbstractViewHolder<*>
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
-        ListItem item = mItems.get(position);
-        if (ListItemType.TYPE_HEADER.type() == item.getType().type()) {
-            HeaderViewHolder holder = (HeaderViewHolder) viewHolder;
-            holder.setRow();
+    override fun onBindViewHolder(viewHolder: RecyclerView.ViewHolder, position: Int) {
+        val item = mItems[position]
+        if (ListItemType.TYPE_HEADER.type() == item.type.type()) {
+            val holder = viewHolder as HeaderViewHolder
+            holder.setRow()
         } else {
-            bindViewHolder((U) viewHolder, (T) item);
+            bindViewHolder(viewHolder as U, item as T)
         }
     }
 
-    protected abstract void bindViewHolder(U viewHolder, T t);
+    protected abstract fun bindViewHolder(viewHolder: U, t: T)
 
 }

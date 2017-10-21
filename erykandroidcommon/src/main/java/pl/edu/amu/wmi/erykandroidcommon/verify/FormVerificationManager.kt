@@ -1,38 +1,28 @@
-package pl.edu.amu.wmi.erykandroidcommon.verify;
+package pl.edu.amu.wmi.erykandroidcommon.verify
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.support.annotation.NonNull;
+import android.app.AlertDialog
+import android.content.Context
 
-import static android.text.TextUtils.isEmpty;
+import android.text.TextUtils.isEmpty
 
-class FormVerificationManager {
+internal class FormVerificationManager(private val context: Context, private val fieldVerifier: FieldVerifier) {
 
-    private final Context context;
-
-    private final FieldVerifier fieldVerifier;
-
-    FormVerificationManager(Context context, @NonNull FieldVerifier fieldVerifier) {
-        this.context = context;
-        this.fieldVerifier = fieldVerifier;
-    }
-
-    boolean verify() {
-        VerificationResult verificationResult = fieldVerifier.verify();
+    fun verify(): Boolean {
+        val verificationResult = fieldVerifier.verify()
         if (verificationResult != null) {
-            if (!isEmpty(verificationResult.getErrorMessage())) {
-                AlertDialog alertDialog = new AlertDialog.Builder(context).create();
-                alertDialog.setMessage(verificationResult.getErrorMessage());
+            if (!isEmpty(verificationResult.errorMessage)) {
+                val alertDialog = AlertDialog.Builder(context).create()
+                alertDialog.setMessage(verificationResult.errorMessage)
                 alertDialog.setButton(AlertDialog.BUTTON_POSITIVE,
-                        context.getString(android.R.string.ok),
-                        (dialogInterface, i) -> dialogInterface.dismiss());
-                alertDialog.show();
-                return false;
-            } else if (verificationResult.isFailure()) {
-                return false;
+                        context.getString(android.R.string.ok)
+                ) { dialogInterface, i -> dialogInterface.dismiss() }
+                alertDialog.show()
+                return false
+            } else if (verificationResult.isFailure) {
+                return false
             }
         }
-        return true;
+        return true
     }
 
 

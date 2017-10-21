@@ -1,27 +1,27 @@
-package pl.edu.amu.wmi.erykandroidcommon.base;
+package pl.edu.amu.wmi.erykandroidcommon.base
 
-import android.content.Context;
-import android.support.annotation.StringRes;
+import android.content.Context
+import android.support.annotation.StringRes
 
 /**
- * Base interface for {@link android.support.v4.app.Fragment} to {@link android.app.Activity}
+ * Base interface for [android.support.v4.app.Fragment] to [android.app.Activity]
  * communication.
  *
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 24.03.2017.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 24.03.2017.
  */
-public interface BaseAdapter {
+interface BaseAdapter {
 
-    void showThrobber(@StringRes int messageId, Object... formatArgs);
+    val context: Context
 
-    void showThrobber(String message);
+    fun showThrobber(@StringRes messageId: Int, vararg formatArgs: Any)
 
-    void hideThrobber();
+    fun showThrobber(message: String)
 
-    void showKeyboard();
+    fun hideThrobber()
 
-    void hideKeyboard();
+    fun showKeyboard()
 
-    void goBack();
+    fun hideKeyboard()
 
-    Context getContext();
+    fun goBack()
 }

@@ -1,23 +1,19 @@
-package pl.edu.amu.wmi.erykandroidcommon.service;
+package pl.edu.amu.wmi.erykandroidcommon.service
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import android.content.Context
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 
 
-class NetworkService {
+internal object NetworkService {
 
-    private NetworkService() {
+    private fun isOffline(application: Context): Boolean {
+        val cm = application.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val netInfo = cm.activeNetworkInfo
+        return !(netInfo != null && netInfo.isConnectedOrConnecting)
     }
 
-    private static boolean isOffline(Context application) {
-        ConnectivityManager cm =
-                (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo netInfo = cm.getActiveNetworkInfo();
-        return !(netInfo != null && netInfo.isConnectedOrConnecting());
-    }
-
-    public static boolean isOnline(Context application) {
-        return !isOffline(application);
+    fun isOnline(application: Context): Boolean {
+        return !isOffline(application)
     }
 }

@@ -1,89 +1,76 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.spinner;
+package pl.edu.amu.wmi.erykandroidcommon.ui.spinner
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.text.TextUtils;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.content.Context
+import android.text.TextUtils
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayList
 
-import pl.edu.amu.wmi.erykandroidcommon.R;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.UniqueItem;
+import pl.edu.amu.wmi.erykandroidcommon.R
+import pl.edu.amu.wmi.erykandroidcommon.recycler.UniqueItem
 
 
-class MySpinnerAdapter<T extends UniqueItem> extends ArrayAdapter<T> {
+internal class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter<T>(context, R.layout.spinner_item) {
 
-    private List<T> values = new ArrayList<>();
+    private var values: List<T> = ArrayList()
 
-    public MySpinnerAdapter(Context context) {
-        super(context, R.layout.spinner_item);
+    fun setValues(values: List<T>) {
+        this.values = values
+        notifyDataSetChanged()
     }
 
-    public void setValues(List<T> values) {
-        this.values = values;
-        notifyDataSetChanged();
+    override fun getCount(): Int {
+        return values.size
     }
 
-    @Override
-    public int getCount() {
-        return values.size();
+    override fun getItem(position: Int): T? {
+        return if (values.size > position && position > -1) {
+            values[position]
+        } else null
     }
 
-    @Override
-    public T getItem(int position) {
-        if (values.size() > position && position > -1) {
-            return values.get(position);
-        }
-        return null;
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return setLabelForView(position, super.getView(position, convertView, parent))
     }
 
-    @Override
-    @NonNull
-    public View getView(int position, View convertView, @NonNull ViewGroup parent) {
-        return setLabelForView(position, super.getView(position, convertView, parent));
+    override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return setLabelForView(position, super.getView(position, convertView, parent))
     }
 
-    @Override
-    public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
-        return setLabelForView(position, super.getView(position, convertView, parent));
+    private fun setLabelForView(position: Int, view: View): View {
+        val label = view.findViewById<TextView>(android.R.id.text1)
+        label.text = getLabel(values[position])
+        return view
     }
 
-    private View setLabelForView(int position, View view) {
-        TextView label = view.findViewById(android.R.id.text1);
-        label.setText(getLabel(values.get(position)));
-        return view;
+    private fun getLabel(item: T?): String {
+        return item!!.name
     }
 
-    private String getLabel(T item) {
-        return item.getName();
+    fun getItemLabel(position: Int): String {
+        return getLabel(getItem(position))
     }
 
-    String getItemLabel(int position) {
-        return getLabel(getItem(position));
+    fun setSelection(spinner: Spinner, item: T): Int {
+        return setSelection(spinner, getLabel(item))
     }
 
-    public int setSelection(Spinner spinner, T item) {
-        return setSelection(spinner, getLabel(item));
-    }
-
-    private int setSelection(Spinner spinner, String label) {
+    private fun setSelection(spinner: Spinner?, label: String): Int {
         if (spinner != null && !TextUtils.isEmpty(label))
-            for (int i = 0; i < spinner.getCount(); ++i) {
-                if (spinner.getItemAtPosition(i).equals(label)) {
-                    spinner.setSelection(i);
+            for (i in 0 until spinner.count) {
+                if (spinner.getItemAtPosition(i) == label) {
+                    spinner.setSelection(i)
                 }
             }
-        return -1;
+        return -1
     }
 
 }

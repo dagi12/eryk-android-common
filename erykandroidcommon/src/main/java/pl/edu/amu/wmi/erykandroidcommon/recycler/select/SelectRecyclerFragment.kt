@@ -1,40 +1,43 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.select;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.select
 
 import android.content.Context
+import android.widget.Button
+
 import butterknife.BindView
 import butterknife.OnClick
 import pl.edu.amu.wmi.erykandroidcommon.R2
+import pl.edu.amu.wmi.erykandroidcommon.exception.NotImplementedException
+import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 31.08.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 31.08.17.
  */
-public abstract class SelectRecyclerFragment<T, S extends SelectItemViewHolder<T>> extends BasicRecyclerFragment<T, S> {
+abstract class SelectRecyclerFragment<T, S : SelectItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     @BindView(R2.id.btn_add)
-    protected Button button;
+    var button: Button? = null
 
-    private SelectViewAdapter<T, S> selectAdapter;
+    private val selectAdapter: SelectViewAdapter<T, S>? = null
 
-    private OnAddClickedListener<T> addClickedListener;
+    private var addClickedListener: OnAddClickedListener<T>? = null
 
     @OnClick(R2.id.btn_add)
-    public void onButtonAddClick() {
-        addClickedListener.onAddClicked(selectAdapter.getSelectedItem());
+    fun onButtonAddClick() {
+        addClickedListener!!.onAddClicked(selectAdapter!!.selectedItem)
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
         try {
-            addClickedListener = (OnAddClickedListener<T>) context;
-        } catch (ClassCastException e) {
-            throw new NotImplementedException(context, OnAddClickedListener.class);
+            addClickedListener = context as OnAddClickedListener<T>
+        } catch (e: ClassCastException) {
+            throw NotImplementedException(context, OnAddClickedListener<*>::class.java)
         }
+
     }
 
-    public interface OnAddClickedListener<T> {
-        void onAddClicked(T item);
+    interface OnAddClickedListener<T> {
+        fun onAddClicked(item: T?)
     }
 
 }

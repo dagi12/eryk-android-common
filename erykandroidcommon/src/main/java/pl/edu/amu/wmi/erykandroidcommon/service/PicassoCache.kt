@@ -1,40 +1,41 @@
-package pl.edu.amu.wmi.erykandroidcommon.service;
+package pl.edu.amu.wmi.erykandroidcommon.service
 
+import android.content.Context
+import android.widget.ImageView
+
+import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.OkHttpDownloader
 import com.squareup.picasso.Picasso
+
 import timber.log.Timber
 
-public class PicassoCache {
+class PicassoCache(private val context: Context) {
 
-    private final Context context;
-
-    public PicassoCache(Context context) {
-        this.context = context;
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttpDownloader(context, Integer.MAX_VALUE));
-        Picasso picasso = builder.build();
-        Picasso.setSingletonInstance(picasso);
+    init {
+        val builder = Picasso.Builder(context)
+        builder.downloader(OkHttpDownloader(context, Integer.MAX_VALUE.toLong()))
+        val picasso = builder.build()
+        Picasso.setSingletonInstance(picasso)
     }
 
-    public void getImage(final ImageView imageView, final String url) {
+    fun getImage(imageView: ImageView, url: String) {
         Picasso
                 .with(context)
                 .load(url)
                 .networkPolicy(NetworkPolicy.OFFLINE)
-                .into(imageView, new Callback() {
-                    @Override
-                    public void onSuccess() {
-                        Timber.i("Image fetched");
+                .into(imageView, object : Callback {
+                    override fun onSuccess() {
+                        Timber.i("Image fetched")
                     }
 
-                    @Override
-                    public void onError() {
+                    override fun onError() {
                         Picasso
                                 .with(context)
                                 .load(url)
-                                .into(imageView);
+                                .into(imageView)
                     }
-                });
+                })
     }
 
 }

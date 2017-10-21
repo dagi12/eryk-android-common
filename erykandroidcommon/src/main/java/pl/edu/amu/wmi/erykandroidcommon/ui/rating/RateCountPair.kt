@@ -1,20 +1,20 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.rating;
+package pl.edu.amu.wmi.erykandroidcommon.ui.rating
 
 
-import lombok.Data;
+import lombok.Data
 
 @Data
-public class RateCountPair {
+class RateCountPair {
 
-    private Integer id;
+    private val id: Int? = null
 
-    private int count;
+    private val count: Int = 0
 
-    private float rating;
+    private val rating: Float = 0.toFloat()
 
-    private float your;
+    private val your: Float = 0.toFloat()
 
-    private VoteType voteType;
+    private val voteType: VoteType? = null
 
 
 }

@@ -1,23 +1,22 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.add;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.add
 
 
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment;
+import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-public abstract class AddRecyclerFragment<T, S extends AddItemViewHolder<T>> extends BasicRecyclerFragment<T, S> {
+abstract class AddRecyclerFragment<T, S : AddItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
-    @SuppressWarnings("unchecked")
-    public void initAdapter() {
+    public override fun initAdapter() {
         if (adapter == null) {
-            adapter = getAdapter();
+            adapter = getAdapter()
         }
-        AddViewAdapter<T, S> addAdapter = (AddViewAdapter<T, S>) adapter;
-        addAdapter.getAddClicks().subscribe(this::add);
+        val addAdapter = adapter as AddViewAdapter<T, S>
+        addAdapter.addClicks.subscribe(Consumer<T> { this.add(it) })
     }
 
-    protected abstract void add(@NonNull final T item);
+    protected abstract fun add(@NonNull item: T)
 
 }

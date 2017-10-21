@@ -1,12 +1,12 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler;
+package pl.edu.amu.wmi.erykandroidcommon.recycler
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
-public interface UniqueItem {
+interface UniqueItem {
 
-    int getId();
+    val id: Int
 
-    String getName();
+    val name: String
 
 }

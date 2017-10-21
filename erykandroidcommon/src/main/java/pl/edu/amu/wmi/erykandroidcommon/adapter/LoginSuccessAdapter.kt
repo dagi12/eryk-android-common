@@ -1,6 +1,6 @@
-package pl.edu.amu.wmi.erykandroidcommon.adapter;
+package pl.edu.amu.wmi.erykandroidcommon.adapter
 
-public interface LoginSuccessAdapter {
+interface LoginSuccessAdapter {
 
-    boolean afterLoginSuccess(int context);
+    fun afterLoginSuccess(context: Int): Boolean
 }

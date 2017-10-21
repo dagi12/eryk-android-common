@@ -1,82 +1,84 @@
-package pl.edu.amu.wmi.erykandroidcommon.verify;
+package pl.edu.amu.wmi.erykandroidcommon.verify
 
+import android.content.Context
 import android.util.Patterns
+import android.widget.EditText
+
+import java.util.regex.Pattern
+
 import pl.edu.amu.wmi.erykandroidcommon.R
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 25.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 25.07.17.
  */
-class CommonValidator {
+internal class CommonValidator(private val context: Context) {
 
-    private final Context context;
-
-    private static final Pattern USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$");
-
-    private static final int MIN_PASSWORD_LENGTH = 7;
-
-    public CommonValidator(Context context) {
-        this.context = context;
-    }
-
-    public boolean validateEmail(EditText email) {
+    fun validateEmail(email: EditText?): Boolean {
         if (email == null) {
-            return false;
+            return false
         }
-        email.setError(null);
-        if (!Patterns.EMAIL_ADDRESS.matcher(email.getText().toString()).matches()) {
-            email.setError(context.getString(R.string.error_invalid_email));
-            return false;
+        email.error = null
+        if (!Patterns.EMAIL_ADDRESS.matcher(email.text.toString()).matches()) {
+            email.error = context.getString(R.string.error_invalid_email)
+            return false
         }
-        return true;
+        return true
     }
 
-    public boolean validateUsername(EditText usernameEditText) {
+    fun validateUsername(usernameEditText: EditText?): Boolean {
         if (usernameEditText == null) {
-            return false;
+            return false
         }
 
-        usernameEditText.setError(null);
-        final String username = usernameEditText.getText().toString();
+        usernameEditText.error = null
+        val username = usernameEditText.text.toString()
         if (username.isEmpty()) {
-            usernameEditText.setError(context.getString(R.string.error_empty_username));
-            return false;
+            usernameEditText.error = context.getString(R.string.error_empty_username)
+            return false
         } else if (!USERNAME_PATTERN.matcher(username).matches()) {
-            usernameEditText.setError(context.getString(R.string.error_username_regex));
-            return false;
+            usernameEditText.error = context.getString(R.string.error_username_regex)
+            return false
         }
-        return true;
+        return true
     }
 
-    public boolean validatePassword(EditText passwordEditText) {
+    fun validatePassword(passwordEditText: EditText?): Boolean {
         if (passwordEditText == null) {
-            return false;
+            return false
         }
 
-        passwordEditText.setError(null);
-        final String password = passwordEditText.getText().toString();
-        if (passwordEditText.getText().toString().isEmpty()) {
-            passwordEditText.setError(context.getString(R.string.error_empty_password));
-            return false;
-        } else if (password.length() < MIN_PASSWORD_LENGTH) {
-            passwordEditText.setError(context.getString(R.string.error_password_too_short));
-            return false;
+        passwordEditText.error = null
+        val password = passwordEditText.text.toString()
+        if (passwordEditText.text.toString().isEmpty()) {
+            passwordEditText.error = context.getString(R.string.error_empty_password)
+            return false
+        } else if (password.length < MIN_PASSWORD_LENGTH) {
+            passwordEditText.error = context.getString(R.string.error_password_too_short)
+            return false
         }
-        return true;
+        return true
     }
 
-    public boolean validateRetypePassword(EditText etPassword, EditText etRepeatPassword) {
+    fun validateRetypePassword(etPassword: EditText, etRepeatPassword: EditText?): Boolean {
         if (etRepeatPassword == null) {
-            return false;
+            return false
         }
 
-        etRepeatPassword.setError(null);
-        final String password = etPassword.getText().toString();
-        final String rePassword = etRepeatPassword.getText().toString();
-        if (!password.equals(rePassword)) {
-            etRepeatPassword.setError(context.getString(R.string.error_password_dont_match));
-            return false;
+        etRepeatPassword.error = null
+        val password = etPassword.text.toString()
+        val rePassword = etRepeatPassword.text.toString()
+        if (password != rePassword) {
+            etRepeatPassword.error = context.getString(R.string.error_password_dont_match)
+            return false
         }
-        return true;
+        return true
+    }
+
+    companion object {
+
+        private val USERNAME_PATTERN = Pattern.compile("^[a-zA-Z0-9_-]+$")
+
+        private val MIN_PASSWORD_LENGTH = 7
     }
 
 

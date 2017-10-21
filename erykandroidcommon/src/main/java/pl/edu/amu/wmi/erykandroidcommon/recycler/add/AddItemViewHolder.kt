@@ -1,31 +1,26 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.add;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.add
 
-import android.view.View;
+import android.view.View
 
-import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
+import butterknife.OnClick
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import pl.edu.amu.wmi.erykandroidcommon.R2
+import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-public abstract class AddItemViewHolder<T> extends AbstractViewHolder<T> {
+abstract class AddItemViewHolder<T>(itemView: View) : AbstractViewHolder<T>(itemView) {
 
-    private final PublishSubject<T> onAddClickSubject = PublishSubject.create();
+    private val onAddClickSubject = PublishSubject.create<T>()
 
-    public AddItemViewHolder(View itemView) {
-        super(itemView);
-    }
+    val addClicks: Observable<T>
+        get() = onAddClickSubject.share()
 
     @OnClick(R2.id.btn_add)
-    protected void onDeleteClicked() {
-        onAddClickSubject.onNext(item);
-    }
-
-    public Observable<T> getAddClicks() {
-        return onAddClickSubject.share();
+    fun onDeleteClicked() {
+        onAddClickSubject.onNext(item)
     }
 
 }

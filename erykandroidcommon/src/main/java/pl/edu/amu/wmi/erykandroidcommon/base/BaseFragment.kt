@@ -1,57 +1,82 @@
-package pl.edu.amu.wmi.erykandroidcommon.base;
+package pl.edu.amu.wmi.erykandroidcommon.base
 
-import android.support.annotation.Nullable
+import android.app.Fragment
+import android.content.Context
 import android.support.annotation.StringRes
 
+import io.reactivex.CompletableTransformer
+import io.reactivex.MaybeTransformer
+import io.reactivex.ObservableTransformer
+import io.reactivex.SingleTransformer
+import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException
+
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
-public class BaseFragment extends Fragment {
+open class BaseFragment : Fragment() {
 
-    private BaseAdapter baseAdapter;
+    private var baseAdapter: BaseAdapter? = null
 
-    @Override
-    public void onAttach(final Context context) {
-        super.onAttach(context);
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
 
         try {
-            baseAdapter = (BaseAdapter) context;
-        } catch (ClassCastException e) {
-            throw new AdapterLackException(context, BaseAdapter.class);
+            baseAdapter = context as BaseAdapter
+        } catch (e: ClassCastException) {
+            throw AdapterLackException(context, BaseAdapter::class.java)
+        }
+
+    }
+
+    fun <T> singleWithThrobber(): SingleTransformer<T, T> {
+        return { single ->
+            single.doOnSubscribe(
+                    { disposable -> baseAdapter!!.showThrobber(null) })
+                    .doFinally({ baseAdapter!!.hideThrobber() })
         }
     }
 
-    public <T> SingleTransformer<T, T> singleWithThrobber() {
-        return single -> single.doOnSubscribe(
-                disposable -> baseAdapter.showThrobber(null))
-                .doFinally(() -> baseAdapter.hideThrobber());
+    fun <T> singleWithThrobber(@StringRes throbberMessageResource: Int,
+                               vararg formatArgs: Any): SingleTransformer<T, T> {
+        return { single ->
+            single.doOnSubscribe(
+                    { disposable ->
+                        baseAdapter!!.showThrobber(throbberMessageResource,
+                                *formatArgs)
+                    }).doFinally({ baseAdapter!!.hideThrobber() })
+        }
     }
 
-    public <T> SingleTransformer<T, T> singleWithThrobber(@StringRes int throbberMessageResource,
-                                                          @Nullable Object... formatArgs) {
-        return single -> single.doOnSubscribe(
-                disposable -> baseAdapter.showThrobber(throbberMessageResource,
-                        formatArgs)).doFinally(() -> baseAdapter.hideThrobber());
+    fun <T> observableWithThrobber(
+            @StringRes throbberMessageResource: Int, vararg formatArgs: Any): ObservableTransformer<T, T> {
+        return { observable ->
+            observable.doOnSubscribe(
+                    { disposable ->
+                        baseAdapter!!.showThrobber(throbberMessageResource,
+                                *formatArgs)
+                    }).doFinally({ baseAdapter!!.hideThrobber() })
+        }
     }
 
-    public <T> ObservableTransformer<T, T> observableWithThrobber(
-            @StringRes int throbberMessageResource, @Nullable Object... formatArgs) {
-        return observable -> observable.doOnSubscribe(
-                disposable -> baseAdapter.showThrobber(throbberMessageResource,
-                        formatArgs)).doFinally(() -> baseAdapter.hideThrobber());
+    fun <T> maybeWithThrobber(@StringRes throbberMessageResource: Int,
+                              vararg formatArgs: Any): MaybeTransformer<T, T> {
+        return { maybe ->
+            maybe.doOnSubscribe(
+                    { disposable ->
+                        baseAdapter!!.showThrobber(throbberMessageResource,
+                                *formatArgs)
+                    }).doFinally({ baseAdapter!!.hideThrobber() })
+        }
     }
 
-    public <T> MaybeTransformer<T, T> maybeWithThrobber(@StringRes int throbberMessageResource,
-                                                        @Nullable Object... formatArgs) {
-        return maybe -> maybe.doOnSubscribe(
-                disposable -> baseAdapter.showThrobber(throbberMessageResource,
-                        formatArgs)).doFinally(() -> baseAdapter.hideThrobber());
-    }
-
-    public CompletableTransformer completableWithThrobber(@StringRes int throbberMessageResource,
-                                                          @Nullable Object... formatArgs) {
-        return completable -> completable.doOnSubscribe(
-                disposable -> baseAdapter.showThrobber(throbberMessageResource,
-                        formatArgs)).doFinally(() -> baseAdapter.hideThrobber());
+    fun completableWithThrobber(@StringRes throbberMessageResource: Int,
+                                vararg formatArgs: Any): CompletableTransformer {
+        return { completable ->
+            completable.doOnSubscribe(
+                    { disposable ->
+                        baseAdapter!!.showThrobber(throbberMessageResource,
+                                *formatArgs)
+                    }).doFinally({ baseAdapter!!.hideThrobber() })
+        }
     }
 }

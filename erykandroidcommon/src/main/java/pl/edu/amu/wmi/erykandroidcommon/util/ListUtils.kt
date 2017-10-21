@@ -1,28 +1,24 @@
-package pl.edu.amu.wmi.erykandroidcommon.util;
+package pl.edu.amu.wmi.erykandroidcommon.util
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedList
 
-public final class ListUtils {
+object ListUtils {
 
-    private static final String[] EMPTY_STRING_ARRAY = new String[0];
+    private val EMPTY_STRING_ARRAY = arrayOfNulls<String>(0)
 
-    private ListUtils() {
+    fun isEmpty(list: List<*>?): Boolean {
+        return list == null || list.isEmpty()
     }
 
-    public static boolean isEmpty(List list) {
-        return list == null || list.isEmpty();
-    }
+    fun remove(arr: Array<String>, pos: Int): Array<String> {
+        val result = LinkedList<String>()
 
-    public static String[] remove(String[] arr, int pos) {
-        List<String> result = new LinkedList<>();
-
-        for (int i = 0; i < arr.length; ++i) {
+        for (i in arr.indices) {
             if (i != pos) {
-                result.add(arr[i]);
+                result.add(arr[i])
             }
         }
-        return result.toArray(EMPTY_STRING_ARRAY);
+        return result.toTypedArray()
     }
 
 }

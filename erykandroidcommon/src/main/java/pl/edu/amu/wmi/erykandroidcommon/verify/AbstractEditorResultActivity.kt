@@ -1,50 +1,47 @@
-package pl.edu.amu.wmi.erykandroidcommon.verify;
+package pl.edu.amu.wmi.erykandroidcommon.verify
 
-import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.MenuRes;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.content.Intent
+import android.os.Bundle
+import android.support.annotation.MenuRes
+import android.view.Menu
+import android.view.MenuItem
 
-import pl.edu.amu.wmi.erykandroidcommon.R;
-import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity;
-import pl.edu.amu.wmi.erykandroidcommon.util.WindowUtil;
+import pl.edu.amu.wmi.erykandroidcommon.R
+import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity
+import pl.edu.amu.wmi.erykandroidcommon.util.WindowUtil
 
 
-public abstract class AbstractEditorResultActivity extends BaseActivity implements FieldVerifier {
+abstract class AbstractEditorResultActivity : BaseActivity(), FieldVerifier {
 
-    private FormVerificationManager formVerificationManager;
+    private var formVerificationManager: FormVerificationManager? = null
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(getMenuRes(), menu);
-        return true;
+    @get:MenuRes
+    internal abstract val menuRes: Int
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(menuRes, menu)
+        return true
     }
 
-    @MenuRes
-    abstract int getMenuRes();
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.action_send) {
-            if (formVerificationManager.verify()) {
-                setResult(1, putExtraResult(new Intent()));
-                finish();
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.action_send) {
+            if (formVerificationManager!!.verify()) {
+                setResult(1, putExtraResult(Intent()))
+                finish()
             }
-        } else if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-            return true;
+        } else if (item.itemId == android.R.id.home) {
+            onBackPressed()
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
 
-    protected abstract Intent putExtraResult(Intent resultIntent);
+    protected abstract fun putExtraResult(resultIntent: Intent): Intent
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        formVerificationManager = new FormVerificationManager(this, this);
-        WindowUtil.enableActionBar(this);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        formVerificationManager = FormVerificationManager(this, this)
+        WindowUtil.enableActionBar(this)
     }
 
 }

@@ -1,92 +1,96 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler;
+package pl.edu.amu.wmi.erykandroidcommon.recycler
 
+import android.app.Fragment
 import android.content.Context
 import android.os.Bundle
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 
+import pl.edu.amu.wmi.erykandroidcommon.exception.WrongViewException
 
-public abstract class AbstractFragmentGrid<T extends UniqueItem, S extends AbstractViewHolder<T>> extends Fragment {
 
-    private static final String RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID";
+abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> : Fragment() {
 
-    private OnListFragmentInteractionListener<T> mListener;
+    private var mListener: OnListFragmentInteractionListener<T>? = null
 
-    private MyRecyclerViewAdapter<T, S> myRecyclerViewAdapter;
+    private var myRecyclerViewAdapter: MyRecyclerViewAdapter<T, S>? = null
 
-    private void initRecyclerView(RecyclerView recyclerView) {
-        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-        myRecyclerViewAdapter = new MyRecyclerViewAdapter<>(this);
-        recyclerView.setAdapter(myRecyclerViewAdapter);
+    protected abstract val listWrapperId: Int
+
+    abstract val itemViewId: Int
+
+    private fun initRecyclerView(recyclerView: RecyclerView) {
+        recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
+        myRecyclerViewAdapter = MyRecyclerViewAdapter(this)
+        recyclerView.adapter = myRecyclerViewAdapter
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(getListWrapperId(), container, false);
-        int recyclerViewId = 0;
-        if (getArguments() != null) {
-            recyclerViewId = getArguments().getInt(RECYCLER_VIEW_ID_PARAM);
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle): View? {
+        val view = inflater.inflate(listWrapperId, container, false)
+        var recyclerViewId = 0
+        if (arguments != null) {
+            recyclerViewId = arguments.getInt(RECYCLER_VIEW_ID_PARAM)
         }
         if (recyclerViewId == 0) {
-            if (view instanceof RecyclerView) {
-                initRecyclerView((RecyclerView) view);
+            if (view is RecyclerView) {
+                initRecyclerView(view)
             } else {
-                throw new WrongViewException();
+                throw WrongViewException()
             }
         } else {
-            initRecyclerView(view.findViewById(recyclerViewId));
+            initRecyclerView(view.findViewById(recyclerViewId))
         }
-        return view;
+        return view
     }
 
-    protected abstract int getListWrapperId();
-
-    public void setData(List<T> items) {
-        myRecyclerViewAdapter.setValues(items);
-        myRecyclerViewAdapter.notifyDataSetChanged();
+    fun setData(items: MutableList<T>) {
+        myRecyclerViewAdapter!!.setValues(items)
+        myRecyclerViewAdapter!!.notifyDataSetChanged()
     }
 
-    public abstract S createViewHolder(View view);
+    abstract fun createViewHolder(view: View): S
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Context context = getActivity();
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val context = activity
+        if (context is OnListFragmentInteractionListener<*>) {
+            mListener = context
         }
     }
 
-    public abstract int getItemViewId();
-
-    public void setListenerRow(final S holder, T t) {
-        holder.item = t;
-        holder.setRow();
-        holder.view.setOnClickListener(view -> {
+    fun setListenerRow(holder: S, t: T) {
+        holder.item = t
+        holder.setRow()
+        holder.view.setOnClickListener { view ->
             if (mListener != null) {
-                mListener.onListFragmentInteraction(holder.item);
+                mListener!!.onListFragmentInteraction(holder.item)
             }
-        });
+        }
 
     }
 
-    public void addData(T items) {
-        myRecyclerViewAdapter.addValue(items);
-        myRecyclerViewAdapter.notifyDataSetChanged();
+    fun addData(items: T) {
+        myRecyclerViewAdapter!!.addValue(items)
+        myRecyclerViewAdapter!!.notifyDataSetChanged()
     }
 
-    public void update(T postRequestResult) {
-        myRecyclerViewAdapter.updateValue(postRequestResult);
-        myRecyclerViewAdapter.notifyDataSetChanged();
+    fun update(postRequestResult: T) {
+        myRecyclerViewAdapter!!.updateValue(postRequestResult)
+        myRecyclerViewAdapter!!.notifyDataSetChanged()
     }
 
-    public void delete(int postId) {
-        myRecyclerViewAdapter.delete(postId);
-        myRecyclerViewAdapter.notifyDataSetChanged();
+    fun delete(postId: Int) {
+        myRecyclerViewAdapter!!.delete(postId)
+        myRecyclerViewAdapter!!.notifyDataSetChanged()
+    }
+
+    companion object {
+
+        private val RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID"
     }
 
 }

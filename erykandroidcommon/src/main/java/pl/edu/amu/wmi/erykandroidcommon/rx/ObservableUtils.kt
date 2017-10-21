@@ -1,52 +1,50 @@
-package pl.edu.amu.wmi.erykandroidcommon.rx;
+package pl.edu.amu.wmi.erykandroidcommon.rx
 
-import io.reactivex.CompletableTransformer;
-import io.reactivex.MaybeTransformer;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.SingleTransformer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.CompletableTransformer
+import io.reactivex.MaybeTransformer
+import io.reactivex.ObservableTransformer
+import io.reactivex.SingleTransformer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 /**
  * Goodies and cookies for using reactive streams.
  *
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 09.06.2017
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 09.06.2017
  */
-class ObservableUtils {
+internal object ObservableUtils {
 
-    private static final ObservableTransformer observableSchedulersTransformer
-            = observable -> observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread());
-
-    private static final SingleTransformer singleSchedulersTransformer
-            = single -> single.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread());
-
-    private static final MaybeTransformer maybeSchedulersTransformer = maybe -> maybe.subscribeOn(
-            Schedulers.io()).observeOn(AndroidSchedulers.mainThread());
-
-    private ObservableUtils() {
-
+    private val observableSchedulersTransformer = { observable ->
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> ObservableTransformer<T, T> backgroundObservableSchedulers() {
-        return (ObservableTransformer<T, T>) observableSchedulersTransformer;
+    private val singleSchedulersTransformer = { single ->
+        single.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> SingleTransformer<T, T> backgroundSingleSchedulers() {
-        return (SingleTransformer<T, T>) singleSchedulersTransformer;
+    private val maybeSchedulersTransformer = { maybe ->
+        maybe.subscribeOn(
+                Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T> MaybeTransformer<T, T> backgroundMaybeSchedulers() {
-        return (MaybeTransformer<T, T>) maybeSchedulersTransformer;
+    fun <T> backgroundObservableSchedulers(): ObservableTransformer<T, T> {
+        return observableSchedulersTransformer as ObservableTransformer<T, T>
     }
 
-    @SuppressWarnings("unchecked")
-    public static CompletableTransformer backgroundCompletableSchedulers() {
-        return completable -> completable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread());
+    fun <T> backgroundSingleSchedulers(): SingleTransformer<T, T> {
+        return singleSchedulersTransformer as SingleTransformer<T, T>
+    }
+
+    fun <T> backgroundMaybeSchedulers(): MaybeTransformer<T, T> {
+        return maybeSchedulersTransformer as MaybeTransformer<T, T>
+    }
+
+    fun backgroundCompletableSchedulers(): CompletableTransformer {
+        return { completable ->
+            completable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+        }
     }
 }

@@ -1,5 +1,5 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping
 
-interface TimestampHolder extends ListItem {
-    Long getTimestamp();
+internal interface TimestampHolder : ListItem {
+    val timestamp: Long?
 }

@@ -1,62 +1,56 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler;
+package pl.edu.amu.wmi.erykandroidcommon.recycler
 
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import java.util.*
 
-class MyRecyclerViewAdapter<T extends UniqueItem, S extends AbstractViewHolder<T>> extends RecyclerView.Adapter<S> {
+import java.util.ArrayList
 
-    private final AbstractFragmentGrid<T, S> abstractFragmentGrid;
+internal class MyRecyclerViewAdapter<T : UniqueItem, S : AbstractViewHolder<T>>(private val abstractFragmentGrid: AbstractFragmentGrid<T, S>) : RecyclerView.Adapter<S>() {
 
-    private List<T> values = new ArrayList<>();
+    private var values: MutableList<T> = ArrayList()
 
-    MyRecyclerViewAdapter(AbstractFragmentGrid<T, S> abstractFragmentGrid) {
-        this.abstractFragmentGrid = abstractFragmentGrid;
+    fun setValues(values: MutableList<T>) {
+        this.values = values
     }
 
-    void setValues(List<T> values) {
-        this.values = values;
-    }
-
-    void addValue(T value) {
-        values.add(value);
+    fun addValue(value: T) {
+        values.add(value)
     }
 
 
-    @Override
-    public S onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(abstractFragmentGrid.getItemViewId(), parent, false);
-        return abstractFragmentGrid.createViewHolder(view);
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): S {
+        val view = LayoutInflater.from(parent.context).inflate(abstractFragmentGrid.itemViewId, parent, false)
+        return abstractFragmentGrid.createViewHolder(view)
     }
 
-    @Override
-    public void onBindViewHolder(S holder, int position) {
-        abstractFragmentGrid.setListenerRow(holder, values.get(position));
+    override fun onBindViewHolder(holder: S, position: Int) {
+        abstractFragmentGrid.setListenerRow(holder, values[position])
     }
 
-    @Override
-    public int getItemCount() {
-        return values.size();
+    override fun getItemCount(): Int {
+        return values.size
     }
 
-    public T getItemByPosition(int position) {
-        return values.get(position);
+    fun getItemByPosition(position: Int): T {
+        return values[position]
     }
 
-    public void updateValue(T item) {
-        for (int i = 0; i < values.size(); ++i) {
-            T listItem = values.get(i);
-            if (listItem.getId() == item.getId()) {
-                values.set(i, item);
+    fun updateValue(item: T) {
+        for (i in values.indices) {
+            val listItem = values[i]
+            if (listItem.id == item.id) {
+                values[i] = item
             }
         }
     }
 
-    public void delete(int id) {
-        for (int i = 0; i < values.size(); ++i) {
-            T listItem = values.get(i);
-            if (listItem.getId() == id) {
-                values.remove(i);
+    fun delete(id: Int) {
+        for (i in values.indices) {
+            val listItem = values[i]
+            if (listItem.id == id) {
+                values.removeAt(i)
             }
         }
     }

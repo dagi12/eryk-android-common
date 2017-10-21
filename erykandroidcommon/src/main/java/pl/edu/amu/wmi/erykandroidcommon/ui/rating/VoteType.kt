@@ -1,5 +1,5 @@
-package pl.edu.amu.wmi.erykandroidcommon.ui.rating;
+package pl.edu.amu.wmi.erykandroidcommon.ui.rating
 
-public enum VoteType {
+enum class VoteType {
     GYM, TRAINER
 }

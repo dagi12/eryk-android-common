@@ -1,29 +1,31 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler;
+package pl.edu.amu.wmi.erykandroidcommon.recycler
 
 import android.app.AlertDialog
+import android.app.Dialog
+import android.app.DialogFragment
 import android.os.Bundle
-import android.support.annotation.NonNull
+
 import pl.edu.amu.wmi.erykandroidcommon.R
 
 
-public class EmptyGridDialogFragment extends DialogFragment {
+class EmptyGridDialogFragment : DialogFragment() {
 
-    public static EmptyGridDialogFragment getInstance() {
-        return new EmptyGridDialogFragment();
-    }
-
-    @NonNull
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity(), R.style.AppTheme_MyAlertDialogStyle);
+    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+        val builder = AlertDialog.Builder(activity, R.style.AppTheme_MyAlertDialogStyle)
         builder
                 .setTitle(getString(R.string.no_data))
-                .setNegativeButton(android.R.string.ok, (dialogInterface, i) -> {
-                    getActivity().finish();
-                    dialogInterface.dismiss();
-                });
+                .setNegativeButton(android.R.string.ok) { dialogInterface, i ->
+                    activity.finish()
+                    dialogInterface.dismiss()
+                }
 
-        return builder.create();
+        return builder.create()
+    }
+
+    companion object {
+
+        val instance: EmptyGridDialogFragment
+            get() = EmptyGridDialogFragment()
     }
 
 

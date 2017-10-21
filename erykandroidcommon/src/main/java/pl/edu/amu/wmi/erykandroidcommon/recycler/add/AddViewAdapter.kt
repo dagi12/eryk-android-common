@@ -1,31 +1,30 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.add;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.add
 
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter;
+import io.reactivex.Observable
+import io.reactivex.subjects.PublishSubject
+import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-abstract class AddViewAdapter<T, S extends AddItemViewHolder<T>> extends BasicViewAdapter<T, S> {
+internal abstract class AddViewAdapter<T, S : AddItemViewHolder<T>> : BasicViewAdapter<T, S>() {
 
-    private final PublishSubject<T> onAddClickSubject = PublishSubject.create();
+    private val onAddClickSubject = PublishSubject.create<T>()
 
-    Observable<T> getAddClicks() {
-        return onAddClickSubject.share();
-    }
+    val addClicks: Observable<T>
+        get() = onAddClickSubject.share()
 
-//    @Override
-//    public RecyclerViewWrapper<S> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//        RecyclerViewWrapper<S> wrapper = super.onCreateViewHolder(parent, viewType);
-//        S view = wrapper.getView();
-//        view.getAddClicks().subscribe(onAddClickSubject::onNext);
-//        return wrapper;
-//    }
+    //    @Override
+    //    public RecyclerViewWrapper<S> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    //        RecyclerViewWrapper<S> wrapper = super.onCreateViewHolder(parent, viewType);
+    //        S view = wrapper.getView();
+    //        view.getAddClicks().subscribe(onAddClickSubject::onNext);
+    //        return wrapper;
+    //    }
 
-//    @Override
-//    protected void bindRow(@NonNull final S view, @NonNull final T user) {
-//        view.bind(user);
-//    }
+    //    @Override
+    //    protected void bindRow(@NonNull final S view, @NonNull final T user) {
+    //        view.bind(user);
+    //    }
 
 }

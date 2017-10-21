@@ -1,23 +1,24 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.basic;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.basic
+
+import android.support.v7.widget.RecyclerView
 
 import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 import pl.edu.amu.wmi.erykandroidcommon.util.ListUtils
 
-public abstract class BasicViewAdapter<T, S extends AbstractViewHolder<T>> extends RecyclerView.Adapter {
+abstract class BasicViewAdapter<T, S : AbstractViewHolder<T>> : RecyclerView.Adapter<*>() {
 
-    protected List<T> items;
+    protected var items: List<T>
 
-    @Override
-    public int getItemCount() {
-        if (!ListUtils.isEmpty(items)) {
-            return items.size();
-        }
-        return 0;
+    override fun getItemCount(): Int {
+        return if (!ListUtils.isEmpty(items)) {
+            items.size
+        } else 0
     }
 
-    public void setData(@NonNull final List<T> items) {
-        this.items = items;
-        notifyDataSetChanged();
+    fun setData(@NonNull items: List<T>) {
+        this.items = items
+        notifyDataSetChanged()
     }
 
 }

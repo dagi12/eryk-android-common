@@ -1,11 +1,9 @@
-package pl.edu.amu.wmi.erykandroidcommon.exception;
+package pl.edu.amu.wmi.erykandroidcommon.exception
 
-public class WrongViewException extends RuntimeException {
+class WrongViewException : RuntimeException(MESSAGE) {
+    companion object {
 
-    private static final String MESSAGE = "Widok musi być RecyclerView";
-
-    public WrongViewException() {
-        super(MESSAGE);
+        private val MESSAGE = "Widok musi być RecyclerView"
     }
 
 }

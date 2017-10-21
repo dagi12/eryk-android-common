@@ -1,7 +1,7 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler;
+package pl.edu.amu.wmi.erykandroidcommon.recycler
 
-interface OnListFragmentInteractionListener<T> {
+internal interface OnListFragmentInteractionListener<T> {
 
-    void onListFragmentInteraction(T item);
+    fun onListFragmentInteraction(item: T)
 
 }

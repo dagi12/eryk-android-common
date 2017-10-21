@@ -1,9 +1,9 @@
-package pl.edu.amu.wmi.erykandroidcommon.service;
+package pl.edu.amu.wmi.erykandroidcommon.service
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
-public interface Token {
+interface Token {
 
-    String getToken();
+    val token: String
 }

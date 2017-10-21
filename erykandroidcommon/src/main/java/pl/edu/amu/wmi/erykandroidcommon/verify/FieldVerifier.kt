@@ -1,6 +1,6 @@
-package pl.edu.amu.wmi.erykandroidcommon.verify;
+package pl.edu.amu.wmi.erykandroidcommon.verify
 
-interface FieldVerifier {
+internal interface FieldVerifier {
 
-    VerificationResult verify();
+    fun verify(): VerificationResult
 }

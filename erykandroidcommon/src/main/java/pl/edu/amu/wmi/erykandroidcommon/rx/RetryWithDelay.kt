@@ -1,46 +1,50 @@
-package pl.edu.amu.wmi.erykandroidcommon.rx;
+package pl.edu.amu.wmi.erykandroidcommon.rx
 
-import io.reactivex.Flowable
-import timber.log.Timber
+import org.reactivestreams.Publisher
+
 import java.util.concurrent.TimeUnit
 
-class RetryWithDelay implements Function<Flowable<Throwable>, Publisher<?>> {
-    private final int maxRetries;
+import io.reactivex.Flowable
+import io.reactivex.functions.Function
+import lombok.NonNull
+import timber.log.Timber
 
-    private final int retryDelaySeconds;
+internal class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
+    private val maxRetries: Int
 
-    private int retryCount;
+    private val retryDelaySeconds: Int
+
+    private var retryCount: Int = 0
 
 
-    private boolean autoUnlock = false;
+    private var autoUnlock = false
 
-    public RetryWithDelay(final int maxRetries, final int retryDelaySeconds) {
-        this.maxRetries = maxRetries;
-        this.retryDelaySeconds = retryDelaySeconds;
-        this.retryCount = 0;
-        this.autoUnlock = true;
+    constructor(maxRetries: Int, retryDelaySeconds: Int) {
+        this.maxRetries = maxRetries
+        this.retryDelaySeconds = retryDelaySeconds
+        this.retryCount = 0
+        this.autoUnlock = true
     }
 
-    public RetryWithDelay(final int maxRetries, final int retryDelaySeconds, boolean autoUnlock) {
-        this.maxRetries = maxRetries;
-        this.retryDelaySeconds = retryDelaySeconds;
-        this.retryCount = 0;
-        this.autoUnlock = autoUnlock;
+    constructor(maxRetries: Int, retryDelaySeconds: Int, autoUnlock: Boolean) {
+        this.maxRetries = maxRetries
+        this.retryDelaySeconds = retryDelaySeconds
+        this.retryCount = 0
+        this.autoUnlock = autoUnlock
     }
 
-    @Override
-    public Publisher<?> apply(@NonNull Flowable<Throwable> throwableFlowable) throws Exception {
-        if (!autoUnlock) {
-            return throwableFlowable.flatMap(Flowable::error);
-        }
-        return throwableFlowable.flatMap(throwable -> {
+    @Throws(Exception::class)
+    override fun apply(@NonNull throwableFlowable: Flowable<Throwable>): Publisher<*> {
+        return if (!autoUnlock) {
+            throwableFlowable.flatMap(Function<Throwable, Publisher<*>> { Flowable.error(it) })
+        } else throwableFlowable.flatMap { throwable ->
             if (++retryCount < maxRetries) {
-                Timber.w(throwable, "Retry count: %d, max retries: %d", retryCount, maxRetries);
-                return Flowable.timer(retryDelaySeconds, TimeUnit.SECONDS);
+                Timber.w(throwable, "Retry count: %d, max retries: %d", retryCount, maxRetries)
+                return@throwableFlowable.flatMap Flowable . timer retryDelaySeconds.toLong(), TimeUnit.SECONDS)
             }
 
             // Max retries hit. Just pass the error along.
-            return Flowable.error(throwable);
-        });
+            Flowable.error<Long>(throwable)
+        }
     }
 }

@@ -1,39 +1,35 @@
-package pl.edu.amu.wmi.erykandroidcommon.service;
+package pl.edu.amu.wmi.erykandroidcommon.service
 
-import android.app.Application;
-import android.content.Context;
-import android.content.Intent;
+import android.app.Application
+import android.content.Context
+import android.content.Intent
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Getter
+import lombok.Setter
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
-public class UserService<T extends Token, S> {
+class UserService<T : Token, S>(application: Application, private val startActivity: Class<S>) {
 
-    private final Class<S> startActivity;
-
-    private final Context context;
+    private val context: Context
 
     @Getter
     @Setter
-    private T user;
+    private var user: T? = null
 
-    public UserService(Application application, Class<S> startActivity) {
-        this.context = application;
-        this.startActivity = startActivity;
+    val isSignedIn: Boolean
+        get() = user != null
+
+    init {
+        this.context = application
     }
 
-    public void hardLogout() {
-        this.user = null;
-        Intent signOutIntent = new Intent(context, startActivity);
-        signOutIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        context.startActivity(signOutIntent);
-    }
-
-    public boolean isSignedIn() {
-        return user != null;
+    fun hardLogout() {
+        this.user = null
+        val signOutIntent = Intent(context, startActivity)
+        signOutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+        context.startActivity(signOutIntent)
     }
 
 }

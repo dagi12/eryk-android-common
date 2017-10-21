@@ -1,20 +1,17 @@
-package pl.edu.amu.wmi.erykandroidcommon.util;
+package pl.edu.amu.wmi.erykandroidcommon.util
 
+import android.app.Activity
 import android.support.v7.app.AppCompatActivity
 
 
-public final class WindowUtil {
+object WindowUtil {
 
-    private WindowUtil() {
-    }
-
-    public static void enableActionBar(Activity activity) {
-        if (activity.getActionBar() != null) {
-            activity.getActionBar().setDisplayHomeAsUpEnabled(true);
-        } else if (activity instanceof AppCompatActivity) {
-            AppCompatActivity appCompatActivity = (AppCompatActivity) activity;
-            if (appCompatActivity.getSupportActionBar() != null) {
-                appCompatActivity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    fun enableActionBar(activity: Activity) {
+        if (activity.actionBar != null) {
+            activity.actionBar!!.setDisplayHomeAsUpEnabled(true)
+        } else if (activity is AppCompatActivity) {
+            if (activity.supportActionBar != null) {
+                activity.supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             }
         }
     }

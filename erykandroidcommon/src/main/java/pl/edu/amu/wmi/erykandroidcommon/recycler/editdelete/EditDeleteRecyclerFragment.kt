@@ -1,20 +1,18 @@
-package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete;
+package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete
 
 
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteRecyclerFragment;
+import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteRecyclerFragment
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.
+ * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-public abstract class EditDeleteRecyclerFragment<T, S extends EditDeleteItemViewHolder<T>> extends DeleteRecyclerFragment<T, S> {
+abstract class EditDeleteRecyclerFragment<T, S : EditDeleteItemViewHolder<T>> : DeleteRecyclerFragment<T, S>() {
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void initAdapter() {
-        super.initAdapter();
-//        ((EditDeleteViewAdapter<T, S>) adapter).getEditClicks().subscribe(this::edit);
+    public override fun initAdapter() {
+        super.initAdapter()
+        //        ((EditDeleteViewAdapter<T, S>) adapter).getEditClicks().subscribe(this::edit);
     }
 
-    protected abstract void edit(@NonNull final T item);
+    protected abstract fun edit(@NonNull item: T)
 }
