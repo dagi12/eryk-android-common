@@ -1,11 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.add
 
 import android.view.View
-
-import butterknife.OnClick
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
-import pl.edu.amu.wmi.erykandroidcommon.R2
 import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
 /**
@@ -18,9 +15,9 @@ abstract class AddItemViewHolder<T>(itemView: View) : AbstractViewHolder<T>(item
     val addClicks: Observable<T>
         get() = onAddClickSubject.share()
 
-    @OnClick(R2.id.btn_add)
+
     fun onDeleteClicked() {
-        onAddClickSubject.onNext(item)
+        onAddClickSubject.onNext(item!!)
     }
 
 }

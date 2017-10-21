@@ -2,10 +2,6 @@ package pl.edu.amu.wmi.erykandroidcommon.base
 
 import android.widget.TextView
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import pl.edu.amu.wmi.erykandroidcommon.R2
-
 /**
  * Extends the [BaseActivity] with a [android.widget.Toolbar].
  *
@@ -14,13 +10,9 @@ import pl.edu.amu.wmi.erykandroidcommon.R2
 
 abstract class BaseToolbarActivity : BaseActivity() {
 
-    @BindView(R2.id.title)
-    var titleTextView: TextView? = null
 
     override fun onStart() {
         super.onStart()
-        ButterKnife.bind(this)
-
         //        final Toolbar toolbar = findViewById(R.id.toolbar);
         //        setSupportActionBar(toolbar);
 
@@ -33,6 +25,6 @@ abstract class BaseToolbarActivity : BaseActivity() {
 
     override fun setTitle(title: CharSequence) {
         super.setTitle(title)
-        titleTextView!!.text = title
+//        title_text_view!!.text = title
     }
 }

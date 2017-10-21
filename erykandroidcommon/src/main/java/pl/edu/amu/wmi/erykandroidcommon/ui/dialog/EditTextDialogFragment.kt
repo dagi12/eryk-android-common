@@ -5,22 +5,21 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.support.annotation.IdRes
 import android.support.annotation.LayoutRes
+import android.support.annotation.NonNull
 import android.support.annotation.StringRes
 import android.support.v4.app.FragmentManager
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatDialogFragment
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.Window
 import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-
 import io.reactivex.Maybe
 import io.reactivex.subjects.MaybeSubject
-import lombok.NonNull
+
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
@@ -55,15 +54,9 @@ abstract class EditTextDialogFragment(@field:StringRes
             okButton = dialog!!.getButton(DialogInterface.BUTTON_POSITIVE)
             okButton!!.isEnabled = false
             target!!.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(charSequence: CharSequence, i: Int,
-                                               i1: Int, i2: Int) {
-                    // no need
-                }
+                override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
 
-                override fun onTextChanged(charSequence: CharSequence, i: Int,
-                                           i1: Int, i2: Int) {
-                    // no need
-                }
+                override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) = Unit
 
                 override fun afterTextChanged(editable: Editable) {
                     okButton!!.isEnabled = !editable.toString().isEmpty()
@@ -77,7 +70,7 @@ abstract class EditTextDialogFragment(@field:StringRes
             }
         }
 
-        return dialog
+        return dialog!!
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -91,7 +84,7 @@ abstract class EditTextDialogFragment(@field:StringRes
             dialogResultStream = MaybeSubject.create()
             show(fragmentManager, javaClass.simpleName)
         }
-        return dialogResultStream
+        return dialogResultStream!!
     }
 
     private fun setKeyboardVisible(visible: Boolean) {

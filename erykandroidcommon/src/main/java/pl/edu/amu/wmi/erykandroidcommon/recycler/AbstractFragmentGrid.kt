@@ -54,20 +54,21 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
 
     abstract fun createViewHolder(view: View): S
 
+    @Suppress("UNCHECKED_CAST")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val context = activity
         if (context is OnListFragmentInteractionListener<*>) {
-            mListener = context
+            mListener = context as OnListFragmentInteractionListener<T>
         }
     }
 
     fun setListenerRow(holder: S, t: T) {
         holder.item = t
         holder.setRow()
-        holder.view.setOnClickListener { view ->
+        holder.view.setOnClickListener {
             if (mListener != null) {
-                mListener!!.onListFragmentInteraction(holder.item)
+                mListener!!.onListFragmentInteraction(holder.item!!)
             }
         }
 

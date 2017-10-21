@@ -14,37 +14,31 @@ import io.reactivex.schedulers.Schedulers
  */
 internal object ObservableUtils {
 
-    private val observableSchedulersTransformer = { observable ->
-        observable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-    }
+    fun <T> backgroundObservableSchedulers(): ObservableTransformer<T, T> =
+            ObservableTransformer { observable ->
+                observable
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
 
-    private val singleSchedulersTransformer = { single ->
-        single.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-    }
+    fun <T> backgroundSingleSchedulers(): SingleTransformer<T, T> =
+            SingleTransformer { single ->
+                single
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
 
-    private val maybeSchedulersTransformer = { maybe ->
-        maybe.subscribeOn(
-                Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-    }
+    fun <T> backgroundMaybeSchedulers(): MaybeTransformer<T, T> =
+            MaybeTransformer { maybe ->
+                maybe
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
 
-    fun <T> backgroundObservableSchedulers(): ObservableTransformer<T, T> {
-        return observableSchedulersTransformer as ObservableTransformer<T, T>
-    }
+    fun backgroundCompletableSchedulers(): CompletableTransformer =
+            CompletableTransformer { completable ->
+                completable.subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
 
-    fun <T> backgroundSingleSchedulers(): SingleTransformer<T, T> {
-        return singleSchedulersTransformer as SingleTransformer<T, T>
-    }
-
-    fun <T> backgroundMaybeSchedulers(): MaybeTransformer<T, T> {
-        return maybeSchedulersTransformer as MaybeTransformer<T, T>
-    }
-
-    fun backgroundCompletableSchedulers(): CompletableTransformer {
-        return { completable ->
-            completable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-        }
-    }
 }

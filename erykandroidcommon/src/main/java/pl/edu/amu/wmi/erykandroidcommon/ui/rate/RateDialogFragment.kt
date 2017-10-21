@@ -5,22 +5,14 @@ import android.app.Dialog
 import android.app.DialogFragment
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Spinner
-
-import butterknife.BindView
-import butterknife.ButterKnife
+import kotlinx.android.synthetic.main.fragment_rate_dialog.*
 import pl.edu.amu.wmi.erykandroidcommon.R
-import pl.edu.amu.wmi.erykandroidcommon.R2
 import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException
 import pl.edu.amu.wmi.erykandroidcommon.ui.spinner.NumberSpinnerAdapter
 
 class RateDialogFragment : DialogFragment() {
 
-    @BindView(R2.id.rate_spinner)
-    internal var rateSpinner: Spinner? = null
 
     private var adapter: RateResultAdapter? = null
 
@@ -44,15 +36,14 @@ class RateDialogFragment : DialogFragment() {
                 .setNegativeButton(android.R.string.cancel) { dialogInterface, i ->
                     // no need
                 }
-                .setPositiveButton(android.R.string.ok) { dialogInterface, i -> adapter!!.processVote(rateSpinner!!.selectedItem as Int) }
+                .setPositiveButton(android.R.string.ok) { dialogInterface, i -> adapter!!.processVote(rate_spinner!!.selectedItem as Int) }
 
         val parent = activity.findViewById<ViewGroup>(android.R.id.content)
         val inflater = activity.layoutInflater
         val view = inflater.inflate(R.layout.fragment_rate_dialog, parent, false)
         builder.setView(view)
         val dialog = builder.create()
-        ButterKnife.bind(this, view)
-        rateSpinner!!.adapter = NumberSpinnerAdapter(activity,
+        rate_spinner!!.adapter = NumberSpinnerAdapter(activity,
                 arguments.getInt(MAX_POINTS_PARAM))
         return dialog
     }

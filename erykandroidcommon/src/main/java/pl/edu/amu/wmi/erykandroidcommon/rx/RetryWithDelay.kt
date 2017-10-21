@@ -1,13 +1,10 @@
 package pl.edu.amu.wmi.erykandroidcommon.rx
 
-import org.reactivestreams.Publisher
-
-import java.util.concurrent.TimeUnit
-
 import io.reactivex.Flowable
 import io.reactivex.functions.Function
-import lombok.NonNull
+import org.reactivestreams.Publisher
 import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 internal class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
     private val maxRetries: Int
@@ -34,17 +31,18 @@ internal class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
     }
 
     @Throws(Exception::class)
-    override fun apply(@NonNull throwableFlowable: Flowable<Throwable>): Publisher<*> {
+    override fun apply(throwableFlowable: Flowable<Throwable>): Publisher<*> {
         return if (!autoUnlock) {
-            throwableFlowable.flatMap(Function<Throwable, Publisher<*>> { Flowable.error(it) })
-        } else throwableFlowable.flatMap { throwable ->
+            throwableFlowable.flatMap { throwable -> Flowable.error<Throwable>(throwable) }
+        } else throwableFlowable.flatMap(Function<Throwable, Publisher<*>> { throwable ->
             if (++retryCount < maxRetries) {
                 Timber.w(throwable, "Retry count: %d, max retries: %d", retryCount, maxRetries)
-                return@throwableFlowable.flatMap Flowable . timer retryDelaySeconds.toLong(), TimeUnit.SECONDS)
+                return@Function Flowable.timer(retryDelaySeconds.toLong(), TimeUnit.SECONDS)
             }
 
             // Max retries hit. Just pass the error along.
-            Flowable.error<Long>(throwable)
-        }
+            Flowable.error<Throwable>(throwable)
+        })
     }
+
 }

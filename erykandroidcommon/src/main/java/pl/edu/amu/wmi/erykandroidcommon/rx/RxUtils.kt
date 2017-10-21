@@ -2,10 +2,11 @@ package pl.edu.amu.wmi.erykandroidcommon.rx
 
 import android.content.Context
 import android.preference.PreferenceManager
+import android.support.annotation.NonNull
 
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 
-import lombok.NonNull
+
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 19.07.17.

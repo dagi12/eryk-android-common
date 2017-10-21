@@ -17,6 +17,8 @@ interface BaseAdapter {
 
     fun showThrobber(message: String)
 
+    fun showThrobber()
+
     fun hideThrobber()
 
     fun showKeyboard()

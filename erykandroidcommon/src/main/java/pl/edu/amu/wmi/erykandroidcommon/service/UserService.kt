@@ -4,9 +4,6 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 
-import lombok.Getter
-import lombok.Setter
-
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
@@ -14,9 +11,7 @@ class UserService<T : Token, S>(application: Application, private val startActiv
 
     private val context: Context
 
-    @Getter
-    @Setter
-    private var user: T? = null
+    var user: T? = null
 
     val isSignedIn: Boolean
         get() = user != null

@@ -1,8 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.delete
 
 import io.reactivex.Observable
+import io.reactivex.annotations.NonNull
 import io.reactivex.subjects.PublishSubject
-import lombok.NonNull
+
 import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter
 
 /**

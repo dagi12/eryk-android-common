@@ -1,7 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.add
 
 
-import lombok.NonNull
+import android.support.annotation.NonNull
 import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 
 /**
@@ -11,10 +11,10 @@ abstract class AddRecyclerFragment<T, S : AddItemViewHolder<T>> : BasicRecyclerF
 
     public override fun initAdapter() {
         if (adapter == null) {
-            adapter = getAdapter()
+            adapter = adapterInit()
         }
         val addAdapter = adapter as AddViewAdapter<T, S>
-        addAdapter.addClicks.subscribe(Consumer<T> { this.add(it) })
+        addAdapter.addClicks.subscribe({ this.add(it) })
     }
 
     protected abstract fun add(@NonNull item: T)

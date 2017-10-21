@@ -8,8 +8,8 @@ import android.content.Context
 class InjectionUtil {
 
     internal fun getCommonComponent(context: Context): CommonApplicationComponent? {
-        return (context.applicationContext as CommonApplication)
-                .commonApplicationComponent()
+        val commonApplication = (context.applicationContext as CommonApplication)
+        return commonApplication.commonApplicationComponent
     }
 
 }

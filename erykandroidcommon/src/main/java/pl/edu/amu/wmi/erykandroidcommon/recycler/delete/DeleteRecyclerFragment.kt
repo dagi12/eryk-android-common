@@ -1,7 +1,10 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.delete
 
-import lombok.NonNull
+import io.reactivex.Observable
+import io.reactivex.annotations.NonNull
+import io.reactivex.functions.Consumer
 import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
+
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
@@ -10,10 +13,11 @@ abstract class DeleteRecyclerFragment<T, S : DeleteItemViewHolder<T>> : BasicRec
 
     override fun initAdapter() {
         if (adapter == null) {
-            adapter = getAdapter()
+            adapter = adapterInit()
         }
-        val deleteAdapter = adapter as DeleteViewAdapter<*, *>
-        deleteAdapter.deleteClicks.subscribe(Consumer<T> { this.delete(it) })
+        val deleteAdapter = adapter as DeleteViewAdapter<T, S>
+        val clicks : Observable<T> = deleteAdapter.deleteClicks
+        clicks.subscribe({ this.delete(it) })
     }
 
     protected abstract fun delete(@NonNull item: T)

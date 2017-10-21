@@ -38,8 +38,8 @@ internal class GroupingService(private val context: Context) {
         }
     }
 
-    private fun eKeylistToTree(timestampHolders: List<TimestampHolder>): EnumMap<GroupingDay, List<TimestampHolder>> {
-        val groupingDayListEnumMap = EnumMap<GroupingDay, List<TimestampHolder>>(GroupingDay::class.java)
+    private fun eKeylistToTree(timestampHolders: MutableList<TimestampHolder>): EnumMap<GroupingDay, MutableList<TimestampHolder>> {
+        val groupingDayListEnumMap = EnumMap<GroupingDay, MutableList<TimestampHolder>>(GroupingDay::class.java)
         for (timestampHolder in timestampHolders) {
             val dayDifference = DateUtils.dayDifferenceToday(timestampHolder.timestamp!!)
             add(groupingDayListEnumMap, timestampHolder, getGroupingDayFromDayDifference(dayDifference))
@@ -47,15 +47,15 @@ internal class GroupingService(private val context: Context) {
         return groupingDayListEnumMap
     }
 
-    private fun add(map: EnumMap<GroupingDay, List<TimestampHolder>>, timestampHolder: TimestampHolder, groupingDay: GroupingDay) {
+    private fun add(map: EnumMap<GroupingDay, MutableList<TimestampHolder>>, timestampHolder: TimestampHolder, groupingDay: GroupingDay) {
         val list = map[groupingDay]
-        list.add(timestampHolder)
+        list!!.add(timestampHolder)
     }
 
-    private fun treeToListItemList(groupingDayListEnumMap: EnumMap<GroupingDay, List<TimestampHolder>>, groupingDayEnumMap: EnumMap<GroupingDay, String>?): List<ListItem> {
+    private fun treeToListItemList(groupingDayListEnumMap: EnumMap<GroupingDay, MutableList<TimestampHolder>>, groupingDayEnumMap: EnumMap<GroupingDay, String>?): MutableList<ListItem> {
         val mItems = ArrayList<ListItem>()
         for ((key, value) in groupingDayListEnumMap) {
-            val header = HeaderItem(groupingDayEnumMap!![key])
+            val header = HeaderItem(groupingDayEnumMap!![key]!!)
             mItems.add(header)
             mItems.addAll(value)
         }
@@ -78,7 +78,7 @@ internal class GroupingService(private val context: Context) {
         groupingDayEnumMap!!.put(GroupingDay.GD5AGO, getDayOfWeekLabel(calendar.get(Calendar.DAY_OF_WEEK), context))
     }
 
-    fun process(list: List<TimestampHolder>): List<ListItem> {
+    fun process(list: MutableList<TimestampHolder>): List<ListItem> {
         init()
         val enumMap = eKeylistToTree(list)
         return treeToListItemList(enumMap, groupingDayEnumMap)

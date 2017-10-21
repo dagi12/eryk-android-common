@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 buildscript {
     repositories {
@@ -12,8 +13,6 @@ buildscript {
     dependencies {
 //        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5'
 //        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
-        classpath 'me.tatarka:gradle-retrolambda:3.7.0'
-        classpath 'com.jakewharton:butterknife-gradle-plugin:8.8.1'
     }
 }
 
@@ -43,16 +42,15 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
     }
 
 }
 
 //apply plugin: 'com.getkeepsafe.dexcount'
-apply plugin: 'org.greenrobot.greendao'
+//apply plugin: 'org.greenrobot.greendao'
 //apply plugin: "org.sonarqube"
-apply plugin: 'me.tatarka.retrolambda'
 
 //sonarqube {
 //    properties {
@@ -72,6 +70,10 @@ apply plugin: 'me.tatarka.retrolambda'
 //    includeFieldCount = false
 //    orderByMethodCount = true
 //}
+
+kapt {
+    generateStubs = true
+}
 
 
 dependencies {
@@ -95,7 +97,6 @@ dependencies {
     compile 'com.android.support:design:26.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'org.greenrobot:greendao:3.2.2'
-    provided 'org.projectlombok:lombok:1.16.18'
     compile 'com.android.support:multidex:1.0.1'
 
     // support
@@ -112,9 +113,7 @@ dependencies {
 
     // di
     compile 'com.google.dagger:dagger:2.12'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.12'
-    compile 'com.jakewharton:butterknife:8.8.1'
-    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
+    kapt 'com.google.dagger:dagger-compiler:2.12'
 
     // timber
     compile 'com.jakewharton.timber:timber:4.5.1'
@@ -128,7 +127,7 @@ dependencies {
 
     // rx
     compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
+    compile 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     compile 'com.hadisatrio:Optional:v1.0.1'
     compile 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
     compile 'com.cantrowitz:rxbroadcast:2.0.0'

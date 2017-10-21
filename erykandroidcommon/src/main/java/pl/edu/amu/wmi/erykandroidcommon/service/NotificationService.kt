@@ -7,16 +7,12 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
-import android.os.Bundle
 import android.support.annotation.DrawableRes
+import android.support.annotation.NonNull
 import android.support.v4.app.NotificationCompat
 import android.support.v4.media.session.MediaSessionCompat
-
-import java.lang.reflect.ParameterizedType
-
 import io.reactivex.Single
-import lombok.Getter
-import lombok.NonNull
+import java.lang.reflect.ParameterizedType
 
 /**
  * A centralized service for displaying [android.app.Notification]s.
@@ -28,7 +24,6 @@ private val notificationDrawable: Int, private val launcherMipmap: Int) {
 
     private val notificationManager: NotificationManager
 
-    @Getter(lazy = true)
     private val mediaSession = MediaSessionCompat(context, javaClass.simpleName)
 
     private val mainActivityClass: Class<T>

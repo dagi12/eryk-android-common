@@ -2,6 +2,7 @@ package pl.edu.amu.wmi.erykandroidcommon.rx
 
 import android.content.Context
 import android.content.res.Resources
+import android.support.annotation.NonNull
 import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 
@@ -9,7 +10,8 @@ import io.reactivex.Completable
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposables
-import lombok.NonNull
+import io.reactivex.functions.Action
+
 import pl.edu.amu.wmi.erykandroidcommon.R
 
 /**
@@ -109,7 +111,7 @@ internal object ReactiveDialogs {
                     .setNegativeButton(cancelResource) { dialog, which -> emitter.onSuccess(false) }
                     .create()
             // cleaning up
-            emitter.setDisposable(Disposables.fromAction(Action { ad.dismiss() }))
+            emitter.setDisposable(Disposables.fromAction({ ad.dismiss() }))
             ad.show()
         }.subscribeOn(AndroidSchedulers.mainThread())
     }

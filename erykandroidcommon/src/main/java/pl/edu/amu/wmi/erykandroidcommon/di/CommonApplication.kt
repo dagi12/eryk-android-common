@@ -2,17 +2,13 @@ package pl.edu.amu.wmi.erykandroidcommon.di
 
 import android.support.multidex.MultiDexApplication
 import android.util.Log
-
 import com.crashlytics.android.Crashlytics
 import com.orhanobut.logger.AndroidLogAdapter
 import com.orhanobut.logger.Logger
-
-import net.ypresto.timbertreeutils.CrashlyticsLogExceptionTree
-import net.ypresto.timbertreeutils.CrashlyticsLogTree
-
 import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
-import lombok.Getter
+import net.ypresto.timbertreeutils.CrashlyticsLogExceptionTree
+import net.ypresto.timbertreeutils.CrashlyticsLogTree
 import timber.log.Timber
 
 /**
@@ -20,8 +16,7 @@ import timber.log.Timber
  */
 abstract class CommonApplication : MultiDexApplication() {
 
-    @Getter
-    private var commonApplicationComponent: CommonApplicationComponent? = null
+    var commonApplicationComponent: CommonApplicationComponent? = null
 
     override fun onCreate() {
         super.onCreate()

@@ -1,7 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete
 
 
-import lombok.NonNull
+import io.reactivex.annotations.NonNull
+
 import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteRecyclerFragment
 
 /**

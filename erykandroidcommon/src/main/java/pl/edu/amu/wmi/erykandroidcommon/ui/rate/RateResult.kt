@@ -2,9 +2,9 @@ package pl.edu.amu.wmi.erykandroidcommon.ui.rate
 
 internal class RateResult<T> {
 
-    val item: T
+    var item: T? = null
 
-    private val status: String
+    private var status: String? = null
 
     val isSuccess: Boolean
         get() = SUCCESS_STATUS == status
