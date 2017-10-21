@@ -1,15 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.editdelete;
 
-import android.view.View;
-import android.widget.ImageButton;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import io.reactivex.Observable;
-import io.reactivex.subjects.PublishSubject;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteItemViewHolder;
+import android.view.View
+import butterknife.BindView
+import butterknife.ButterKnife
+import butterknife.OnClick
+import io.reactivex.subjects.PublishSubject
+import pl.edu.amu.wmi.erykandroidcommon.R2
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.

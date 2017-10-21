@@ -1,12 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.DialogFragment;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
+import android.app.AlertDialog
+import android.os.Bundle
+import android.support.annotation.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.R
 
 
 public class EmptyGridDialogFragment extends DialogFragment {

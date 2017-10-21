@@ -1,13 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.select;
 
-import android.content.Context;
-import android.widget.Button;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
-import pl.edu.amu.wmi.erykandroidcommon.exception.NotImplementedException;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment;
+import android.content.Context
+import butterknife.BindView
+import butterknife.OnClick
+import pl.edu.amu.wmi.erykandroidcommon.R2
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 31.08.17.

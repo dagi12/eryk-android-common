@@ -1,15 +1,10 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
 
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
+import android.support.v7.widget.RecyclerView
+import android.view.View
+import android.view.ViewGroup
+import pl.edu.amu.wmi.erykandroidcommon.R
+import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
 public abstract class GroupedRecyclerAdapter<T extends ListItem, P extends View, U extends AbstractViewHolder<P>> extends RecyclerView.Adapter {
 

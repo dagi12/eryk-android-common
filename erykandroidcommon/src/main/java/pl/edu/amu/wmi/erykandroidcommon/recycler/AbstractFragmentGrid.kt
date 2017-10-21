@@ -1,17 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler;
 
-import android.app.Fragment;
-import android.content.Context;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
-import java.util.List;
-
-import pl.edu.amu.wmi.erykandroidcommon.exception.WrongViewException;
+import android.content.Context
+import android.os.Bundle
+import android.support.v7.widget.RecyclerView
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 
 
 public abstract class AbstractFragmentGrid<T extends UniqueItem, S extends AbstractViewHolder<T>> extends Fragment {

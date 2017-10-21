@@ -1,19 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.di;
 
-import android.support.multidex.MultiDexApplication;
-import android.util.Log;
-
-import com.crashlytics.android.Crashlytics;
-import com.orhanobut.logger.AndroidLogAdapter;
-import com.orhanobut.logger.Logger;
-
-import net.ypresto.timbertreeutils.CrashlyticsLogExceptionTree;
-import net.ypresto.timbertreeutils.CrashlyticsLogTree;
-
-import io.fabric.sdk.android.Fabric;
-import io.reactivex.plugins.RxJavaPlugins;
-import lombok.Getter;
-import timber.log.Timber;
+import android.util.Log
+import com.orhanobut.logger.Logger
+import io.fabric.sdk.android.Fabric
+import io.reactivex.plugins.RxJavaPlugins
+import lombok.Getter
+import timber.log.Timber
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 21.10.17.

@@ -1,12 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.verify;
 
-import android.content.Context;
-import android.util.Patterns;
-import android.widget.EditText;
-
-import java.util.regex.Pattern;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
+import android.util.Patterns
+import pl.edu.amu.wmi.erykandroidcommon.R
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 25.07.17.

@@ -1,13 +1,10 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.select;
 
-import android.view.View;
-import android.widget.RadioButton;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import lombok.Getter;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
+import android.view.View
+import butterknife.BindView
+import butterknife.ButterKnife
+import lombok.Getter
+import pl.edu.amu.wmi.erykandroidcommon.R2
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 31.08.17.

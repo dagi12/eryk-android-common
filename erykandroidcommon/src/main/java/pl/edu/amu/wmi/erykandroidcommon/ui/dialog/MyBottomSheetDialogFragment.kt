@@ -1,14 +1,10 @@
 package pl.edu.amu.wmi.erykandroidcommon.ui.dialog;
 
-import android.app.Dialog;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomSheetBehavior;
-import android.support.design.widget.BottomSheetDialog;
-import android.support.v7.app.AppCompatDialogFragment;
-import android.widget.FrameLayout;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
+import android.os.Bundle
+import android.support.annotation.NonNull
+import android.support.design.widget.BottomSheetBehavior
+import android.support.design.widget.BottomSheetDialog
+import android.widget.FrameLayout
 
 
 public class MyBottomSheetDialogFragment extends AppCompatDialogFragment {

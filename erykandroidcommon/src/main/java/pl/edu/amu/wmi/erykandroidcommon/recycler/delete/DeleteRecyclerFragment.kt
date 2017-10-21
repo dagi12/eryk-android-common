@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.delete;
 
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment;
+import lombok.NonNull
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 28.07.17.

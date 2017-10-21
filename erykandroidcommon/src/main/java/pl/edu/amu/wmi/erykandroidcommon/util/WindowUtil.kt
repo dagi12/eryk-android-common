@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.util;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatActivity
 
 
 public final class WindowUtil {

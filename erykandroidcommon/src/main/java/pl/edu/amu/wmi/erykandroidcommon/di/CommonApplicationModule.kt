@@ -1,27 +1,15 @@
 package pl.edu.amu.wmi.erykandroidcommon.di;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
-
-import com.google.gson.ExclusionStrategy;
-import com.google.gson.FieldAttributes;
-import com.google.gson.FieldNamingPolicy;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.logging.HttpLoggingInterceptor;
-import pl.edu.amu.wmi.erykandroidcommon.BuildConfig;
-import pl.edu.amu.wmi.erykandroidcommon.location.LocationService;
-import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache;
-import pl.edu.amu.wmi.erykandroidcommon.service.UserService;
+import android.preference.PreferenceManager
+import com.google.gson.FieldAttributes
+import com.google.gson.FieldNamingPolicy
+import com.google.gson.annotations.Expose
+import dagger.Module
+import dagger.Provides
+import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
+import pl.edu.amu.wmi.erykandroidcommon.BuildConfig
+import javax.inject.Singleton
 
 @Module
 public class CommonApplicationModule {

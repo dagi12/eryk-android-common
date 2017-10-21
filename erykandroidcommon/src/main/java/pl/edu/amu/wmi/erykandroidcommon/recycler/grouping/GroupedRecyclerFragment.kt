@@ -1,11 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
 
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.View;
-
-import pl.edu.amu.wmi.erykandroidcommon.base.BaseFragment;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
+import android.support.v7.widget.RecyclerView
 
 
 public abstract class GroupedRecyclerFragment<T extends ListItem, P extends View, U extends AbstractViewHolder<P>> extends BaseFragment {

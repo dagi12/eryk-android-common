@@ -1,12 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.util;
 
-import android.annotation.SuppressLint;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-
-import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils;
+import android.annotation.SuppressLint
+import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
+import java.text.SimpleDateFormat
+import java.util.*
 
 public class DateUtils {
 

@@ -1,17 +1,12 @@
 package pl.edu.amu.wmi.erykandroidcommon.rx;
 
-import android.content.Context;
-import android.content.res.Resources;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-import android.support.v7.app.AlertDialog;
-
-import io.reactivex.Completable;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposables;
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.R;
+import android.support.annotation.Nullable
+import android.support.annotation.StringRes
+import io.reactivex.Completable
+import io.reactivex.Single
+import io.reactivex.disposables.Disposables
+import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.R
 
 /**
  * Utility class for creating reactive AlertDialogs.

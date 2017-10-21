@@ -1,15 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.grouping;
 
-import android.content.Context;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
-import pl.edu.amu.wmi.erykandroidcommon.util.DateUtils;
+import pl.edu.amu.wmi.erykandroidcommon.R
+import java.util.*
+import java.util.List
 
 class GroupingService {
 

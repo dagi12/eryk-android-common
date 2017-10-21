@@ -1,18 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler.basic;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.RecyclerView;
-
-import java.util.List;
-
-import butterknife.BindView;
-import io.reactivex.Single;
-import lombok.NonNull;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
-import pl.edu.amu.wmi.erykandroidcommon.base.BaseFragment;
-import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder;
+import android.os.Bundle
+import android.support.annotation.Nullable
+import android.support.v7.widget.RecyclerView
+import butterknife.BindView
+import lombok.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.R2
 
 public abstract class BasicRecyclerFragment<T, S extends AbstractViewHolder<T>> extends BaseFragment {
 

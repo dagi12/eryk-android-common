@@ -1,10 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.base;
 
-import android.widget.TextView;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import pl.edu.amu.wmi.erykandroidcommon.R2;
+import butterknife.BindView
+import butterknife.ButterKnife
+import pl.edu.amu.wmi.erykandroidcommon.R2
 
 /**
  * Extends the {@link BaseActivity} with a {@link android.widget.Toolbar}.

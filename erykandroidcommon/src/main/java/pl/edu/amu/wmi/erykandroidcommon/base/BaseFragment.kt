@@ -1,15 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.base;
 
-import android.app.Fragment;
-import android.content.Context;
-import android.support.annotation.Nullable;
-import android.support.annotation.StringRes;
-
-import io.reactivex.CompletableTransformer;
-import io.reactivex.MaybeTransformer;
-import io.reactivex.ObservableTransformer;
-import io.reactivex.SingleTransformer;
-import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException;
+import android.support.annotation.Nullable
+import android.support.annotation.StringRes
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.

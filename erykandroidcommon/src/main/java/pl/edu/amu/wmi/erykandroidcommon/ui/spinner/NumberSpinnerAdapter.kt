@@ -1,13 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.ui.spinner;
 
-import android.content.Context;
-import android.support.annotation.NonNull;
-import android.widget.ArrayAdapter;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import pl.edu.amu.wmi.erykandroidcommon.R;
+import android.content.Context
+import android.support.annotation.NonNull
+import pl.edu.amu.wmi.erykandroidcommon.R
+import java.util.*
 
 
 public class NumberSpinnerAdapter extends ArrayAdapter<Integer> {

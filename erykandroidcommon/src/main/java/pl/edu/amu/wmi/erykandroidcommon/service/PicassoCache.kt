@@ -1,14 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.service;
 
-import android.content.Context;
-import android.widget.ImageView;
-
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
-
-import timber.log.Timber;
+import com.squareup.picasso.NetworkPolicy
+import com.squareup.picasso.Picasso
+import timber.log.Timber
 
 public class PicassoCache {
 

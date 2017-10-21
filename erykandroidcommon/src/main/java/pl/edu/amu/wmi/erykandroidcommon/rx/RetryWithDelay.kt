@@ -1,13 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.rx;
 
-import org.reactivestreams.Publisher;
-
-import java.util.concurrent.TimeUnit;
-
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
-import lombok.NonNull;
-import timber.log.Timber;
+import io.reactivex.Flowable
+import timber.log.Timber
+import java.util.concurrent.TimeUnit
 
 class RetryWithDelay implements Function<Flowable<Throwable>, Publisher<?>> {
     private final int maxRetries;
