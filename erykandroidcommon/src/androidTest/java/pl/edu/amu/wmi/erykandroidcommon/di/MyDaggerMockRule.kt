@@ -1,25 +1,20 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
-import android.app.Application;
-import android.support.test.InstrumentationRegistry;
+import android.app.Application
+import android.support.test.InstrumentationRegistry
 
-import it.cosenonjaviste.daggermock.DaggerMockRule;
+import it.cosenonjaviste.daggermock.DaggerMockRule
 
-public class MyDaggerMockRule extends DaggerMockRule<TestComponent> {
+class MyDaggerMockRule : DaggerMockRule<TestComponent>(TestComponent::class.java, TestModule(app)) {
 
-    public MyDaggerMockRule() {
-        super(TestComponent.class, new TestModule(getApp()));
-        set(new ComponentSetter<TestComponent>() {
-            @Override
-            public void setComponent(TestComponent component) {
-//                getApp().setComponent(component);
-            }
-        });
-    }
+    private val app: Application
+        get() = InstrumentationRegistry.getInstrumentation()
+                .targetContext.applicationContext as Application
 
-    private static Application getApp() {
-        return (Application) InstrumentationRegistry.getInstrumentation()
-                .getTargetContext().getApplicationContext();
+    init {
+        set {
+            //                getApp().setComponent(component);
+        }
     }
 
 }

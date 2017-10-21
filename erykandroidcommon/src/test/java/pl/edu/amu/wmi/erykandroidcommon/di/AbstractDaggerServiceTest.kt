@@ -1,26 +1,25 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
-import javax.annotation.Nullable;
-import javax.inject.Inject;
+import javax.inject.Inject
 
-import pl.edu.amu.wmi.erykandroidcommon.service.UserService;
-import retrofit2.Retrofit;
+import pl.edu.amu.wmi.erykandroidcommon.service.UserService
+import retrofit2.Retrofit
 
-public abstract class AbstractDaggerServiceTest {
-
-    @Inject
-    public UserService userService;
+abstract class AbstractDaggerServiceTest {
 
     @Inject
-    public Retrofit retrofit;
+    var userService: UserService<*, *>? = null
 
-    protected void setUp() {
-//        JUnitTestComponent component = DaggerJUnitTestComponent.builder().jUnitTestModule(new JUnitTestModule()).build();
-//        component.inject(this);
+    @Inject
+    var retrofit: Retrofit? = null
+
+    protected fun setUp() {
+        //        JUnitTestComponent component = DaggerJUnitTestComponent.builder().jUnitTestModule(new JUnitTestModule()).build();
+        //        component.inject(this);
     }
 
-    protected boolean isEmpty(@Nullable String str) {
-        return str == null || str.length() == 0;
+    protected fun isEmpty(str: String?): Boolean {
+        return str == null || str.length == 0
     }
 
 }

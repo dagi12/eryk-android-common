@@ -1,20 +1,21 @@
-package pl.edu.amu.wmi.erykandroidcommon;
+package pl.edu.amu.wmi.erykandroidcommon
 
-import junit.framework.Assert;
+import junit.framework.Assert
 
-import org.junit.Test;
+import org.junit.Test
 
 
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
- * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
+ * @see [Testing documentation](http://d.android.com/tools/testing)
  */
-public class ExampleUnitTest {
+class ExampleUnitTest {
 
     @Test
-    public void addition_isCorrect() throws Exception {
-        Assert.assertEquals(4, 2 + 2);
+    @Throws(Exception::class)
+    fun addition_isCorrect() {
+        Assert.assertEquals(4, 2 + 2)
     }
 
 }

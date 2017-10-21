@@ -1,28 +1,22 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
-import android.app.Application;
+import android.app.Application
 
-import org.mockito.Mockito;
+import org.mockito.Mockito
 
-import javax.inject.Singleton;
+import javax.inject.Singleton
 
-import dagger.Module;
-import dagger.Provides;
-import pl.edu.amu.wmi.erykandroidcommon.service.UserService;
+import dagger.Module
+import dagger.Provides
+import pl.edu.amu.wmi.erykandroidcommon.service.UserService
 
 @Module
-public class TestModule {
-
-    private final Application mApplication;
-
-    public TestModule(Application application) {
-        mApplication = application;
-    }
+class TestModule(private val mApplication: Application) {
 
     @Provides
     @Singleton
-    protected UserService provideUserService() {
-        return Mockito.mock(UserService.class);
+    fun provideUserService(): UserService<*, *> {
+        return Mockito.mock(UserService<*, *>::class.java)
     }
 
 }

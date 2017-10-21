@@ -1,11 +1,9 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
-import javax.inject.Singleton;
+import javax.inject.Singleton
 
-import dagger.Component;
+import dagger.Component
 
 @Singleton
-@Component(modules = TestModule.class)
-public interface TestComponent {
-
-}
+@Component(modules = arrayOf(TestModule::class))
+interface TestComponent

@@ -1,11 +1,11 @@
-package pl.edu.amu.wmi.erykandroidcommon.di;
+package pl.edu.amu.wmi.erykandroidcommon.di
 
-import javax.inject.Singleton;
+import javax.inject.Singleton
 
-import dagger.Component;
+import dagger.Component
 
 @Singleton
-@Component(modules = JUnitTestModule.class)
-public interface JUnitTestComponent {
-    void inject(AbstractDaggerServiceTest abstractDaggerServiceTest);
+@Component(modules = arrayOf(JUnitTestModule::class))
+interface JUnitTestComponent {
+    fun inject(abstractDaggerServiceTest: AbstractDaggerServiceTest)
 }
