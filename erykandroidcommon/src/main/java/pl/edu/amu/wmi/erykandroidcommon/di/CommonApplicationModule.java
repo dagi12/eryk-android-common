@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di;
 
-import android.app.Activity;
-import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
@@ -11,7 +10,6 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.annotations.Expose;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import javax.inject.Singleton;
 
@@ -24,36 +22,22 @@ import pl.edu.amu.wmi.erykandroidcommon.BuildConfig;
 import pl.edu.amu.wmi.erykandroidcommon.location.LocationService;
 import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache;
 import pl.edu.amu.wmi.erykandroidcommon.service.UserService;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 @Module
 public class CommonApplicationModule {
 
-    private final Application application;
-
-    private final String apiUrl;
-
-    private final Class<? extends Activity> mainActivity;
+    private final Context context;
 
 
-    public CommonApplicationModule(Application application, Class<? extends Activity> mainActivity, String apiUrl) {
-        this.application = application;
-        this.mainActivity = mainActivity;
-        this.apiUrl = apiUrl;
+    public CommonApplicationModule(Context context) {
+        this.context = context;
 
     }
 
     @Provides
     @Singleton
     protected SharedPreferences provideSharedPreferences() {
-        return PreferenceManager.getDefaultSharedPreferences(application);
-    }
-
-    @Provides
-    @Singleton
-    protected Application provideApplicationContext() {
-        return application;
+        return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
     @Provides
@@ -90,7 +74,7 @@ public class CommonApplicationModule {
 //    @Provides
 //    @Singleton
 //    protected UserService provideUserService() {
-//        return new UserService(application, mainActivity);
+//        return new UserService(context, mainActivity);
 //    }
 
     @Provides
@@ -114,26 +98,14 @@ public class CommonApplicationModule {
 
     @Provides
     @Singleton
-    protected Retrofit provideRetrofit(OkHttpClient okHttpClient, Gson gson) {
-        return new Retrofit
-                .Builder()
-                .client(okHttpClient)
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .baseUrl(apiUrl)
-                .build();
-    }
-
-    @Provides
-    @Singleton
     protected PicassoCache provideCachedImageManager() {
-        return new PicassoCache(application);
+        return new PicassoCache(context);
     }
 
     @Provides
     @Singleton
     protected LocationService provideLocationService() {
-        return new LocationService(application);
+        return new LocationService(context);
     }
 
 }

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="CommonTheme" parent="Theme.AppCompat.Light.NoActionBar"/>
+    <style name="CommonTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+
+    </style>
 
     <style name="AppTheme.MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="colorAccent">?android:attr/textColor</item>

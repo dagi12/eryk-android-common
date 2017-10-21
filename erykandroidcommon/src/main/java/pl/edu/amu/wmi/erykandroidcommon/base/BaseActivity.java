@@ -7,12 +7,14 @@ import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication;
+import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent;
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski@softra.pl> on 18.10.17.
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends Activity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -31,5 +33,11 @@ public abstract class BaseActivity extends AppCompatActivity {
                     .setStatusBarColor(ContextCompat.getColor(activity, notificationColor()));
         }
     }
+
+    CommonApplicationComponent getCommonComponent() {
+        CommonApplication commonApplication = (CommonApplication) getApplication();
+        return commonApplication.commonApplicationComponent();
+    }
+
 
 }

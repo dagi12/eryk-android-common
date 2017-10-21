@@ -1,12 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.base;
 
-import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import pl.edu.amu.wmi.erykandroidcommon.R;
 import pl.edu.amu.wmi.erykandroidcommon.R2;
 
 /**
@@ -25,13 +22,13 @@ public abstract class BaseToolbarActivity extends BaseActivity {
         super.onStart();
         ButterKnife.bind(this);
 
-        final Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        final Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
-        final ActionBar actionBar = getSupportActionBar();
-        assert actionBar != null;
-        actionBar.setDisplayHomeAsUpEnabled(true);
-        actionBar.setDisplayShowTitleEnabled(false);
+//        final ActionBar actionBar = getSupportActionBar();
+//        assert actionBar != null;
+//        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayShowTitleEnabled(false);
 
     }
 
