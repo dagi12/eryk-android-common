@@ -1,0 +1,89 @@
+<resources>
+    <string name="app_name" translatable="false">ErykAndroidCommon</string>
+
+    <!-- Common stuff -->
+    <string name="installation_bluetooth" translatable="false">Bluetooth</string>
+    <string name="error">Error</string>
+    <string name="notification">Notification</string>
+    <string name="enable">Enable</string>
+    <string name="disable">Disable</string>
+    <string name="cancel">Cancel</string>
+    <string name="retry">Retry</string>
+    <string name="off">Off</string>
+    <string name="continue_txt">Continue</string>
+    <string name="please_wait">Please wait a moment…</string>
+    <string name="authorization">Authorization</string>
+    <string name="delete">Delete</string>
+    <string name="widget" translatable="false">Widget</string>
+    <string name="no_data">No data</string>
+    <string name="default_rating" translatable="false">0</string>
+    <string name="comments">Comments</string>
+    <string name="publish">Publish</string>
+    <string name="initializing">Initializing…</string>
+
+    <!-- plurals -->
+    <plurals name="seconds">
+        <item quantity="one">%d Second</item>
+        <item quantity="other">%d Seconds</item>
+    </plurals>
+    <plurals name="minutes">
+        <item quantity="one">%d Minute</item>
+        <item quantity="other">%d Minutes</item>
+    </plurals>
+    <plurals name="hours">
+        <item quantity="one">%d Hour</item>
+        <item quantity="other">%d Hours</item>
+    </plurals>
+    <plurals name="days">
+        <item quantity="one">%d Day</item>
+        <item quantity="other">%d Days</item>
+    </plurals>
+    <plurals name="weeks">
+        <item quantity="one">%d Week</item>
+        <item quantity="other">%d Weeks</item>
+    </plurals>
+    <plurals name="months">
+        <item quantity="one">%d Month</item>
+        <item quantity="other">%d Months</item>
+    </plurals>
+    <plurals name="years">
+        <item quantity="one">%d Year</item>
+        <item quantity="other">%d Years</item>
+    </plurals>
+
+    <!-- grouped recycler -->
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="monday">Monday</string>
+    <string name="tuesday">Tuesday</string>
+    <string name="wednesday">Wednesday</string>
+    <string name="thursday">Thursday</string>
+    <string name="friday">Friday</string>
+    <string name="saturday">Saturday</string>
+    <string name="sunday">Sunday</string>
+    <string name="before">Before</string>
+
+    <!-- user -->
+    <string name="notify_me">Notify me</string>
+    <string name="are_you_sure">Are you sure?</string>
+    <string name="yes_delete">Yes, delete!</string>
+    <string name="deleting">Deleting %s…</string>
+    <string name="deleted">Deleted %s</string>
+    <string name="error_deleting">Deleting %s failed</string>
+
+    <!-- error -->
+    <string name="error_password_dont_match">Passwords have to match</string>
+    <string name="error_password_too_short">Must be at least 7 charaters long</string>
+    <string name="error_invalid_email">Invalid e-mail</string>
+    <string name="error_username_regex">Special characters in username</string>
+    <string name="error_empty_username">Field username must be not empty</string>
+    <string name="error_empty_password">Field password must be not empty</string>
+
+    <string name="choose_option">Choose option</string>
+    <string name="empty_password">Empty password</string>
+    <string name="short_password">Password too short</string>
+    <string name="no_internet">No internet connection</string>
+    <string name="date">Date</string>
+    <string name="menu" translatable="false">Menu</string>
+
+</resources>

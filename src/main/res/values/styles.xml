@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Common" parent="@style/Theme.AppCompat.Light">
+
+    </style>
+
+    <style name="Common.Spinner">
+        <item name="android:divider">?android:attr/textColor</item>
+        <item name="android:dividerHeight">@dimen/divider_height</item>
+    </style>
+
+    <style name="Common.MyAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">?android:attr/textColor</item>
+        <item name="android:textColorPrimary">?android:attr/textColor</item>
+        <item name="android:textColor">?android:attr/textColor</item>
+        <item name="android:background">?android:attr/colorPrimaryDark</item>
+        <item name="android:alertDialogStyle">@style/Common.ProgressDialogStyle</item>
+    </style>
+
+    <style name="Common.ProgressDialogStyle">
+        <item name="android:bottomBright">?android:attr/colorPrimaryDark</item>
+        <item name="android:bottomDark">?android:attr/colorPrimaryDark</item>
+        <item name="android:bottomMedium">?android:attr/colorPrimaryDark</item>
+        <item name="android:centerBright">?android:attr/colorPrimaryDark</item>
+        <item name="android:centerDark">?android:attr/colorPrimaryDark</item>
+        <item name="android:centerMedium">?android:attr/colorPrimaryDark</item>
+        <item name="android:fullBright">?android:attr/colorPrimaryDark</item>
+        <item name="android:fullDark">?android:attr/colorPrimaryDark</item>
+        <item name="android:topBright">?android:attr/colorPrimaryDark</item>
+        <item name="android:topDark">?android:attr/colorPrimaryDark</item>
+    </style>
+
+    <style name="Common.SpinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:background">?android:attr/colorPrimaryDark</item>
+        <item name="android:textColor">?android:attr/textColor</item>
+        <item name="android:textSize">?android:attr/textSize</item>
+        <item name="android:padding">?android:attr/padding</item>
+    </style>
+
+    <style name="Common.SpinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+        <item name="android:ellipsize">marquee</item>
+        <item name="android:singleLine">true</item>
+        <item name="android:padding">?android:attr/padding</item>
+        <item name="android:background">?android:attr/colorPrimaryDark</item>
+        <item name="android:textColor">?android:attr/textColor</item>
+        <item name="android:textSize">?android:attr/textSize</item>
+    </style>
+
+    <style name="Common.BottomSheet" parent="Theme.Design.BottomSheetDialog">
+        <item name="android:dropDownListViewStyle">@style/Common.Spinner</item>
+    </style>
+
+    <style name="Common.RatingTextView" parent="TextAppearance.AppCompat.Medium">
+        <item name="android:textColor">?android:attr/colorAccent</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="Common.GroupingHeader">
+        <item name="android:layout_marginStart">@dimen/margin_1x</item>
+        <item name="android:layout_marginTop">@dimen/margin_0x</item>
+        <item name="android:layout_marginBottom">@dimen/margin_0x</item>
+        <item name="android:textColor">?android:attr/colorAccent</item>
+        <item name="android:textSize">@dimen/text_size_1.5x</item>
+    </style>
+
+    <style name="Common.ScreenTitle" parent="TextAppearance.AppCompat.Title">
+        <item name="android:textColor">?android:attr/colorAccent</item>
+    </style>
+
+    <style name="Common.FormMargin">
+        <item name="android:layout_marginTop">@dimen/margin_1x</item>
+        <item name="android:layout_marginStart">@dimen/margin_6x</item>
+        <item name="android:layout_marginEnd">@dimen/margin_6x</item>
+        <item name="android:layout_marginBottom">@dimen/margin_1x</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+
+</resources>
