@@ -1,7 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
-import android.app.Fragment
+
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import io.reactivex.CompletableTransformer
 import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer

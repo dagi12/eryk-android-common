@@ -85,5 +85,6 @@
     <string name="no_internet">No internet connection</string>
     <string name="date">Date</string>
     <string name="menu" translatable="false">Menu</string>
+    <string name="unknown" translatable="false">Unknown</string>
 
 </resources>

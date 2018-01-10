@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
-import pl.edu.amu.wmi.erykandroidcommon.user.IS_SIGNED
 import pl.edu.amu.wmi.erykandroidcommon.user.UserStore
 import javax.inject.Inject
 
@@ -24,9 +23,7 @@ abstract class SplashActivity<T : Activity, S : Activity> : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val isSignedIn = CommonApplication.preferences.getBoolean(IS_SIGNED).get()
-        userStore.isSigned = isSignedIn
-        val activity = if (isSignedIn) commonApplication.mainActivity else register
+        val activity = if (userStore.isSigned) commonApplication.mainActivity else register
         startActivity(Intent(this, activity))
         finish()
     }
