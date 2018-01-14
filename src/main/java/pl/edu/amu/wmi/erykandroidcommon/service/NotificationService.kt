@@ -51,17 +51,22 @@ abstract class NotificationService<T : Activity>(private val context: Context,
      * @param builder [android.support.v4.app.NotificationCompat.Builder] with pre-filled fields.
      * @return Single<Integer> The displayed notification's id.
     </Integer> */
-    private fun displayNotification(builder: NotificationCompat.Builder): Single<Int> {
+    private fun displayNotification(builder: NotificationCompat.Builder, message: String?, info: String?): Single<Int> {
         // All other needs to be set after the notification has been build.
-        val notification = defaultNotification(defaultNotificationBuilder(builder).build())
-
+        val notification = defaultNotification(
+            defaultNotificationBuilder(
+                builder,
+                message,
+                info
+            ).build()
+        )
         // Finally send the notification.
         notificationManager.notify(++notificationId, notification)
 
         return Single.just(notificationId)
     }
 
-    private fun defaultNotificationBuilder(builder: NotificationCompat.Builder): NotificationCompat.Builder {
+    private fun defaultNotificationBuilder(builder: NotificationCompat.Builder, message: String?, info: String?): NotificationCompat.Builder {
         builder.setCategory(NotificationCompat.CATEGORY_EVENT)
         val extras = builder.extras
         // If no small icon, set the default launcher icon.
@@ -73,11 +78,10 @@ abstract class NotificationService<T : Activity>(private val context: Context,
             builder.setLargeIcon(BitmapFactory.decodeResource(context.resources, launcherMipmap))
         }
         // If no style set, then make it the BigTextStyle.
-        if (builder.mStyle == null) {
-            builder.setStyle(NotificationCompat.BigTextStyle()
-                .bigText(builder.mContentText)
-                .setSummaryText(builder.mContentInfo))
-        }
+        builder.setStyle(NotificationCompat.BigTextStyle()
+            .bigText(message)
+            .setSummaryText(info))
+
         return builder
     }
 
@@ -109,7 +113,10 @@ abstract class NotificationService<T : Activity>(private val context: Context,
         return displayNotification(NotificationCompat.Builder(context, DEFAULT_CHANNEL)
             .setContentTitle(title)
             .setContentText(message)
-            .setContentInfo(info))
+            .setContentInfo(info),
+            message,
+            info
+        )
     }
 
     companion object {

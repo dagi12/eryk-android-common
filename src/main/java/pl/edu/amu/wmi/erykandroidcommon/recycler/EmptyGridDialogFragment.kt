@@ -13,7 +13,7 @@ class EmptyGridDialogFragment : AppCompatDialogFragment() {
         builder
             .setTitle(getString(R.string.no_data))
             .setNegativeButton(android.R.string.ok) { dialogInterface, _ ->
-                activity.finish()
+                activity!!.finish()
                 dialogInterface.dismiss()
             }
 

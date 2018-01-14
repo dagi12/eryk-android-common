@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
-
+import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import io.reactivex.CompletableTransformer
@@ -16,8 +16,11 @@ open class BaseFragment : Fragment() {
 
     lateinit var baseAdapter: BaseAdapter
 
+    lateinit var activity: Activity
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        this.activity = getActivity()!!
         baseAdapter = try {
             activity as BaseAdapter
         } catch (e: ClassCastException) {

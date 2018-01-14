@@ -15,7 +15,7 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 abstract class MyBottomSheetDialogFragment(@LayoutRes val layoutRes: Int) : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val sheetDialog = BottomSheetDialog(activity, R.style.Common_BottomSheet)
+        val sheetDialog = BottomSheetDialog(activity!!, R.style.Common_BottomSheet)
         sheetDialog.setOnShowListener { dialogInterface ->
             val bottomSheetDialog = dialogInterface as BottomSheetDialog
             val bottomSheetLayout = bottomSheetDialog.findViewById<FrameLayout>(android.support.design.R.id.design_bottom_sheet)

@@ -28,7 +28,7 @@ abstract class EditTextDialogFragment(@field:StringRes private val title: Int, @
     private lateinit var target: EditText
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val dialog = AlertDialog.Builder(context)
+        val dialog = AlertDialog.Builder(context!!)
             .setTitle(title)
             .setView(layoutFragment)
             .setPositiveButton(android.R.string.ok) { _, _ -> attemptClose(target) }
