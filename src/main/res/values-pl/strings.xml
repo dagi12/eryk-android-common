@@ -88,5 +88,17 @@
     <string name="no_internet">Brak dostępu do internetu</string>
     <string name="date">Data</string>
 
+    <string name="jan">Sty</string>
+    <string name="feb">Lut</string>
+    <string name="mar">Mar</string>
+    <string name="apr">Kwi</string>
+    <string name="may">Maj</string>
+    <string name="jun">Cze</string>
+    <string name="jul">Lip</string>
+    <string name="aug">Sie</string>
+    <string name="sep">Wrz</string>
+    <string name="oct">Paź</string>
+    <string name="nov">Lis</string>
+    <string name="dec">Gru</string>
 
 </resources>

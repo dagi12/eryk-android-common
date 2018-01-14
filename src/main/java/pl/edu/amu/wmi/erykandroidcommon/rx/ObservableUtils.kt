@@ -6,8 +6,6 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import io.realm.Realm
-import io.realm.RealmModel
 
 /**
  * Goodies and cookies for using reactive streams.
@@ -15,14 +13,6 @@ import io.realm.RealmModel
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 09.06.2017
  */
 object ObservableUtils {
-
-    fun <T: RealmModel> saveItem(item: T): T {
-        val realm = Realm.getDefaultInstance()
-        realm.executeTransactionAsync {
-            it.insertOrUpdate(item)
-        }
-        return item
-    }
 
     fun <T> backgroundObservableSchedulers(): ObservableTransformer<T, T> =
         ObservableTransformer { observable ->
