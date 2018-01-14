@@ -59,7 +59,7 @@ abstract class CommonApplication : MultiDexApplication() {
     companion object {
         @JvmStatic lateinit var context: Context
         @JvmStatic lateinit var preferences: RxSharedPreferences
-        lateinit var commonGraph: CommonApplicationComponent
+        @JvmStatic lateinit var commonGraph: CommonApplicationComponent
         private val UNHANDLED_EXCEPTION_MESSAGE = "Unhandled exception"
     }
 
@@ -68,4 +68,5 @@ abstract class CommonApplication : MultiDexApplication() {
     abstract val isDebug: Boolean
 
     abstract val mainActivity: Class<out Activity>
+    abstract val register: Class<out Activity>
 }

@@ -13,11 +13,10 @@ buildscript {
             url 'http://dl.bintray.com/kotlin/kotlin-eap-1.2'
         }
     }
-    dependencies {
-//        classpath 'org.sonarsource.scanner.gradle:sonarqube-gradle-plugin:2.5'
-//        classpath 'com.getkeepsafe.dexcount:dexcount-gradle-plugin:0.8.1'
-    }
+
 }
+
+apply plugin: 'realm-android'
 
 kapt {
     generateStubs = true
@@ -97,7 +96,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.android.support:design:26.1.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
-    compile 'com.android.support:multidex:1.0.1'
+    compile 'com.android.support:multidex:1.0.2'
 
     //  support
     //  compile 'com.android.support:customtabs:26.0.1'

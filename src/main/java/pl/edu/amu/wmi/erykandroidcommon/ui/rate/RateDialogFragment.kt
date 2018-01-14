@@ -3,7 +3,6 @@ package pl.edu.amu.wmi.erykandroidcommon.ui.rate
 import android.app.AlertDialog
 import android.app.Dialog
 import android.app.DialogFragment
-import android.content.Context
 import android.os.Bundle
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_rate_dialog.*
@@ -15,17 +14,13 @@ class RateDialogFragment : DialogFragment() {
 
     private var adapter: RateResultAdapter? = null
 
-    private fun initialize(context: Context) {
-        if (context is RateResultAdapter) {
-            adapter = context
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        adapter = if (activity is RateResultAdapter) {
+            activity as RateResultAdapter
         } else {
             throw AdapterLackException(activity, RateResultAdapter::class.java)
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initialize(activity)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle): Dialog {

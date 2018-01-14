@@ -6,4 +6,5 @@ package pl.edu.amu.wmi.erykandroidcommon.service
 interface Token {
 
     val token: String
+
 }

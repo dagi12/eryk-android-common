@@ -5,6 +5,10 @@
 
     </style>
 
+    <style name="Common.NoActionBar" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+    </style>
+
     <style name="Common.Spinner">
         <item name="android:divider">?android:attr/textColor</item>
         <item name="android:dividerHeight">@dimen/divider_height</item>
