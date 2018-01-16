@@ -27,7 +27,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     @Inject
     lateinit var commonApplication: CommonApplication
 
-    var progressBar: ButteryProgressBar? = null
+    private var progressBar: ButteryProgressBar? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
