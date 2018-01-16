@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
-import pl.edu.amu.wmi.erykandroidcommon.user.SignedStore
 import javax.inject.Inject
 
 /**
@@ -14,14 +13,11 @@ import javax.inject.Inject
 abstract class SplashActivity : Activity() {
 
     @Inject
-    lateinit var signedStore: SignedStore
-
-    @Inject
     lateinit var commonApplication: CommonApplication
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val activity = if (signedStore.isSigned) commonApplication.mainActivity else commonApplication.register
+        val activity = commonApplication.getStartActivity()
         startActivity(Intent(this, activity))
         finish()
     }

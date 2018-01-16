@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di
 
 import android.app.Activity
-import android.content.Context
 import android.preference.PreferenceManager
 import android.support.multidex.MultiDexApplication
 import android.util.Log
@@ -15,6 +14,8 @@ import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 import net.ypresto.timbertreeutils.CrashlyticsLogExceptionTree
 import net.ypresto.timbertreeutils.CrashlyticsLogTree
+import pl.edu.amu.wmi.erykandroidcommon.user.UserInterface
+import pl.edu.amu.wmi.erykandroidcommon.user.UserStore
 import timber.log.Timber
 
 /**
@@ -22,7 +23,6 @@ import timber.log.Timber
  */
 abstract class CommonApplication : MultiDexApplication() {
 
-    lateinit var commonApplicationModule: CommonApplicationModule
 
     override fun onCreate() {
         super.onCreate()
@@ -31,33 +31,35 @@ abstract class CommonApplication : MultiDexApplication() {
         RxJavaPlugins.setErrorHandler { throwable ->
             Timber.e(throwable, UNHANDLED_EXCEPTION_MESSAGE)
         }
-        context = applicationContext
         preferences = RxSharedPreferences.create(
-                PreferenceManager.getDefaultSharedPreferences(context))
-        commonApplicationModule = CommonApplicationModule(this)
+            PreferenceManager.getDefaultSharedPreferences(applicationContext))
+        val module = CommonApplicationModule(this)
         commonGraph = DaggerCommonApplicationComponent
-                .builder()
-                .commonApplicationModule(commonApplicationModule)
-                .build()
+            .builder()
+            .commonApplicationModule(module)
+            .build()
+        preConfig()
+        userStore.initUser(user)
     }
+
+    abstract fun preConfig()
 
     private fun initLogging() {
         Fabric.with(this, Crashlytics())
         val formatStrategy = PrettyFormatStrategy.newBuilder()
-                .methodOffset(7)
-                .tag("")
-                .build()
+            .methodOffset(7)
+            .tag("")
+            .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
         Timber.plant(object : Timber.DebugTree() {
             override fun log(priority: Int, tag: String?, message: String, t: Throwable?) =
-                    Logger.log(priority, tag, message, t)
+                Logger.log(priority, tag, message, t)
         })
         Timber.plant(CrashlyticsLogTree(Log.DEBUG))
         Timber.plant(CrashlyticsLogExceptionTree())
     }
 
     companion object {
-        @JvmStatic lateinit var context: Context
         @JvmStatic lateinit var preferences: RxSharedPreferences
         @JvmStatic lateinit var commonGraph: CommonApplicationComponent
         private val UNHANDLED_EXCEPTION_MESSAGE = "Unhandled exception"
@@ -69,4 +71,8 @@ abstract class CommonApplication : MultiDexApplication() {
 
     abstract val mainActivity: Class<out Activity>
     abstract val register: Class<out Activity>
+    abstract val userStore: UserStore<out UserInterface>
+    abstract fun getStartActivity(): Class<*>?
+    abstract val user: UserInterface?
+
 }

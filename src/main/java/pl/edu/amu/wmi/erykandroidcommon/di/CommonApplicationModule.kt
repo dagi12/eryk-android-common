@@ -1,8 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di
 
 import android.content.Context
-import android.content.SharedPreferences
-import android.preference.PreferenceManager
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -14,7 +12,6 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import pl.edu.amu.wmi.erykandroidcommon.location.LocationService
 import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache
-import pl.edu.amu.wmi.erykandroidcommon.user.SignedStore
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -72,10 +69,6 @@ class CommonApplicationModule(private val application: CommonApplication) {
 //                override fun shouldSkipClass(aClass: Class<*>): Boolean = false
 //            })
             .create()
-
-    @Provides
-    @Singleton
-    fun provideUserStore(commonApplication: CommonApplication): SignedStore = SignedStore(commonApplication)
 
     @Provides
     @Singleton
