@@ -53,45 +53,10 @@ android {
 
 }
 
-//apply plugin: 'com.getkeepsafe.dexcount'
-//apply plugin: "org.sonarqube"
-
-//sonarqube {
-//    properties {
-//        property "sonar.projectName", "eryk-android-common"
-//
-//        property "sonar.sourceEncoding", "UTF-8"
-//        property "sonar.sources", "src/main/java,src/main/res"
-//        property "sonar.exclusions", "build/**,**/*.png"
-//
-//        property "sonar.import_unknown_files", true
-//        property "sonar.android.lint.report", "./build/outputs/lint-results-debug.xml"
-//    }
-//}
-
-//dexcount {
-//    format = "list"
-//    includeFieldCount = false
-//    orderByMethodCount = true
-//}
-
-
 dependencies {
 
-    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    androidTestImplementation 'org.mockito:mockito-core:2.11.0'
-    androidTestImplementation 'com.github.fabioCollini:DaggerMock:0.8.2'
-    androidTestImplementation "com.linkedin.dexmaker:dexmaker-mockito:2.2.0"
-    androidTestImplementation 'com.android.support:support-annotations:27.0.2'
-
-    testImplementation 'junit:junit:4.12'
-    testImplementation "org.robolectric:shadows-multidex:3.6.1"
-    testImplementation "org.robolectric:robolectric:3.6.1"
-    kaptTest 'com.google.dagger:dagger-compiler:2.14.1'
     kaptAndroidTest 'com.google.dagger:dagger-compiler:2.14.1'
-    compileOnly 'javax.annotation:jsr250-api:1.0'
+        compileOnly 'javax.annotation:jsr250-api:1.0'
 
     // support
     implementation 'com.android.support:recyclerview-v7:27.0.2'
@@ -101,9 +66,6 @@ dependencies {
     api 'com.android.support:multidex:1.0.2'
 
     //  support
-    //  implementation 'com.android.support:customtabs:26.0.1'
-    //  implementation 'com.android.support:animated-vector-drawable:26.0.1'
-    //  implementation 'com.android.support:cardview-v7:26.0.1'
     implementation 'com.squareup.picasso:picasso:2.5.2'
 
     //  retrofit
@@ -130,16 +92,11 @@ dependencies {
     // rx
     implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
-    implementation 'com.hadisatrio:Optional:v1.0.1'
-    implementation 'com.jakewharton.rxbinding2:rxbinding:2.0.0'
-    implementation 'com.cantrowitz:rxbroadcast:2.0.0'
     api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
-    implementation 'com.squareup.sqlbrite2:sqlbrite:2.0.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 
-    // location
-    //    implementation 'com.google.android.gms:play-services-maps:9.4.0'
-    //    implementation 'com.google.android.gms:play-services-location:9.4.0'
-    //    implementation 'com.patloew.rxlocation:rxlocation:1.0.3'
     implementation 'com.jakewharton.threetenabp:threetenabp:1.0.5'
+
+    testImplementation project(":eryk-android-common-test")
+
 }
