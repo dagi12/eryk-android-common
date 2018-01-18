@@ -12,7 +12,7 @@ import pl.edu.amu.wmi.erykandroidcommon.helper.WindowUtil
 
 abstract class AbstractEditorResultActivity(fieldVerifier: FieldVerifier) : BaseActivity() {
 
-    private val formVerificationManager = FormVerificationManager(fieldVerifier)
+    private val formVerificationManager = FormVerificationManager(fieldVerifier, applicationContext)
 
     @get:MenuRes
     internal abstract val menuRes: Int

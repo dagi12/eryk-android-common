@@ -11,7 +11,6 @@ import android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
-import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication.Companion.commonGraph
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
 import javax.inject.Inject
@@ -20,9 +19,6 @@ import javax.inject.Inject
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
  */
 abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
-
-    val component: CommonApplicationComponent?
-        get() = CommonApplication.commonGraph
 
     @Inject
     lateinit var commonApplication: CommonApplication
@@ -60,4 +56,7 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
         val viewGroup = findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
         viewGroup.addView(progressBar, 0)
     }
+
+    val commonGraph: CommonApplicationComponent
+        get() = (applicationContext as CommonApplication).commonGraph
 }

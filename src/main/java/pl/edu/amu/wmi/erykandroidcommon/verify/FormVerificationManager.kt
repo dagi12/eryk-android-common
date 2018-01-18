@@ -2,19 +2,9 @@ package pl.edu.amu.wmi.erykandroidcommon.verify
 
 import android.app.AlertDialog
 import android.content.Context
-
 import android.text.TextUtils.isEmpty
-import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication.Companion.commonGraph
-import javax.inject.Inject
 
-class FormVerificationManager(private val fieldVerifier: FieldVerifier) {
-
-    @Inject
-    lateinit var context: Context
-
-    init {
-        commonGraph.inject(this)
-    }
+class FormVerificationManager(private val fieldVerifier: FieldVerifier, private val context: Context) {
 
     fun verify(): Boolean {
         val verificationResult = fieldVerifier.verify()
