@@ -14,8 +14,6 @@ import io.fabric.sdk.android.Fabric
 import io.reactivex.plugins.RxJavaPlugins
 import net.ypresto.timbertreeutils.CrashlyticsLogExceptionTree
 import net.ypresto.timbertreeutils.CrashlyticsLogTree
-import pl.edu.amu.wmi.erykandroidcommon.user.UserInterface
-import pl.edu.amu.wmi.erykandroidcommon.user.UserStore
 import timber.log.Timber
 
 /**
@@ -23,6 +21,7 @@ import timber.log.Timber
  */
 abstract class CommonApplication : MultiDexApplication() {
 
+    lateinit var commonGraph: CommonApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
@@ -39,7 +38,6 @@ abstract class CommonApplication : MultiDexApplication() {
             .commonApplicationModule(module)
             .build()
         preConfig()
-        userStore.initUser(user)
     }
 
     abstract fun preConfig()
@@ -61,7 +59,6 @@ abstract class CommonApplication : MultiDexApplication() {
 
     companion object {
         @JvmStatic lateinit var preferences: RxSharedPreferences
-        @JvmStatic lateinit var commonGraph: CommonApplicationComponent
         private val UNHANDLED_EXCEPTION_MESSAGE = "Unhandled exception"
     }
 
@@ -70,9 +67,7 @@ abstract class CommonApplication : MultiDexApplication() {
     abstract val isDebug: Boolean
 
     abstract val mainActivity: Class<out Activity>
+
     abstract val register: Class<out Activity>
-    abstract val userStore: UserStore<out UserInterface>
-    abstract fun getStartActivity(): Class<*>?
-    abstract val user: UserInterface?
 
 }
