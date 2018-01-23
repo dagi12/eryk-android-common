@@ -7,8 +7,8 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.delete.DeleteRecyclerFragment
  */
 abstract class EditDeleteRecyclerFragment<T, S : EditDeleteItemViewHolder<T>> : DeleteRecyclerFragment<T, S>() {
 
-    public override fun initAdapter() {
-        super.initAdapter()
+    public override fun initBaseAdapter() {
+        super.initBaseAdapter()
         //        ((EditDeleteViewAdapter<T, S>) adapter).getEditClicks().subscribe(this::edit);
     }
 

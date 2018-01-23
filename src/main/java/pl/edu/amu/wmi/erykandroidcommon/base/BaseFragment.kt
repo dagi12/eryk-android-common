@@ -21,6 +21,10 @@ open class BaseFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         this.activity = getActivity()!!
+        initBaseAdapter()
+    }
+
+    open fun initBaseAdapter() {
         baseAdapter = try {
             activity as BaseAdapter
         } catch (e: ClassCastException) {

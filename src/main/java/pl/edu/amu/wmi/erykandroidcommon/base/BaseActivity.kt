@@ -1,6 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
-import android.os.Bundle
+import android.app.Application
 import android.support.v7.app.AppCompatActivity
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -21,14 +21,9 @@ import javax.inject.Inject
 abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
 
     @Inject
-    lateinit var commonApplication: CommonApplication
+    lateinit var commonApplication: Application
 
     private var progressBar: ButteryProgressBar? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        commonGraph.inject(this)
-    }
 
     override fun showThrobber() {
         progressBar!!.visibility = VISIBLE
@@ -58,5 +53,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     }
 
     val commonGraph: CommonApplicationComponent
-        get() = (applicationContext as CommonApplication).commonGraph
+        get() = (applicationContext as CommonApplication<*>).injector.commonGraph
 }

@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di
 
+import android.app.Application
 import android.content.Context
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
@@ -38,7 +39,7 @@ fun okHttpFactory(debug: Boolean, interceptor: Interceptor?): OkHttpClient {
 
 
 @Module
-class CommonApplicationModule(private val application: CommonApplication) {
+class CommonApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
@@ -46,7 +47,11 @@ class CommonApplicationModule(private val application: CommonApplication) {
 
     @Provides
     @Singleton
-    fun provideApplication(): CommonApplication = application
+    fun provideApplication(): Application = application
+
+    @Provides
+    @Singleton
+    fun provideCommonApplication(): CommonApplication<*> = application as CommonApplication<*>
 
     @Provides
     @Singleton

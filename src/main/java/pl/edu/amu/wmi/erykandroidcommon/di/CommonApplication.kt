@@ -19,7 +19,7 @@ import timber.log.Timber
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 21.10.17.
  */
-abstract class CommonApplication : MultiDexApplication() {
+abstract class CommonApplication<T : CommonInjector> : MultiDexApplication() {
 
     lateinit var commonGraph: CommonApplicationComponent
 
@@ -70,4 +70,5 @@ abstract class CommonApplication : MultiDexApplication() {
 
     abstract val register: Class<out Activity>
 
+    lateinit var injector: T
 }
