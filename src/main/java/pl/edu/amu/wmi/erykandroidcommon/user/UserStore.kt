@@ -14,13 +14,15 @@ abstract class UserStore<T : UserInterface>(private val application: Application
     @Inject
     lateinit var context: Context
 
+    @Inject
+    lateinit var commonApplication: CommonApplication<*>
+
     abstract fun isSigned(): Boolean
 
     abstract var user: T?
 
     fun hardLogout() {
-        // TODO init activities
-        val signOutIntent = Intent(context, (application as CommonApplication).register)
+        val signOutIntent = Intent(context, commonApplication.register)
         signOutIntent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(signOutIntent)
     }

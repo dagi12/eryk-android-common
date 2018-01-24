@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.splash
 
 import android.app.Activity
-import android.app.Application
 import android.content.Intent
 import android.os.Bundle
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
@@ -16,7 +15,7 @@ import javax.inject.Inject
 abstract class SplashActivity : Activity() {
 
     @Inject
-    lateinit var commonApplication: Application
+    lateinit var commonApplication: CommonApplication<*>
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +33,6 @@ abstract class SplashActivity : Activity() {
     abstract val user: UserInterface?
 
     private fun getStartActivity(): Class<*>? =
-        if (userStore.isSigned()) (applicationContext as CommonApplication<*>).mainActivity else (applicationContext as CommonApplication<*>).register
+        if (userStore.isSigned()) commonApplication.mainActivity else commonApplication.register
 
 }

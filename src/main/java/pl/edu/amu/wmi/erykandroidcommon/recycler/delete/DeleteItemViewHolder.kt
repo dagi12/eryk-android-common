@@ -24,4 +24,5 @@ abstract class DeleteItemViewHolder<T> protected constructor(itemView: View) : A
     fun deleteVisible(isVisible: Boolean) {
 //        btn_delete!!.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
+
 }

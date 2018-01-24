@@ -12,7 +12,7 @@ open class CommonInjector {
     public val commonGraph: CommonApplicationComponent
         get() = _commonGraph!!
 
-    open fun initializeApplicationComponent(customApplication: Application) {
+    open fun initGraph(customApplication: Application) {
         _commonGraph = DaggerCommonApplicationComponent
             .builder()
             .commonApplicationModule(CommonApplicationModule(customApplication))
