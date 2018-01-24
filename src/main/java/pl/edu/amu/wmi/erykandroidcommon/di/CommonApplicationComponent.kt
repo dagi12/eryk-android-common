@@ -16,7 +16,7 @@ interface CommonApplicationComponent {
 
     fun gson(): Gson
     fun application(): Application
-    fun commonApplication(): CommonApplication<*>
+    fun commonApplication(): CommonApplication
     fun inject(baseActivity: BaseActivity)
     fun inject(baseActivity: FormVerificationManager)
 }

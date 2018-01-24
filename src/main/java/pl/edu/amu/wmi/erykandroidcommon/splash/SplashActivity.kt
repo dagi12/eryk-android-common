@@ -15,7 +15,7 @@ import javax.inject.Inject
 abstract class SplashActivity : Activity() {
 
     @Inject
-    lateinit var commonApplication: CommonApplication<*>
+    lateinit var commonApplication: CommonApplication
 
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

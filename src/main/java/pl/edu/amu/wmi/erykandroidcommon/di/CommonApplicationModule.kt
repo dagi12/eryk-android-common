@@ -51,7 +51,7 @@ class CommonApplicationModule(private val application: Application) {
 
     @Provides
     @Singleton
-    fun provideCommonApplication(): CommonApplication<*> = application as CommonApplication<*>
+    fun provideCommonApplication(): CommonApplication = application as CommonApplication
 
     @Provides
     @Singleton

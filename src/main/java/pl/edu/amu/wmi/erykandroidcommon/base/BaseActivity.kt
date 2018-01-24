@@ -10,8 +10,8 @@ import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
+import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
 import javax.inject.Inject
 
@@ -53,5 +53,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     }
 
     val commonGraph: CommonApplicationComponent
-        get() = (applicationContext as CommonApplication<*>).injector.commonGraph
+        get() = CommonInjector.commonGraph
 }

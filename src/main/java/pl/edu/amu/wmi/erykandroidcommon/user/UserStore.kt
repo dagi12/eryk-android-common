@@ -15,7 +15,7 @@ abstract class UserStore<T : UserInterface>(private val application: Application
     lateinit var context: Context
 
     @Inject
-    lateinit var commonApplication: CommonApplication<*>
+    lateinit var commonApplication: CommonApplication
 
     abstract fun isSigned(): Boolean
 

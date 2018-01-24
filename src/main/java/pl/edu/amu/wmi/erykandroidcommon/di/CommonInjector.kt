@@ -3,21 +3,19 @@ package pl.edu.amu.wmi.erykandroidcommon.di
 import android.app.Application
 
 /**
- * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 24.01.18.
+ * Stworzone przez Eryk Mariankowski dnia 24.01.18.
  */
-open class CommonInjector {
+
+object CommonInjector {
 
     var _commonGraph: CommonApplicationComponent? = null
 
-    public val commonGraph: CommonApplicationComponent
-        get() = _commonGraph!!
+    val commonGraph: CommonApplicationComponent by lazy { _commonGraph!! }
 
-    open fun initGraph(customApplication: Application) {
+    fun initGraph(application: Application) {
         _commonGraph = DaggerCommonApplicationComponent
             .builder()
-            .commonApplicationModule(CommonApplicationModule(customApplication))
+            .commonApplicationModule(CommonApplicationModule(application))
             .build()
     }
-
-
 }
