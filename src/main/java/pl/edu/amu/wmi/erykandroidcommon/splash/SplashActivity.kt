@@ -17,7 +17,7 @@ abstract class SplashActivity : Activity() {
     @Inject
     lateinit var commonApplication: CommonApplication
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
         userStore.initUser(user)
@@ -33,6 +33,6 @@ abstract class SplashActivity : Activity() {
     abstract val user: UserInterface?
 
     private fun getStartActivity(): Class<*>? =
-        if (userStore.isSigned()) (applicationContext as CommonApplication).mainActivity else commonApplication.register
+        if (userStore.isSigned()) commonApplication.mainActivity else commonApplication.register
 
 }

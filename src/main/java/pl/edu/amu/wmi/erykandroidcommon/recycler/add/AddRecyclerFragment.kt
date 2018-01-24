@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 abstract class AddRecyclerFragment<T, S : AddItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     @Suppress("UNCHECKED_CAST")
-    public override fun initAdapter() {
+    public override fun initBaseAdapter() {
         if (adapter == null) {
             adapter = adapterInit()
         }

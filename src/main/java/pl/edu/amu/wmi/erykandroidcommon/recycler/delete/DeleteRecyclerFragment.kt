@@ -9,7 +9,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 abstract class DeleteRecyclerFragment<T, S : DeleteItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun initAdapter() {
+    override fun initBaseAdapter() {
         if (adapter == null) {
             adapter = adapterInit()
         }

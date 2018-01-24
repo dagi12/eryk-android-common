@@ -17,9 +17,9 @@ import pl.edu.amu.wmi.erykandroidcommon.BuildConfig
  * @author Eryk Mariankowski <eryk.mariankowski@247.codes> on 16.01.18.
  */
 @RunWith(RobolectricTestRunner::class)
-@Config(constants = BuildConfig::class, sdk = [21])
+@Config(constants = BuildConfig::class, sdk = [26])
 @PowerMockIgnore("org.mockito.*", "org.robolectric.*", "android.*")
-@PrepareForTest(TestStatic::class)
+@PrepareForTest(TestStatic::class, TestNonStatic::class)
 class PowerMockTest {
 
     @JvmField
@@ -32,4 +32,18 @@ class PowerMockTest {
         `when`(TestStatic.testMsg()).thenReturn("hello mock")
         assertTrue(TestStatic.testMsg() == "hello mock")
     }
+
+    @Test
+    fun testMocking() {
+        val mock = PowerMockito.mock(TestNonStatic::class.java)
+        PowerMockito.`when`(mock.nonStaticMethod()).thenReturn("hello mock")
+        assertTrue(mock.nonStaticMethod() == "hello mock")
+    }
+
+    @Test
+    fun testSuppress() {
+        PowerMockito.suppress(PowerMockito.method(TestNonStatic::class.java, "throwMethod"))
+        TestNonStatic().throwMethod()
+    }
+
 }

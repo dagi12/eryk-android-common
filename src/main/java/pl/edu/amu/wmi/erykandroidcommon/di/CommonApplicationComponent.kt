@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.di
 
+import android.app.Application
 import com.google.gson.Gson
 import dagger.Component
 import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity
@@ -14,7 +15,8 @@ import javax.inject.Singleton
 interface CommonApplicationComponent {
 
     fun gson(): Gson
-    fun application(): CommonApplication
+    fun application(): Application
+    fun commonApplication(): CommonApplication
     fun inject(baseActivity: BaseActivity)
     fun inject(baseActivity: FormVerificationManager)
 }
