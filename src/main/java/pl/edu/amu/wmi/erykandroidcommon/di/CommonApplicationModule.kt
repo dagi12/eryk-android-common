@@ -2,6 +2,8 @@ package pl.edu.amu.wmi.erykandroidcommon.di
 
 import android.app.Application
 import android.content.Context
+import android.preference.PreferenceManager
+import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -83,4 +85,8 @@ class CommonApplicationModule(private val application: CommonApplication) {
     @Singleton
     fun provideLocationService(): LocationService = LocationService(application)
 
+    @Provides
+    @Singleton
+    fun provideSharedPreferences(): RxSharedPreferences = RxSharedPreferences.create(
+        PreferenceManager.getDefaultSharedPreferences(application))
 }

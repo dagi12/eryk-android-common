@@ -18,6 +18,6 @@ abstract class UserStore<T : UserInterface>(private val application: CommonAppli
         application.startActivity(signOutIntent)
     }
 
-    abstract fun initUser(user: UserInterface?)
+    abstract fun initUser(user: T?)
 
 }

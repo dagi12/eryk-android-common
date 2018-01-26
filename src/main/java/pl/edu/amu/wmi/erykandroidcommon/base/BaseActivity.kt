@@ -1,6 +1,5 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
-import android.app.Application
 import android.support.v7.app.AppCompatActivity
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
@@ -13,7 +12,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
-import javax.inject.Inject
 
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 18.10.17.
@@ -50,5 +48,5 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     }
 
     val commonGraph: CommonApplicationComponent
-        get() = CommonInjector.commonGraph
+        get() = CommonInjector.graph
 }

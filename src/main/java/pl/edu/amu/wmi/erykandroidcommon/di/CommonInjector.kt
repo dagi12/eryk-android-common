@@ -4,14 +4,14 @@ package pl.edu.amu.wmi.erykandroidcommon.di
  * Stworzone przez Eryk Mariankowski dnia 24.01.18.
  */
 
-object CommonInjector {
+object CommonInjector : AbstractInjector<CommonApplicationComponent, CommonApplication> {
 
-    var _commonGraph: CommonApplicationComponent? = null
+    override var _graph: CommonApplicationComponent? = null
 
-    val commonGraph: CommonApplicationComponent by lazy { _commonGraph!! }
+    override val graph: CommonApplicationComponent by lazy { _graph!! }
 
-    fun initGraph(application: CommonApplication) {
-        _commonGraph = DaggerCommonApplicationComponent
+    override fun initGraph(application: CommonApplication) {
+        _graph = DaggerCommonApplicationComponent
             .builder()
             .commonApplicationModule(CommonApplicationModule(application))
             .build()

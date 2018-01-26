@@ -12,7 +12,7 @@ import javax.inject.Inject
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 20.10.17.
  */
 
-abstract class SplashActivity : Activity() {
+abstract class SplashActivity<T : UserInterface> : Activity() {
 
     @Inject
     lateinit var commonApplication: CommonApplication
@@ -28,11 +28,10 @@ abstract class SplashActivity : Activity() {
 
     abstract fun init()
 
-    abstract val userStore: UserStore<out UserInterface>
+    abstract val userStore: UserStore<T>
 
-    abstract val user: UserInterface?
+    abstract val user: T?
 
     private fun getStartActivity(): Class<*>? =
         if (userStore.isSigned()) commonApplication.mainActivity else commonApplication.register
-
 }
