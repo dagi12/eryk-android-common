@@ -1,10 +1,11 @@
 package pl.edu.amu.wmi.erykandroidcommon.helper
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.text.format.DateFormat
 import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 object DateUtils {
 
@@ -35,7 +36,7 @@ object DateUtils {
     }
 
     fun dayDifferenceToday(timestamp: Long): Int =
-        dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(Date()).time)
+            dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(Date()).time)
 
     private fun eKeyTimestampToJavaTimestamp(timestamp: Long): Long = timestamp * 1000
 
@@ -45,9 +46,10 @@ object DateUtils {
         return StringUtils.addLeadingZeros(calendar.get(Calendar.HOUR_OF_DAY), 2) + ":" + StringUtils.addLeadingZeros(calendar.get(Calendar.MINUTE), 2)
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getMonthAndDate(timestamp: Long): String {
         // ios app format
-        @SuppressLint("SimpleDateFormat") val dayMonthDate = SimpleDateFormat("dd. MMM.")
+        val dayMonthDate = SimpleDateFormat("dd. MMM.")
         return dayMonthDate.format(eKeyTimestampToJavaTimestamp(timestamp))
     }
 
@@ -60,4 +62,7 @@ object DateUtils {
         val currentTimestamp = System.currentTimeMillis() / 1000
         return currentTimestamp - timestamp > timeout
     }
+
+    fun currDateInLocale(context: Context) = DateFormat.getDateFormat(context).format(Calendar.getInstance().time)!!
+
 }
