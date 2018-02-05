@@ -11,4 +11,8 @@ interface BaseAdapter {
     fun showThrobber()
 
     fun hideThrobber()
+
+    fun handleNoInternet()
+
+    fun handleInternet()
 }

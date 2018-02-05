@@ -109,8 +109,7 @@ object ReactiveDialogs {
             resources.getString(message, *messageArgs))
     }
 
-    @JvmOverloads
-    fun confirmationDialog(context: Context,
+    private fun confirmationDialog(context: Context,
         title: String,
         message: String,
         @StringRes okResource: Int = android.R.string.ok,
@@ -142,6 +141,21 @@ object ReactiveDialogs {
         title: String,
         message: String): Single<String> = Single.create { emitter ->
         val editText = EditText(context)
+        AlertDialog
+            .Builder(context)
+            .setMessage(message)
+            .setTitle(title)
+            .setView(editText)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                emitter.onSuccess(editText.text.toString())
+            }
+            .create()
+            .show()
+    }
+
+    fun textDialog(context: Context, title: String?, message: String, text: String?): Single<String> = Single.create { emitter ->
+        val editText = EditText(context)
+        editText.setText(text, TextView.BufferType.EDITABLE)
         AlertDialog
             .Builder(context)
             .setMessage(message)
