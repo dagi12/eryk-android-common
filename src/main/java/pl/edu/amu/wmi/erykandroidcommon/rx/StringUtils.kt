@@ -1,5 +1,8 @@
 package pl.edu.amu.wmi.erykandroidcommon.rx
 
+import android.text.TextUtils
+import android.webkit.URLUtil
+
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@softra.pl> on 17.07.17.
  */
@@ -13,5 +16,7 @@ object StringUtils {
         }
         return url
     }
+
+    fun isValidUrl(url: String): Boolean = !TextUtils.isEmpty(url) && URLUtil.isValidUrl(url)
 
 }

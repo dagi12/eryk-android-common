@@ -4,6 +4,7 @@ import android.content.Context
 import android.support.annotation.StringRes
 import android.support.v7.app.AlertDialog
 import android.view.Gravity
+import android.widget.EditText
 import android.widget.TextView
 import io.reactivex.Completable
 import io.reactivex.Single
@@ -136,7 +137,25 @@ object ReactiveDialogs {
         }
     }
 
-    interface ButtonCallback {
-        fun callback()
+    fun textDialog(
+        context: Context,
+        title: String,
+        message: String): Single<String> = Single.create { emitter ->
+        val editText = EditText(context)
+        AlertDialog
+            .Builder(context)
+            .setMessage(message)
+            .setTitle(title)
+            .setView(editText)
+            .setPositiveButton(android.R.string.ok) { _, _ ->
+                emitter.onSuccess(editText.text.toString())
+            }
+            .create()
+            .show()
     }
 }
+
+interface ButtonCallback {
+    fun callback()
+}
+

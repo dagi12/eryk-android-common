@@ -35,7 +35,7 @@ abstract class CommonApplication : MultiDexApplication() {
             .builder()
             .commonApplicationModule(module)
             .build()
-        preConfig()
+//        preConfig()
     }
 
     abstract fun preConfig()
