@@ -50,7 +50,7 @@ internal class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter
         if (spinner != null && !TextUtils.isEmpty(label))
             (0 until spinner.count)
                 .filter { spinner.getItemAtPosition(it) == label }
-                .forEach { spinner.setSelection(it) }
+                .forEach(spinner::setSelection)
         return -1
     }
 }

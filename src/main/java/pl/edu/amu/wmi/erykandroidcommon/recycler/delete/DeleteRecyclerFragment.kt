@@ -15,7 +15,7 @@ abstract class DeleteRecyclerFragment<T, S : DeleteItemViewHolder<T>> : BasicRec
         }
         val deleteAdapter = adapter as DeleteViewAdapter<T, S>
         val clicks: Observable<T> = deleteAdapter.deleteClicks
-        clicks.subscribe({ this.delete(it) })
+        clicks.subscribe(::delete)
     }
 
     protected abstract fun delete(item: T)

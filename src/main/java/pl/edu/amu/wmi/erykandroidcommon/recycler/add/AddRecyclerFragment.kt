@@ -8,12 +8,12 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 abstract class AddRecyclerFragment<T, S : AddItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     @Suppress("UNCHECKED_CAST")
-    public override fun initBaseAdapter() {
+    override fun initBaseAdapter() {
         if (adapter == null) {
             adapter = adapterInit()
         }
         val addAdapter = adapter as AddViewAdapter<T, S>
-        addAdapter.addClicks.subscribe({ this.add(it) })
+        addAdapter.addClicks.subscribe(::add)
     }
 
     protected abstract fun add(item: T)
