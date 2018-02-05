@@ -24,8 +24,8 @@ android {
     defaultConfig {
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 3
-        versionName "1.11"
+        versionCode 4
+        versionName "1.12"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
     }
@@ -90,7 +90,7 @@ dependencies {
     }
 
     // rx
-    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     api 'com.f2prateek.rx.preferences2:rx-preferences:2.0.0-RC3'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
