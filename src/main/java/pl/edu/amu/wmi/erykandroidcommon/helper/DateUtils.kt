@@ -5,7 +5,8 @@ import android.content.Context
 import android.text.format.DateFormat
 import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 object DateUtils {
 
@@ -36,7 +37,7 @@ object DateUtils {
     }
 
     fun dayDifferenceToday(timestamp: Long): Int =
-            dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(Date()).time)
+        dayDifference(eKeyTimestampToJavaTimestamp(timestamp), getEndOfDay(Date()).time)
 
     private fun eKeyTimestampToJavaTimestamp(timestamp: Long): Long = timestamp * 1000
 
@@ -65,4 +66,11 @@ object DateUtils {
 
     fun currDateInLocale(context: Context) = DateFormat.getDateFormat(context).format(Calendar.getInstance().time)!!
 
+    fun dateInLocale(context: Context, date: Date) = DateFormat.getDateFormat(context).format(date)!!
+
+    fun intTimestampToDate(timestamp: Int): Date {
+        val date = Date()
+        date.time = (timestamp * 1000L)
+        return date
+    }
 }
