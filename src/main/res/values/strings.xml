@@ -2,6 +2,7 @@
     <string name="app_name" translatable="false">ErykAndroidCommon</string>
 
     <!-- Common stuff -->
+    <string name="parentheses" translatable="false">(%1$d)</string>
     <string name="installation_bluetooth" translatable="false">Bluetooth</string>
     <string name="error">Error</string>
     <string name="notification">Notification</string>

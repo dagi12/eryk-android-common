@@ -13,6 +13,7 @@ import android.widget.TextView
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.R
+import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
@@ -41,7 +42,10 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
             .doFinally({ hideThrobber() })
     }
 
-    abstract val progressColor: Int
+    private val progressColor: Int by lazy {
+        val app: CommonApplication = applicationContext as CommonApplication
+        app.appConfig.progressColor
+    }
 
     fun initIndeterminateProgress() {
         progressBar = ButteryProgressBar(this, null, progressColor)

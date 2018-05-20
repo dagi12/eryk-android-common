@@ -5,35 +5,37 @@ import android.widget.ImageView
 
 import com.squareup.picasso.Callback
 import com.squareup.picasso.NetworkPolicy
-import com.squareup.picasso.OkHttpDownloader
+import com.squareup.picasso.OkHttp3Downloader
 import com.squareup.picasso.Picasso
 
 import timber.log.Timber
+import java.lang.Exception
 
-class PicassoCache(private val context: Context) {
+public class PicassoCache(private val context: Context) {
+
+    private val picasso: Picasso
 
     init {
         val builder = Picasso.Builder(context)
-        builder.downloader(OkHttpDownloader(context, Integer.MAX_VALUE.toLong()))
-        val picasso = builder.build()
+        builder.downloader(OkHttp3Downloader(context, Integer.MAX_VALUE.toLong()))
+        picasso = builder.build()
         Picasso.setSingletonInstance(picasso)
     }
 
     fun getImage(imageView: ImageView, url: String) {
-        Picasso
-            .with(context)
+        picasso
             .load(url)
             .networkPolicy(NetworkPolicy.OFFLINE)
             .into(imageView, object : Callback {
-                override fun onSuccess() {
-                    Timber.i("Image fetched")
-                }
-
-                override fun onError() {
-                    Picasso
-                        .with(context)
+                override fun onError(e: Exception?) {
+                    e?.let { Timber.d(e) }
+                    picasso
                         .load(url)
                         .into(imageView)
+                }
+
+                override fun onSuccess() {
+                    Timber.i("Image fetched")
                 }
             })
     }

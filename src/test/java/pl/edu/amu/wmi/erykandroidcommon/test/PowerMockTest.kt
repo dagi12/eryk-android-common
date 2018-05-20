@@ -1,5 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.test
 
+import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Rule
 import org.junit.Test
@@ -19,12 +20,20 @@ import pl.edu.amu.wmi.erykandroidcommon.BuildConfig
 @RunWith(RobolectricTestRunner::class)
 @Config(constants = BuildConfig::class, sdk = [26])
 @PowerMockIgnore("org.mockito.*", "org.robolectric.*", "android.*")
-@PrepareForTest(TestStatic::class, TestNonStatic::class)
+@PrepareForTest(TestStatic::class, TestNonStatic::class, Thread::class)
 class PowerMockTest {
 
     @JvmField
     @Rule
     val rule = PowerMockRule()
+
+    @Test
+    fun testThreadMock() {
+        PowerMockito.mockStatic(Thread::class.java)
+        val handler = Thread.UncaughtExceptionHandler { _, _ -> }
+        PowerMockito.`when`(Thread.getDefaultUncaughtExceptionHandler()).thenReturn(handler)
+        assertEquals(handler, Thread.getDefaultUncaughtExceptionHandler())
+    }
 
     @Test
     fun testStaticMocking() {

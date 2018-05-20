@@ -19,7 +19,7 @@ const val UNHANDLED_EXCEPTION_MESSAGE = "Unhandled exception"
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 21.10.17.
  */
-abstract class CommonApplication : MultiDexApplication() {
+abstract class CommonApplication(val appConfig: AppConfig, val isDebug: Boolean, val mainActivity: Class<out Activity>, val register: Class<out Activity>) : MultiDexApplication() {
 
     lateinit var commonGraph: CommonApplicationComponent
 
@@ -47,20 +47,12 @@ abstract class CommonApplication : MultiDexApplication() {
             .tag("")
             .build()
         Logger.addLogAdapter(AndroidLogAdapter(formatStrategy))
-        Timber.plant(object : Timber.DebugTree() {
-            override fun log(priority: Int, tag: String?, message: String, t: Throwable?) =
-                Logger.log(priority, tag, message, t)
-        })
+        Timber.plant(debugTree)
         Timber.plant(CrashlyticsLogTree(Log.DEBUG))
         Timber.plant(CrashlyticsLogExceptionTree())
     }
 
-    abstract val appConstants: AppConstants
-
-    abstract val isDebug: Boolean
-
-    abstract val mainActivity: Class<out Activity>
-
-    abstract val register: Class<out Activity>
-
+    val debugTree = object : Timber.DebugTree() {
+        override fun log(priority: Int, tag: String?, message: String, t: Throwable?) = Logger.log(priority, tag, message, t)
+    }
 }

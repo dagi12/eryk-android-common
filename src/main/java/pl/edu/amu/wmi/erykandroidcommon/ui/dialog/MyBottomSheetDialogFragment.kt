@@ -12,7 +12,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import pl.edu.amu.wmi.erykandroidcommon.R
 
-abstract class MyBottomSheetDialogFragment(@LayoutRes val layoutRes: Int) : AppCompatDialogFragment() {
+abstract class MyBottomSheetDialogFragment(@LayoutRes private val layoutRes: Int? = null) : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val sheetDialog = BottomSheetDialog(activity!!, R.style.Common_BottomSheet)
@@ -27,6 +27,11 @@ abstract class MyBottomSheetDialogFragment(@LayoutRes val layoutRes: Int) : AppC
         return sheetDialog
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
-        inflater.inflate(layoutRes, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if (layoutRes != null) {
+            return inflater.inflate(layoutRes, container, false)
+        }
+        return super.onCreateView(inflater, container, savedInstanceState)
+    }
+
 }

@@ -37,9 +37,9 @@ class RatingCountBar : Fragment() {
     }
 
     fun setData(pair: RateCountPair?) {
-        if (pair != null) {
-            rating.rating = pair.rating
-            ratingCount!!.text = "(${pair.count})"
+        pair?.let {
+            rating.rating = it.rating!!
+            ratingCount!!.text = activity.getString(R.string.parentheses, pair.count)
         }
     }
 

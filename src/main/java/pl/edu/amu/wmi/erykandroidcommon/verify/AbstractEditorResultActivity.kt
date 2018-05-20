@@ -10,9 +10,9 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity
 import pl.edu.amu.wmi.erykandroidcommon.helper.WindowUtil
 
-abstract class AbstractEditorResultActivity(fieldVerifier: FieldVerifier) : BaseActivity() {
+abstract class AbstractEditorResultActivity : BaseActivity(), FieldVerifier {
 
-    private val formVerificationManager = FormVerificationManager(fieldVerifier, applicationContext)
+    private lateinit var manager: FormVerificationManager
 
     @get:MenuRes
     internal abstract val menuRes: Int
@@ -24,7 +24,7 @@ abstract class AbstractEditorResultActivity(fieldVerifier: FieldVerifier) : Base
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_send) {
-            if (formVerificationManager.verify()) {
+            if (manager.verify()) {
                 setResult(1, putExtraResult(Intent()))
                 finish()
             }
@@ -40,5 +40,6 @@ abstract class AbstractEditorResultActivity(fieldVerifier: FieldVerifier) : Base
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowUtil.enableActionBar(this)
+        manager = FormVerificationManager(this, applicationContext)
     }
 }

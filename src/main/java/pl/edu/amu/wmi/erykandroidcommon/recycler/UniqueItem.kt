@@ -5,7 +5,6 @@ package pl.edu.amu.wmi.erykandroidcommon.recycler
  */
 interface UniqueItem {
 
-    val id: Int
-
     val name: String
+    val id: Int?
 }

@@ -1,8 +1,5 @@
 package pl.edu.amu.wmi.erykandroidcommon.exception
 
-internal class HiddenElementException : RuntimeException(MESSAGE) {
-    companion object {
+const val MESSAGE = "Przycisk oferujący tą funkcjonalność jest ukryty"
 
-        private val MESSAGE = "Przycisk oferujący tą funkcjonalność jest ukryty"
-    }
-}
+class HiddenElementException : RuntimeException(MESSAGE)

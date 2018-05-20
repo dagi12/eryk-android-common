@@ -5,6 +5,7 @@ import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.Gson
 import dagger.Component
 import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity
+import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache
 import pl.edu.amu.wmi.erykandroidcommon.verify.FormVerificationManager
 import javax.inject.Singleton
 
@@ -15,6 +16,7 @@ import javax.inject.Singleton
 @Component(modules = [CommonApplicationModule::class])
 interface CommonApplicationComponent {
 
+    fun picassoCache(): PicassoCache
     fun gson(): Gson
     fun application(): Application
     fun commonApplication(): CommonApplication

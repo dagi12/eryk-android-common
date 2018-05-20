@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler
 
 import android.app.Fragment
+import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -8,8 +9,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import pl.edu.amu.wmi.erykandroidcommon.exception.WrongViewException
+import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache
+import javax.inject.Inject
 
 abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> : Fragment() {
+
+    @Inject
+    lateinit var picassoCache: PicassoCache
+    @Deprecated("Use buttery progress bar instead")
+    lateinit var progressDialog: ProgressDialog
 
     private var mListener: OnListFragmentInteractionListener<T>? = null
 
@@ -19,14 +27,13 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
 
     abstract val itemViewId: Int
 
-    private fun initRecyclerView(recyclerView: RecyclerView) {
+    protected open fun initRecyclerView(recyclerView: RecyclerView) {
         recyclerView.layoutManager = LinearLayoutManager(recyclerView.context)
         myRecyclerViewAdapter = MyRecyclerViewAdapter(this)
         recyclerView.adapter = myRecyclerViewAdapter
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(listWrapperId, container, false)
         var recyclerViewId = 0
         if (arguments != null) {
@@ -55,6 +62,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val context = activity
+        progressDialog = ProgressDialog(context)
         if (context is OnListFragmentInteractionListener<*>) {
             mListener = context as OnListFragmentInteractionListener<T>
         }
@@ -84,7 +92,6 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     }
 
     companion object {
-
-        private val RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID"
+        const val RECYCLER_VIEW_ID_PARAM = "RECYCLER_VIEW_ID"
     }
 }

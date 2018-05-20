@@ -4,9 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.preference.PreferenceManager
 import com.f2prateek.rx.preferences2.RxSharedPreferences
+import com.google.gson.ExclusionStrategy
+import com.google.gson.FieldAttributes
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
+import com.google.gson.annotations.Expose
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
@@ -79,23 +82,22 @@ class CommonApplicationModule(private val application: CommonApplication) {
     @Singleton
     fun provideGson(): Gson = GsonBuilder()
         .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
-//            .addSerializationExclusionStrategy(object : ExclusionStrategy {
-//                override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
-//                    val expose: Expose = fieldAttributes.getAnnotation(Expose::class.java)
-//                    return !expose.serialize
+        .addSerializationExclusionStrategy(object : ExclusionStrategy {
+            override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
+                val expose = fieldAttributes.getAnnotation(Expose::class.java)
+                return expose != null && !expose.serialize
+            }
 
-//                }
-//
-//                override fun shouldSkipClass(aClass: Class<*>): Boolean = false
-//            })
-//            .addDeserializationExclusionStrategy(object : ExclusionStrategy {
-//                override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
-//                    val expose = fieldAttributes.getAnnotation(Expose::class.java)
-//                    return expose != null && !expose.deserialize
-//                }
-//
-//                override fun shouldSkipClass(aClass: Class<*>): Boolean = false
-//            })
+            override fun shouldSkipClass(aClass: Class<*>): Boolean = false
+        })
+        .addDeserializationExclusionStrategy(object : ExclusionStrategy {
+            override fun shouldSkipField(fieldAttributes: FieldAttributes): Boolean {
+                val expose = fieldAttributes.getAnnotation(Expose::class.java)
+                return expose != null && !expose.deserialize
+            }
+
+            override fun shouldSkipClass(aClass: Class<*>): Boolean = false
+        })
         .create()
 
     @Provides

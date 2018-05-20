@@ -11,14 +11,13 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.recycler.UniqueItem
 import java.util.ArrayList
 
-internal class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter<T>(context, R.layout.spinner_item) {
+open class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter<T>(context, R.layout.spinner_item) {
 
-    private var values: List<T> = ArrayList()
-
-    fun setValues(values: List<T>) {
-        this.values = values
-        notifyDataSetChanged()
-    }
+    var values: List<T> = ArrayList()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun getCount(): Int = values.size
 
@@ -40,7 +39,7 @@ internal class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter
         return view
     }
 
-    private fun getLabel(item: T?): String = item!!.name
+    open fun getLabel(item: T?): String = item!!.name
 
     fun getItemLabel(position: Int): String = getLabel(getItem(position))
 

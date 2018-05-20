@@ -2,11 +2,11 @@ package pl.edu.amu.wmi.erykandroidcommon.recycler
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.app.DialogFragment
 import android.os.Bundle
-import android.support.v7.app.AppCompatDialogFragment
 import pl.edu.amu.wmi.erykandroidcommon.R
 
-class EmptyGridDialogFragment : AppCompatDialogFragment() {
+class EmptyGridDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
         val builder = AlertDialog.Builder(activity, R.style.Common)
@@ -21,8 +21,6 @@ class EmptyGridDialogFragment : AppCompatDialogFragment() {
     }
 
     companion object {
-
-        val instance: EmptyGridDialogFragment
-            get() = EmptyGridDialogFragment()
+        val instance: EmptyGridDialogFragment get() = EmptyGridDialogFragment()
     }
 }
