@@ -22,6 +22,19 @@
     <string name="publish">Publish</string>
     <string name="initializing">Initializing…</string>
 
+    <string name="sign_up">Sign up</string>
+    <string name="sign_out">Sign out</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="filter_search">Search</string>
+    <string name="menu_edit">Edit</string>
+    <string name="menu_remove">Remove</string>
+    <string name="content_open_popup">Open Popup Menu</string>
+    <string name="user">User</string>
+    <string name="website">Website</string>
+    <string name="current_position">Current position</string>
+    <string name="login_failure">Login failure</string>
+
+
     <!-- plurals -->
     <plurals name="seconds">
         <item quantity="one">%d Second</item>
@@ -101,5 +114,6 @@
     <string name="nov">Nov</string>
     <string name="dec">Dec</string>
 
+    <string name="settings_label">Settings</string>
 
 </resources>

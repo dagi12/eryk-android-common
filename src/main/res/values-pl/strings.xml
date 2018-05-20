@@ -17,6 +17,18 @@
     <string name="publish">Opublikuj</string>
     <string name="initializing">Initializing…</string>
 
+    <string name="sign_up">Zaloguj się</string>
+    <string name="sign_out">Wyloguj się</string>
+    <string name="no_internet_connection">Brak połączenia internetowego</string>
+    <string name="filter_search">Szukaj</string>
+    <string name="menu_edit">Edytuj</string>
+    <string name="menu_remove">Usuń</string>
+    <string name="content_open_popup">Otwórz menu</string>
+    <string name="user">Użytkownik</string>
+    <string name="website">Strona internetowa</string>
+    <string name="current_position">Aktualna pozycja</string>
+    <string name="login_failure">Logowanie nieudane</string>
+
     <!-- plurals -->
     <plurals name="seconds">
         <item quantity="one">%d Sekunda</item>
@@ -100,5 +112,7 @@
     <string name="oct">Paź</string>
     <string name="nov">Lis</string>
     <string name="dec">Gru</string>
+
+    <string name="settings_label">Ustawienia</string>
 
 </resources>
