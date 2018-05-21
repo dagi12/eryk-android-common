@@ -19,7 +19,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     @Deprecated("Use buttery progress bar instead")
     lateinit var progressDialog: ProgressDialog
 
-    private var mListener: OnListFragmentInteractionListener<T>? = null
+    private var mListener: InteractionListener<T>? = null
 
     lateinit var myRecyclerViewAdapter: MyRecyclerViewAdapter<T, S>
 
@@ -63,8 +63,8 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         super.onCreate(savedInstanceState)
         val context = activity
         progressDialog = ProgressDialog(context)
-        if (context is OnListFragmentInteractionListener<*>) {
-            mListener = context as OnListFragmentInteractionListener<T>
+        if (context is InteractionListener<*>) {
+            mListener = context as InteractionListener<T>
         }
     }
 
@@ -72,7 +72,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         holder.item = t
         holder.setRow()
         holder.view.setOnClickListener {
-            mListener?.onListFragmentInteraction(holder.item!!)
+            mListener?.action(holder.item)
         }
     }
 
