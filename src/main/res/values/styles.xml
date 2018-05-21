@@ -35,22 +35,22 @@
         <item name="android:topDark">?android:attr/colorPrimaryDark</item>
     </style>
 
-    <style name="Common.SpinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    <style name="Common.SpinnerItemStyle" parent="Widget.AppCompat.TextView.SpinnerItem">
         <item name="android:ellipsize">marquee</item>
         <item name="android:singleLine">true</item>
-        <item name="android:background">?android:attr/colorPrimaryDark</item>
-        <item name="android:textColor">?android:attr/textColor</item>
-        <item name="android:textSize">?android:attr/textSize</item>
-        <item name="android:padding">?android:attr/padding</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_1.5x</item>
+        <item name="android:padding">@dimen/padding_1x</item>
     </style>
 
-    <style name="Common.SpinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+
+    <style name="Common.SpinnerDropDownItemStyle" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
         <item name="android:ellipsize">marquee</item>
         <item name="android:singleLine">true</item>
-        <item name="android:padding">?android:attr/padding</item>
-        <item name="android:background">?android:attr/colorPrimaryDark</item>
-        <item name="android:textColor">?android:attr/textColor</item>
-        <item name="android:textSize">?android:attr/textSize</item>
+        <item name="android:background">?attr/colorPrimary</item>
+        <item name="android:textColor">?android:textColorPrimary</item>
+        <item name="android:textSize">@dimen/text_size_1.5x</item>
+        <item name="android:padding">@dimen/padding_1x</item>
     </style>
 
     <style name="Common.BottomSheet" parent="Theme.Design.BottomSheetDialog">
