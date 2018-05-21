@@ -11,14 +11,14 @@ import com.squareup.picasso.Picasso
 import timber.log.Timber
 import java.lang.Exception
 
-public class PicassoCache(private val context: Context) {
+class PicassoCache(context: Context) {
 
-    private val picasso: Picasso
+    private val picasso: Picasso = Picasso
+        .Builder(context)
+        .downloader(OkHttp3Downloader(context, Integer.MAX_VALUE.toLong()))
+        .build()
 
     init {
-        val builder = Picasso.Builder(context)
-        builder.downloader(OkHttp3Downloader(context, Integer.MAX_VALUE.toLong()))
-        picasso = builder.build()
         Picasso.setSingletonInstance(picasso)
     }
 
