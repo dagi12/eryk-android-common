@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 31.08.17.
  */
-abstract class SelectViewAdapter<T, S : SelectItemViewHolder<T>>
+abstract class SelectViewAdapter<T : Any, S : SelectItemViewHolder<T>>
 //    private RadioButton lastChecked = null;
 
 (private val listener: OnFirstSelectListener) : BasicViewAdapter<T, S>() {

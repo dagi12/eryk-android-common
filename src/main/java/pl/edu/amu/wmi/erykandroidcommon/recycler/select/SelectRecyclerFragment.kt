@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 31.08.17.
  */
-abstract class SelectRecyclerFragment<T, S : SelectItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
+abstract class SelectRecyclerFragment<T : Any, S : SelectItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     private val selectAdapter: SelectViewAdapter<T, S>? = null
 

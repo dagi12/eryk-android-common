@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-internal abstract class AddViewAdapter<T, S : AddItemViewHolder<T>> : BasicViewAdapter<T, S>() {
+internal abstract class AddViewAdapter<T : Any, S : AddItemViewHolder<T>> : BasicViewAdapter<T, S>() {
 
     private val onAddClickSubject = PublishSubject.create<T>()
 

@@ -6,7 +6,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicRecyclerFragment
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-abstract class DeleteRecyclerFragment<T, S : DeleteItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
+abstract class DeleteRecyclerFragment<T : Any, S : DeleteItemViewHolder<T>> : BasicRecyclerFragment<T, S>() {
 
     @Suppress("UNCHECKED_CAST")
     override fun initBaseAdapter() {

@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 31.08.17.
  */
-abstract class SelectItemViewHolder<T>(itemView: View) : AbstractViewHolder<T>(itemView) {
+abstract class SelectItemViewHolder<T : Any>(itemView: View) : AbstractViewHolder<T>(itemView) {
 
     var radio: RadioButton? = null
 

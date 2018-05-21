@@ -7,7 +7,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.basic.BasicViewAdapter
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-abstract class DeleteViewAdapter<T, S : DeleteItemViewHolder<T>> : BasicViewAdapter<T, S>() {
+abstract class DeleteViewAdapter<T : Any, S : DeleteItemViewHolder<T>> : BasicViewAdapter<T, S>() {
 
     private val onDeleteClickSubject = PublishSubject.create<T>()
 

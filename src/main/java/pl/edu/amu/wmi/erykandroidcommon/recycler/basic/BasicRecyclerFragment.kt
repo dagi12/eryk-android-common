@@ -8,7 +8,7 @@ import kotlinx.android.synthetic.main.stub.*
 import pl.edu.amu.wmi.erykandroidcommon.base.BaseFragment
 import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
-abstract class BasicRecyclerFragment<T, S : AbstractViewHolder<T>> : BaseFragment() {
+abstract class BasicRecyclerFragment<T : Any, S : AbstractViewHolder<T>> : BaseFragment() {
 
     protected var adapter: BasicViewAdapter<T, *>? = null
 

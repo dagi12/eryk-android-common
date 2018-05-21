@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 /**
  * @author Eryk Mariankowski <eryk.mariankowski></eryk.mariankowski>@247.codes> on 28.07.17.
  */
-abstract class DeleteItemViewHolder<T> protected constructor(itemView: View) : AbstractViewHolder<T>(itemView) {
+abstract class DeleteItemViewHolder<T : Any> protected constructor(itemView: View) : AbstractViewHolder<T>(itemView) {
 
     private val onDeleteClickSubject = PublishSubject.create<T>()
 
@@ -19,7 +19,7 @@ abstract class DeleteItemViewHolder<T> protected constructor(itemView: View) : A
 //        btn_delete.set
     }
 
-    fun onDeleteClicked() = onDeleteClickSubject.onNext(item!!)
+    fun onDeleteClicked() = onDeleteClickSubject.onNext(item)
 
     fun deleteVisible(isVisible: Boolean) {
 //        btn_delete!!.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
