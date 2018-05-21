@@ -9,11 +9,11 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 class EmptyGridDialogFragment : DialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity, R.style.Common)
+        val builder = AlertDialog.Builder(activity)
         builder
             .setTitle(getString(R.string.no_data))
             .setNegativeButton(android.R.string.ok) { dialogInterface, _ ->
-                activity!!.finish()
+                activity.finish()
                 dialogInterface.dismiss()
             }
 

@@ -61,7 +61,6 @@ abstract class FullScreenFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>>
 
     interface FullScreenListener {
         fun onComplete()
-
         fun onDetach()
     }
 }
