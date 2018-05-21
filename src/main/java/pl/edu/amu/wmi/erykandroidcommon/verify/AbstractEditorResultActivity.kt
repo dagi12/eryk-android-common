@@ -2,20 +2,16 @@ package pl.edu.amu.wmi.erykandroidcommon.verify
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.annotation.MenuRes
 import android.view.Menu
 import android.view.MenuItem
-
 import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.base.BaseActivity
 import pl.edu.amu.wmi.erykandroidcommon.helper.WindowUtil
 
 abstract class AbstractEditorResultActivity : BaseActivity(), FieldVerifier {
 
+    private val menuRes = R.menu.post_editor_menu
     private lateinit var manager: FormVerificationManager
-
-    @get:MenuRes
-    internal abstract val menuRes: Int
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(menuRes, menu)
@@ -40,6 +36,6 @@ abstract class AbstractEditorResultActivity : BaseActivity(), FieldVerifier {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         WindowUtil.enableActionBar(this)
-        manager = FormVerificationManager(this, applicationContext)
+        manager = FormVerificationManager(this, this)
     }
 }
