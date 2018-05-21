@@ -8,7 +8,7 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 
 class EmptyGridDialogFragment : DialogFragment() {
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity, R.style.Common)
         builder
             .setTitle(getString(R.string.no_data))

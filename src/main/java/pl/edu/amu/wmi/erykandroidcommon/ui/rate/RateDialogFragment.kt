@@ -23,7 +23,7 @@ class RateDialogFragment : DialogFragment() {
         }
     }
 
-    override fun onCreateDialog(savedInstanceState: Bundle): Dialog {
+    override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(activity,
             R.style.Common_MyAlertDialogStyle)
         builder.setTitle(arguments.getString(VOTE_TITLE_PARAM))

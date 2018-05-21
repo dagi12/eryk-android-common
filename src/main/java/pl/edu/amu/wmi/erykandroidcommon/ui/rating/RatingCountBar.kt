@@ -8,13 +8,14 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import kotlinx.android.synthetic.main.fragment_rating_count_bar.*
+import kotlinx.android.synthetic.main.fragment_rating_count_bar.view.*
 import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.adapter.LoginSuccessAdapter
 import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException
 
 class RatingCountBar : Fragment() {
 
-    private var adapter: RatingCountBarAdapter? = null
+    lateinit var adapter: Runnable
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,17 +23,17 @@ class RatingCountBar : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle): View? {
+                              savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_rating_count_bar, container, false)
-        rating.setOnTouchListener(onTouchListener)
+        view.rating.setOnTouchListener(onTouchListener)
         return view
     }
 
     private fun initialize(context: Context) {
         adapter = if (context is LoginSuccessAdapter) {
-            context as RatingCountBarAdapter
+            context as Runnable
         } else {
-            throw AdapterLackException(activity, RatingCountBarAdapter::class.java)
+            throw AdapterLackException(activity, Runnable::class.java)
         }
     }
 
@@ -45,19 +46,16 @@ class RatingCountBar : Fragment() {
 
     private val onTouchListener = View.OnTouchListener { _, motionEvent ->
         if (motionEvent.action == MotionEvent.ACTION_UP) {
-            adapter!!.onClick()
+            adapter.run()
         }
         true
     }
 
     private fun onTouch(motionEvent: MotionEvent): Boolean {
         if (motionEvent.action == MotionEvent.ACTION_UP) {
-            adapter!!.onClick()
+            adapter.run()
         }
         return false
     }
 
-    interface RatingCountBarAdapter {
-        fun onClick()
-    }
 }
