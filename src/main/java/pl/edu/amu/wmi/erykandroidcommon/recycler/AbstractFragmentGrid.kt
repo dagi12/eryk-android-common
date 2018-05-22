@@ -16,11 +16,12 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
 
     @Inject
     lateinit var picassoCache: PicassoCache
+
     @Deprecated("Use buttery progress bar instead")
 
     lateinit var progressDialog: ProgressDialog
 
-    private var mListener: MyConsumer<T>? = null
+    private var mListener: OnItemClickListener<T>? = null
 
     lateinit var myRecyclerViewAdapter: MyRecyclerViewAdapter<T, S>
 
@@ -64,8 +65,8 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         super.onCreate(savedInstanceState)
         val context = activity
         progressDialog = ProgressDialog(context)
-        if (context is MyConsumer<*>) {
-            mListener = context as MyConsumer<T>
+        if (context is OnItemClickListener<*>) {
+            mListener = context as OnItemClickListener<T>
         }
     }
 
@@ -73,7 +74,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         holder.item = t
         holder.setRow()
         holder.view.setOnClickListener {
-            mListener?.myApply(holder.item)
+            mListener?.onItemClick(holder.item)
         }
     }
 
