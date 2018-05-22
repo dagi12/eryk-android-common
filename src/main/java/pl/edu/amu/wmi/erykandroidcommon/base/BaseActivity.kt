@@ -23,23 +23,25 @@ import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
  */
 abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
 
-    private var progressBar: ButteryProgressBar? = null
+    private val progressBar: ButteryProgressBar by lazy {
+        ButteryProgressBar(this, null, progressColor)
+    }
 
     override fun showThrobber() {
-        progressBar!!.visibility = VISIBLE
+        progressBar.visibility = VISIBLE
         window.setFlags(FLAG_NOT_TOUCHABLE, FLAG_NOT_TOUCHABLE)
     }
 
     override fun hideThrobber() {
-        progressBar!!.visibility = INVISIBLE
+        progressBar.visibility = INVISIBLE
         window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
     }
 
     fun <T> singleWithThrobber() = SingleTransformer<T, T> {
         it
-            .doOnSubscribe { showThrobber() }
-            .observeOn(AndroidSchedulers.mainThread())
-            .doFinally({ hideThrobber() })
+                .doOnSubscribe { showThrobber() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally({ hideThrobber() })
     }
 
     private val progressColor: Int by lazy {
@@ -48,9 +50,8 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     }
 
     fun initIndeterminateProgress() {
-        progressBar = ButteryProgressBar(this, null, progressColor)
-        progressBar!!.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, 24)
-        progressBar!!.visibility = INVISIBLE
+        progressBar.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, 24)
+        progressBar.visibility = INVISIBLE
         val viewGroup = findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
         viewGroup.addView(progressBar, 0)
     }

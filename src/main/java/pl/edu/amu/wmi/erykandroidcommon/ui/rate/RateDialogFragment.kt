@@ -12,7 +12,7 @@ import pl.edu.amu.wmi.erykandroidcommon.ui.spinner.NumberSpinnerAdapter
 
 class RateDialogFragment : DialogFragment() {
 
-    private var adapter: RateResultAdapter? = null
+    lateinit var adapter: RateResultAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,14 +28,14 @@ class RateDialogFragment : DialogFragment() {
             R.style.Common_MyAlertDialogStyle)
         builder.setTitle(arguments.getString(VOTE_TITLE_PARAM))
             .setNegativeButton(android.R.string.cancel) { _, _ -> }
-            .setPositiveButton(android.R.string.ok) { _, _ -> adapter!!.processVote(rate_spinner!!.selectedItem as Int) }
+                .setPositiveButton(android.R.string.ok) { _, _ -> adapter.processVote(rate_spinner.selectedItem as Int) }
 
         val parent = activity.findViewById<ViewGroup>(android.R.id.content)
         val inflater = activity.layoutInflater
         val view = inflater.inflate(R.layout.fragment_rate_dialog, parent, false)
         builder.setView(view)
         val dialog = builder.create()
-        rate_spinner!!.adapter = NumberSpinnerAdapter(activity, arguments.getInt(MAX_POINTS_PARAM))
+        rate_spinner.adapter = NumberSpinnerAdapter(activity, arguments.getInt(MAX_POINTS_PARAM))
         return dialog
     }
 
@@ -49,11 +49,11 @@ class RateDialogFragment : DialogFragment() {
 
         private val MAX_POINTS_PARAM = "MAX_POINTS"
 
-        fun getInstance(message: String, maxPoints: Int?): RateDialogFragment {
+        fun getInstance(message: String, maxPoints: Int): RateDialogFragment {
             val rateDialogFragment = RateDialogFragment()
             val args = Bundle()
             args.putString(VOTE_TITLE_PARAM, message)
-            args.putInt(MAX_POINTS_PARAM, maxPoints!!)
+            args.putInt(MAX_POINTS_PARAM, maxPoints)
             rateDialogFragment.arguments = args
             return rateDialogFragment
         }

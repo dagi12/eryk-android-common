@@ -17,6 +17,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     @Inject
     lateinit var picassoCache: PicassoCache
     @Deprecated("Use buttery progress bar instead")
+
     lateinit var progressDialog: ProgressDialog
 
     private var mListener: MyConsumer<T>? = null

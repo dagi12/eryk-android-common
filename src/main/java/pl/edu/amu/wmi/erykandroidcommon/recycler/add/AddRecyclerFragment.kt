@@ -9,9 +9,6 @@ abstract class AddRecyclerFragment<T : Any, S : AddItemViewHolder<T>> : BasicRec
 
     @Suppress("UNCHECKED_CAST")
     override fun initBaseAdapter() {
-        if (adapter == null) {
-            adapter = adapterInit()
-        }
         val addAdapter = adapter as AddViewAdapter<T, S>
         addAdapter.addClicks.subscribe(::add)
     }

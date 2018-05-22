@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.di
 
 import android.app.Application
+import android.content.Context
 import com.f2prateek.rx.preferences2.RxSharedPreferences
 import com.google.gson.Gson
 import dagger.Component
@@ -16,6 +17,7 @@ import javax.inject.Singleton
 @Component(modules = [CommonApplicationModule::class])
 interface CommonApplicationComponent {
 
+    fun provideContext(): Context
     fun picassoCache(): PicassoCache
     fun gson(): Gson
     fun application(): Application

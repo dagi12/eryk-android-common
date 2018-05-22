@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import io.reactivex.CompletableTransformer
@@ -18,13 +17,10 @@ import java.net.UnknownHostException
  */
 open class BaseFragment : Fragment() {
 
-    lateinit var baseAdapter: BaseAdapter
-
-    lateinit var activity: Activity
+    private lateinit var baseAdapter: BaseAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        this.activity = getActivity()!!
         initBaseAdapter()
     }
 
@@ -32,7 +28,7 @@ open class BaseFragment : Fragment() {
         baseAdapter = try {
             activity as BaseAdapter
         } catch (e: ClassCastException) {
-            throw AdapterLackException(activity, BaseAdapter::class.java)
+            throw AdapterLackException(activity!!, BaseAdapter::class.java)
         }
     }
 
@@ -59,27 +55,27 @@ open class BaseFragment : Fragment() {
 
     fun <T> singleWithThrobber() = SingleTransformer<T, T> {
         it
-            .doOnSubscribe { baseAdapter.showThrobber() }
-            .doFinally({ baseAdapter.hideThrobber() })
+                .doOnSubscribe { baseAdapter.showThrobber() }
+                .doFinally({ baseAdapter.hideThrobber() })
     }
 
     fun <T> observableWithThrobber() = ObservableTransformer<T, T> {
         it
-            .doOnSubscribe { _ -> baseAdapter.showThrobber() }
-            .doFinally({ baseAdapter.hideThrobber() })
+                .doOnSubscribe { _ -> baseAdapter.showThrobber() }
+                .doFinally({ baseAdapter.hideThrobber() })
     }
 
     fun <T> maybeWithThrobber() =
-        MaybeTransformer<T, T> {
-            it
-                .doOnSubscribe({ _ -> baseAdapter.showThrobber() })
-                .doFinally({ baseAdapter.hideThrobber() })
-        }
+            MaybeTransformer<T, T> {
+                it
+                        .doOnSubscribe({ _ -> baseAdapter.showThrobber() })
+                        .doFinally({ baseAdapter.hideThrobber() })
+            }
 
     fun completableWithThrobber() =
-        CompletableTransformer {
-            it
-                .doOnSubscribe({ baseAdapter.showThrobber() })
-                .doFinally({ baseAdapter.hideThrobber() })
-        }
+            CompletableTransformer {
+                it
+                        .doOnSubscribe({ baseAdapter.showThrobber() })
+                        .doFinally({ baseAdapter.hideThrobber() })
+            }
 }

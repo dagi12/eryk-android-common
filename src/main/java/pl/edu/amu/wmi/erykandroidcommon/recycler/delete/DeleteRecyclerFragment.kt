@@ -10,9 +10,6 @@ abstract class DeleteRecyclerFragment<T : Any, S : DeleteItemViewHolder<T>> : Ba
 
     @Suppress("UNCHECKED_CAST")
     override fun initBaseAdapter() {
-        if (adapter == null) {
-            adapter = adapterInit()
-        }
         val deleteAdapter = adapter as DeleteViewAdapter<T, S>
         val clicks: Observable<T> = deleteAdapter.deleteClicks
         clicks.subscribe(::delete)

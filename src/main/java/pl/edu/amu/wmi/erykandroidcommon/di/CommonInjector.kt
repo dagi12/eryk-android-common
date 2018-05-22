@@ -6,14 +6,12 @@ package pl.edu.amu.wmi.erykandroidcommon.di
 
 object CommonInjector : AbstractInjector<CommonApplicationComponent, CommonApplication> {
 
-    override var _graph: CommonApplicationComponent? = null
-
-    override val graph: CommonApplicationComponent by lazy { _graph!! }
+    override lateinit var graph: CommonApplicationComponent
 
     override fun initGraph(application: CommonApplication) {
-        _graph = DaggerCommonApplicationComponent
-            .builder()
-            .commonApplicationModule(CommonApplicationModule(application))
-            .build()
+        graph = DaggerCommonApplicationComponent
+                .builder()
+                .commonApplicationModule(CommonApplicationModule(application))
+                .build()
     }
 }

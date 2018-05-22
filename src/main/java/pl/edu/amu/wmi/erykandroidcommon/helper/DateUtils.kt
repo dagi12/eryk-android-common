@@ -5,8 +5,7 @@ import android.content.Context
 import android.text.format.DateFormat
 import pl.edu.amu.wmi.erykandroidcommon.rx.StringUtils
 import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
+import java.util.*
 
 object DateUtils {
 
@@ -72,5 +71,9 @@ object DateUtils {
         val date = Date()
         date.time = (timestamp * 1000L)
         return date
+    }
+
+    fun tooLongTokenLifeTime(iss: Long, diff: Int): Boolean {
+        return System.currentTimeMillis() - iss * 1000 > diff
     }
 }

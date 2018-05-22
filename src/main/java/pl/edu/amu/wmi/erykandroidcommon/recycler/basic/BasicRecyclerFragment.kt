@@ -10,7 +10,9 @@ import pl.edu.amu.wmi.erykandroidcommon.recycler.AbstractViewHolder
 
 abstract class BasicRecyclerFragment<T : Any, S : AbstractViewHolder<T>> : BaseFragment() {
 
-    protected var adapter: BasicViewAdapter<T, *>? = null
+    protected val adapter: BasicViewAdapter<T, *> by lazy {
+        adapterInit()
+    }
 
     protected abstract fun adapterInit(): BasicViewAdapter<T, S>
 
@@ -24,14 +26,11 @@ abstract class BasicRecyclerFragment<T : Any, S : AbstractViewHolder<T>> : BaseF
     abstract fun initUi()
 
     protected fun initBasicFragment(itemsStream: Single<List<T>>) {
-        if (adapter == null) {
-            adapter = adapterInit()
-        }
         recycler_view.adapter = adapter
         recycler_view.setHasFixedSize(true)
         recycler_view.addItemDecoration(
-            DividerItemDecoration(recycler_view!!.context, RecyclerView.VERTICAL)
+                DividerItemDecoration(recycler_view.context, RecyclerView.VERTICAL)
         )
-        itemsStream.subscribe { items -> adapter!!.setData(items) }
+        itemsStream.subscribe { items -> adapter.setData(items) }
     }
 }
