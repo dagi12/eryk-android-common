@@ -25,6 +25,7 @@ abstract class CommonApplication(val appConfig: AppConfig, val isDebug: Boolean,
 
     override fun onCreate() {
         super.onCreate()
+        Fabric.with(this, Crashlytics())
         AndroidThreeTen.init(this)
         initLogging()
         RxJavaPlugins.setErrorHandler { throwable ->
