@@ -14,30 +14,25 @@ import io.reactivex.schedulers.Schedulers
  */
 object ObservableUtils {
 
-    fun <T> backgroundObservableSchedulers(): ObservableTransformer<T, T> =
-        ObservableTransformer { observable ->
-            observable
+    fun <T> bgObservableSchedulers(): ObservableTransformer<T, T> =
+            ObservableTransformer { observable ->
+                observable
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
+
+    fun <T> bgSingleSchedulers() = SingleTransformer<T, T> {
+        it
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-        }
+    }
 
-    fun <T> backgroundSingleSchedulers(): SingleTransformer<T, T> =
-        SingleTransformer { single ->
-            single
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
+    fun <T> bgMaybeSchedulers(): MaybeTransformer<T, T> =
+            MaybeTransformer { maybe ->
+                maybe
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+            }
 
-    fun <T> backgroundMaybeSchedulers(): MaybeTransformer<T, T> =
-        MaybeTransformer { maybe ->
-            maybe
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
-
-    fun backgroundCompletableSchedulers(): CompletableTransformer =
-        CompletableTransformer { completable ->
-            completable.subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-        }
+    fun bgCompletableSchedulers() = CompletableTransformer { it.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()) }
 }
