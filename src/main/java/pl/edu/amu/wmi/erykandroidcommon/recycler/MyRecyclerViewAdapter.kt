@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import java.util.*
 
-public class MyRecyclerViewAdapter<T : UniqueItem, S : AbstractViewHolder<T>>(private val abstractFragmentGrid: AbstractFragmentGrid<T, S>) : RecyclerView.Adapter<S>() {
+class MyRecyclerViewAdapter<T : UniqueItem, S : AbstractViewHolder<T>>(private val abstractFragmentGrid: AbstractFragmentGrid<T, S>) : RecyclerView.Adapter<S>() {
 
     private var values: MutableList<T> = ArrayList()
 
