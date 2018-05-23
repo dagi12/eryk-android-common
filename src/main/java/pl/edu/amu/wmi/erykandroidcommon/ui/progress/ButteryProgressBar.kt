@@ -28,6 +28,8 @@ import android.view.animation.Interpolator
  */
 class ButteryProgressBar @JvmOverloads constructor(c: Context, attrs: AttributeSet? = null, @StringRes mBarColor: Int) : View(c, attrs) {
 
+
+
     private val mShadow: GradientDrawable
     private val mAnimator = ValueAnimator()
 

@@ -6,16 +6,18 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.view.WindowManager
-import android.view.WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
 import android.widget.TextView
+import io.reactivex.CompletableTransformer
+import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.R
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
+import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgCompletableSchedulers
+import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgObservableSchedulers
+import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgSingleSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
 
 /**
@@ -23,22 +25,38 @@ import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
  */
 abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
 
-    private val progressBar: ButteryProgressBar by lazy {
-        ButteryProgressBar(this, null, progressColor)
-    }
+    private var progressBar: ButteryProgressBar? = null
 
     override fun showThrobber() {
-        progressBar.visibility = VISIBLE
-        window.setFlags(FLAG_NOT_TOUCHABLE, FLAG_NOT_TOUCHABLE)
+        if (progressBar == null) {
+            initIndeterminateProgress()
+        }
+        progressBar!!.visibility = VISIBLE
     }
 
     override fun hideThrobber() {
-        progressBar.visibility = INVISIBLE
-        window.clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
+        progressBar?.visibility = INVISIBLE
     }
 
-    fun <T> singleWithThrobber() = SingleTransformer<T, T> {
+    override fun <T> singleWithThrobber() = SingleTransformer<T, T> {
         it
+                .compose(bgSingleSchedulers())
+                .doOnSubscribe { showThrobber() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally({ hideThrobber() })
+    }
+
+    override fun <T> observableWithThrobber() = ObservableTransformer<T, T> {
+        it
+                .compose(bgObservableSchedulers())
+                .doOnSubscribe { showThrobber() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnComplete(::hideThrobber)
+    }
+
+    override fun completableWithThrobber() = CompletableTransformer {
+        it
+                .compose(bgCompletableSchedulers())
                 .doOnSubscribe { showThrobber() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally({ hideThrobber() })
@@ -49,11 +67,12 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
         app.appConfig.progressColor
     }
 
-    fun initIndeterminateProgress() {
-        progressBar.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, 24)
-        progressBar.visibility = INVISIBLE
-        val viewGroup = findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
-        viewGroup.addView(progressBar, 0)
+    private fun initIndeterminateProgress() {
+        val bar = ButteryProgressBar(this, null, progressColor)
+//        findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
+//        (window.decorView as ViewGroup).addView(bar)
+        findViewById<ViewGroup>(android.R.id.content).addView(bar)
+        progressBar = bar
     }
 
     private val snack: Snackbar by lazy {

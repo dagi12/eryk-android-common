@@ -1,7 +1,6 @@
 package pl.edu.amu.wmi.erykandroidcommon.recycler
 
 import android.app.Fragment
-import android.app.ProgressDialog
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -16,10 +15,6 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
 
     @Inject
     lateinit var picassoCache: PicassoCache
-
-    @Deprecated("Use buttery progress bar instead")
-
-    lateinit var progressDialog: ProgressDialog
 
     private var mListener: OnItemClickListener<T>? = null
 
@@ -64,7 +59,6 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val context = activity
-        progressDialog = ProgressDialog(context)
         if (context is OnItemClickListener<*>) {
             mListener = context as OnItemClickListener<T>
         }

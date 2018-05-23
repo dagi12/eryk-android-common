@@ -14,12 +14,9 @@ import io.reactivex.schedulers.Schedulers
  */
 object ObservableUtils {
 
-    fun <T> bgObservableSchedulers(): ObservableTransformer<T, T> =
-            ObservableTransformer { observable ->
-                observable
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-            }
+    fun <T> bgObservableSchedulers(): ObservableTransformer<T, T> = ObservableTransformer {
+        it.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }
 
     fun <T> bgSingleSchedulers() = SingleTransformer<T, T> {
         it

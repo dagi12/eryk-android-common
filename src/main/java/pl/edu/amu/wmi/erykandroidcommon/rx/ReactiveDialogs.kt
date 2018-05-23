@@ -20,14 +20,14 @@ import pl.edu.amu.wmi.erykandroidcommon.R
 object ReactiveDialogs {
 
     fun instantOkDialog(context: Context,
-        @StringRes title: Int,
-        @StringRes message: Int) {
+                        @StringRes title: Int,
+                        @StringRes message: Int) {
         okDialog(context, title, message).show()
     }
 
     fun instantOkDialog(context: Context,
-        title: String,
-        message: String) {
+                        title: String,
+                        message: String) {
         val dialog = okDialog(context, title, message).create()
         dialog.show()
         dialog.findViewById<TextView>(android.R.id.message)?.gravity = Gravity.CENTER
@@ -38,62 +38,62 @@ object ReactiveDialogs {
     }
 
     private fun dialogBuilder(context: Context,
-        title: String,
-        message: String): AlertDialog.Builder =
-        AlertDialog
-            .Builder(context)
-            .setTitle(title)
-            .setMessage(message)
+                              title: String,
+                              message: String): AlertDialog.Builder =
+            AlertDialog
+                    .Builder(context)
+                    .setTitle(title)
+                    .setMessage(message)
 
     private fun okDialog(context: Context,
-        title: String,
-        message: String): AlertDialog.Builder = AlertDialog.Builder(context)
-        .setTitle(title)
-        .setMessage(message)
-        .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
-            dialogInterface.dismiss()
-        }
-
-    fun errorDialog(context: Context, message: String): AlertDialog? =
-        AlertDialog.Builder(context)
-            .setTitle(context.getString(R.string.error))
+                         title: String,
+                         message: String): AlertDialog.Builder = AlertDialog.Builder(context)
+            .setTitle(title)
             .setMessage(message)
-            .setCancelable(false)
-            .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
                 dialogInterface.dismiss()
             }
-            .show()
+
+    fun errorDialog(context: Context, message: String): AlertDialog? =
+            AlertDialog.Builder(context)
+                    .setTitle(context.getString(R.string.error))
+                    .setMessage(message)
+                    .setCancelable(false)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(android.R.string.ok) { dialogInterface, _ ->
+                        dialogInterface.dismiss()
+                    }
+                    .show()
 
     private fun okDialog(context: Context, @StringRes titleId: Int): AlertDialog.Builder =
-        AlertDialog.Builder(context)
-            .setTitle(context.getString(titleId))
-            .setPositiveButton(
-                android.R.string.ok
-            ) { dialogInterface, _ -> dialogInterface.dismiss() }
+            AlertDialog.Builder(context)
+                    .setTitle(context.getString(titleId))
+                    .setPositiveButton(
+                            android.R.string.ok
+                    ) { dialogInterface, _ -> dialogInterface.dismiss() }
 
     private fun okDialog(context: Context,
-        @StringRes titleId: Int,
-        @StringRes message: Int): AlertDialog.Builder = AlertDialog.Builder(context)
-        .setTitle(context.getString(titleId))
-        .setMessage(context.getString(message))
-        .setPositiveButton(
-            android.R.string.ok
-        ) { dialogInterface, _ -> dialogInterface.dismiss() }
+                         @StringRes titleId: Int,
+                         @StringRes message: Int): AlertDialog.Builder = AlertDialog.Builder(context)
+            .setTitle(context.getString(titleId))
+            .setMessage(context.getString(message))
+            .setPositiveButton(
+                    android.R.string.ok
+            ) { dialogInterface, _ -> dialogInterface.dismiss() }
 
     fun okDialog(context: Context,
-        title: String,
-        message: String,
-        buttonCallback: ButtonCallback): AlertDialog.Builder {
+                 title: String,
+                 message: String,
+                 buttonCallback: ButtonCallback): AlertDialog.Builder {
         return AlertDialog.Builder(context)
-            .setTitle(title)
-            .setMessage(message)
-            .setPositiveButton(
-                android.R.string.ok
-            ) { dialogInterface, _ ->
-                dialogInterface.dismiss()
-                buttonCallback.callback()
-            }
+                .setTitle(title)
+                .setMessage(message)
+                .setPositiveButton(
+                        android.R.string.ok
+                ) { dialogInterface, _ ->
+                    dialogInterface.dismiss()
+                    buttonCallback.callback()
+                }
     }
 
     fun infoDialog(context: Context, msg: String) {
@@ -101,71 +101,84 @@ object ReactiveDialogs {
     }
 
     fun confirmationDialog(context: Context,
-        title: Int,
-        message: Int,
-        vararg messageArgs: Any): Single<Boolean> {
+                           title: Int,
+                           message: Int,
+                           vararg messageArgs: Any): Single<Boolean> {
         val resources = context.resources
         return confirmationDialog(context, resources.getString(title),
-            resources.getString(message, *messageArgs))
+                resources.getString(message, *messageArgs))
     }
 
+
     private fun confirmationDialog(context: Context,
-        title: String,
-        message: String,
-        @StringRes okResource: Int = android.R.string.ok,
-        @StringRes cancelResource: Int = android.R.string.cancel): Single<Boolean> =
-        Single.create<Boolean> { emitter ->
-            val ad = dialogBuilder(context, title, message).setPositiveButton(
-                okResource) { _, _ -> emitter.onSuccess(true) }
-                .setNegativeButton(cancelResource) { _, _ -> emitter.onSuccess(false) }
+                                   title: String,
+                                   message: String,
+                                   @StringRes okResource: Int = android.R.string.ok,
+                                   @StringRes cancelResource: Int = android.R.string.cancel): Single<Boolean> =
+            Single.create<Boolean> { emitter ->
+                val ad = dialogBuilder(context, title, message).setPositiveButton(
+                        okResource) { _, _ -> emitter.onSuccess(true) }
+                        .setNegativeButton(cancelResource) { _, _ -> emitter.onSuccess(false) }
+                        .create()
+                // cleaning up
+                emitter.setDisposable(Disposables.fromAction({ ad.dismiss() }))
+                ad.show()
+            }.subscribeOn(AndroidSchedulers.mainThread())
+
+    fun confirmationDialog(context: Context,
+                           @StringRes messageId: Int,
+                           @StringRes okResource: Int = android.R.string.ok,
+                           @StringRes cancelResource: Int = android.R.string.cancel): Completable = Completable.create { emitter ->
+        val ad = AlertDialog.Builder(context).setMessage(context.getString(messageId)).setPositiveButton(
+                okResource) { _, _ -> emitter.onComplete() }
+                .setNegativeButton(cancelResource) { _, _ -> }
                 .create()
-            // cleaning up
-            emitter.setDisposable(Disposables.fromAction({ ad.dismiss() }))
-            ad.show()
-        }.subscribeOn(AndroidSchedulers.mainThread())
+        emitter.setDisposable(Disposables.fromAction({ ad.dismiss() }))
+        ad.show()
+    }.subscribeOn(AndroidSchedulers.mainThread())
 
     fun confirmationDialog(context: Context): Completable = Completable.defer {
         Completable.create { emitter ->
             AlertDialog.Builder(context).setTitle(R.string.are_you_sure)
-                .setPositiveButton(R.string.yes_delete
-                ) { _, _ -> emitter.onComplete() }
-                .setNegativeButton(android.R.string.no
-                ) { _, _ -> Completable.never() }
-                .create()
-                .show()
+                    .setPositiveButton(R.string.yes_delete
+                    ) { _, _ -> emitter.onComplete() }
+                    .setNegativeButton(android.R.string.no
+                    ) { _, _ -> Completable.never() }
+                    .create()
+                    .show()
         }
     }
 
     fun textDialog(
-        context: Context,
-        title: String,
-        message: String): Single<String> = Single.create { emitter ->
+            context: Context,
+            title: String,
+            message: String): Single<String> = Single.create { emitter ->
         val editText = EditText(context)
         AlertDialog
-            .Builder(context)
-            .setMessage(message)
-            .setTitle(title)
-            .setView(editText)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                emitter.onSuccess(editText.text.toString())
-            }
-            .create()
-            .show()
+                .Builder(context)
+                .setMessage(message)
+                .setTitle(title)
+                .setView(editText)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    emitter.onSuccess(editText.text.toString())
+                }
+                .create()
+                .show()
     }
 
     fun textDialog(context: Context, title: String?, message: String, text: String?): Single<String> = Single.create { emitter ->
         val editText = EditText(context)
         editText.setText(text, TextView.BufferType.EDITABLE)
         AlertDialog
-            .Builder(context)
-            .setMessage(message)
-            .setTitle(title)
-            .setView(editText)
-            .setPositiveButton(android.R.string.ok) { _, _ ->
-                emitter.onSuccess(editText.text.toString())
-            }
-            .create()
-            .show()
+                .Builder(context)
+                .setMessage(message)
+                .setTitle(title)
+                .setView(editText)
+                .setPositiveButton(android.R.string.ok) { _, _ ->
+                    emitter.onSuccess(editText.text.toString())
+                }
+                .create()
+                .show()
     }
 }
 

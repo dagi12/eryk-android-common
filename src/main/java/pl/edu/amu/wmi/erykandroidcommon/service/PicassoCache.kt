@@ -28,7 +28,7 @@ class PicassoCache(context: Context) {
             .networkPolicy(NetworkPolicy.OFFLINE)
             .into(imageView, object : Callback {
                 override fun onError(e: Exception?) {
-                    e?.let { Timber.d(e) }
+                    e?.let { Timber.v(e) }
                     picasso
                         .load(url)
                         .into(imageView)

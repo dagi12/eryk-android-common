@@ -1,5 +1,9 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
+import io.reactivex.CompletableTransformer
+import io.reactivex.ObservableTransformer
+import io.reactivex.SingleTransformer
+
 /**
  * Base interface for [android.support.v4.app.Fragment] to [android.app.Activity]
  * communication.
@@ -15,4 +19,10 @@ interface BaseAdapter {
     fun handleNoInternet()
 
     fun handleInternet()
+
+    fun <T> singleWithThrobber(): SingleTransformer<T, T>
+
+    fun completableWithThrobber(): CompletableTransformer
+
+    fun <T> observableWithThrobber(): ObservableTransformer<T, T>
 }
