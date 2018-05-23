@@ -3,14 +3,14 @@ package pl.edu.amu.wmi.erykandroidcommon.recycler
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import java.util.ArrayList
+import java.util.*
 
 public class MyRecyclerViewAdapter<T : UniqueItem, S : AbstractViewHolder<T>>(private val abstractFragmentGrid: AbstractFragmentGrid<T, S>) : RecyclerView.Adapter<S>() {
 
     private var values: MutableList<T> = ArrayList()
 
-    fun setValues(values: MutableList<T>) {
-        this.values = values
+    fun setValues(values: List<T>) {
+        this.values = values.toMutableList()
     }
 
     fun addValue(value: T) {

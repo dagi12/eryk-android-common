@@ -53,7 +53,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         return view
     }
 
-    fun setData(items: MutableList<T>) {
+    fun setData(items: List<T>) {
         myRecyclerViewAdapter.setValues(items)
         myRecyclerViewAdapter.notifyDataSetChanged()
     }
