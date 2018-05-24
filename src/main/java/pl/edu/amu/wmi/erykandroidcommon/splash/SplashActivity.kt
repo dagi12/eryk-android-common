@@ -20,7 +20,7 @@ abstract class SplashActivity<T : UserInterface> : AppCompatActivity() {
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()
-        userStore.initUser(user)
+        userStore.user = user
         val activity = getStartActivity()
         startActivity(Intent(this, activity))
         finish()
@@ -34,4 +34,5 @@ abstract class SplashActivity<T : UserInterface> : AppCompatActivity() {
 
     private fun getStartActivity(): Class<*>? =
         if (userStore.isSigned()) commonApplication.mainActivity else commonApplication.register
+
 }

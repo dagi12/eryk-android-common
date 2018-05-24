@@ -9,6 +9,10 @@
 
     </style>
 
+    <style name="Common.SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/bg_launch_screen</item>
+    </style>
+
     <style name="Common.Spinner">
         <item name="android:divider">?android:attr/textColor</item>
         <item name="android:dividerHeight">@dimen/divider_height</item>
