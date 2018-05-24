@@ -6,7 +6,7 @@ import org.reactivestreams.Publisher
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
-internal class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
+class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
     private val maxRetries: Int
 
     private val retryDelaySeconds: Int
@@ -29,14 +29,13 @@ internal class RetryWithDelay : Function<Flowable<Throwable>, Publisher<*>> {
         this.autoUnlock = autoUnlock
     }
 
-    @Throws(Exception::class)
     override fun apply(throwableFlowable: Flowable<Throwable>): Publisher<*> {
         return if (!autoUnlock) {
             throwableFlowable.flatMap { throwable -> Flowable.error<Throwable>(throwable) }
-        } else throwableFlowable.flatMap(Function<Throwable, Publisher<*>> { throwable ->
+        } else throwableFlowable.flatMap({ throwable ->
             if (++retryCount < maxRetries) {
                 Timber.w(throwable, "Retry count: %d, max retries: %d", retryCount, maxRetries)
-                return@Function Flowable.timer(retryDelaySeconds.toLong(), TimeUnit.SECONDS)
+                Flowable.timer(retryDelaySeconds.toLong(), TimeUnit.SECONDS)
             }
 
             // Max retries hit. Just pass the error along.
