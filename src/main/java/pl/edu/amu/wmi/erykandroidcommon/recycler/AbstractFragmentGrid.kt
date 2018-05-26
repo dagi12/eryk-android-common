@@ -67,7 +67,7 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
     fun setListenerRow(holder: S, t: T) {
         holder.item = t
         holder.setRow()
-        holder.view.setOnClickListener {
+        holder.itemView.setOnClickListener {
             mListener?.onItemClick(holder.item)
         }
     }
