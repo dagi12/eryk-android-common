@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import pl.edu.amu.wmi.erykandroidcommon.exception.WrongViewException
 import pl.edu.amu.wmi.erykandroidcommon.service.PicassoCache
+import java.util.*
 import javax.inject.Inject
 
 abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> : Fragment() {
@@ -52,6 +53,8 @@ abstract class AbstractFragmentGrid<T : UniqueItem, S : AbstractViewHolder<T>> :
         myRecyclerViewAdapter.setValues(items)
         myRecyclerViewAdapter.notifyDataSetChanged()
     }
+
+    fun setData(items: Collection<T>) = setData(ArrayList(items))
 
     abstract fun createViewHolder(view: View): S
 
