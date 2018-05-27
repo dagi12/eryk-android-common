@@ -3,6 +3,7 @@ package pl.edu.amu.wmi.erykandroidcommon.base
 import android.support.design.widget.Snackbar
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.app.WindowDecorActionBar
 import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.R
+import pl.edu.amu.wmi.erykandroidcommon.di.AppConfig
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
@@ -62,17 +64,19 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
                 .doFinally({ hideThrobber() })
     }
 
-    private val progressColor: Int by lazy {
+    private val appConfig: AppConfig by lazy {
         val app: CommonApplication = applicationContext as CommonApplication
-        app.appConfig.progressColor
+        app.appConfig
     }
 
     private fun initIndeterminateProgress() {
-        val bar = ButteryProgressBar(this, null, progressColor)
-//        findViewById<ViewGroup>(android.R.id.content).getChildAt(0) as ViewGroup
-//        (window.decorView as ViewGroup).addView(bar)
-        findViewById<ViewGroup>(android.R.id.content).addView(bar)
-        progressBar = bar
+        progressBar = ButteryProgressBar(this, null, appConfig.progressColor)
+        val view = if (supportActionBar is WindowDecorActionBar) {
+            findViewById(android.R.id.content)
+        } else {
+            findViewById<ViewGroup>(R.id.container)
+        }
+        view.addView(progressBar)
     }
 
     private val snack: Snackbar by lazy {

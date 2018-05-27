@@ -5,7 +5,7 @@ import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
 import android.graphics.drawable.GradientDrawable
-import android.support.annotation.StringRes
+import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
@@ -26,8 +26,7 @@ import android.view.animation.Interpolator
  * This progress bar has no intrinsic height, so you must declare it with one
  * explicitly. (It will use the given height as the bar's shadow height.)
  */
-class ButteryProgressBar @JvmOverloads constructor(c: Context, attrs: AttributeSet? = null, @StringRes mBarColor: Int) : View(c, attrs) {
-
+class ButteryProgressBar @JvmOverloads constructor(c: Context, attrs: AttributeSet? = null, @ColorRes mBarColor: Int = android.R.color.black) : View(c, attrs) {
 
 
     private val mShadow: GradientDrawable
@@ -56,8 +55,7 @@ class ButteryProgressBar @JvmOverloads constructor(c: Context, attrs: AttributeS
             intArrayOf(mBarColor and 0x00ffffff or 0x22000000, 0))
     }
 
-    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int,
-        bottom: Int) {
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         if (changed) {
             val w = width
 
