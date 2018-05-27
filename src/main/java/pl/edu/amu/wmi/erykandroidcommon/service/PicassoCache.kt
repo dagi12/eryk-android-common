@@ -34,9 +34,7 @@ class PicassoCache(context: Context) {
                         .into(imageView)
                 }
 
-                override fun onSuccess() {
-                    Timber.v("Image fetched")
-                }
+                override fun onSuccess() {}
             })
     }
 }

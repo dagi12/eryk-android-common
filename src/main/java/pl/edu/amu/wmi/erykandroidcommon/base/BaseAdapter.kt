@@ -1,6 +1,7 @@
 package pl.edu.amu.wmi.erykandroidcommon.base
 
 import io.reactivex.CompletableTransformer
+import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 
@@ -25,4 +26,6 @@ interface BaseAdapter {
     fun completableWithThrobber(): CompletableTransformer
 
     fun <T> observableWithThrobber(): ObservableTransformer<T, T>
+
+    fun <T> maybeWithThrobber(): MaybeTransformer<T, T>
 }

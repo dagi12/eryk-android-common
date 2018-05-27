@@ -3,10 +3,6 @@ package pl.edu.amu.wmi.erykandroidcommon.base
 import android.annotation.SuppressLint
 import android.os.Bundle
 import android.support.v4.app.Fragment
-import io.reactivex.CompletableTransformer
-import io.reactivex.MaybeTransformer
-import io.reactivex.ObservableTransformer
-import io.reactivex.SingleTransformer
 import pl.edu.amu.wmi.erykandroidcommon.exception.AdapterLackException
 import timber.log.Timber
 import java.net.ConnectException
@@ -53,29 +49,11 @@ open class BaseFragment : Fragment() {
         }
     }
 
-    fun <T> singleWithThrobber() = SingleTransformer<T, T> {
-        it
-                .doOnSubscribe { baseAdapter.showThrobber() }
-                .doFinally({ baseAdapter.hideThrobber() })
-    }
+    fun <T> singleWithThrobber() = baseAdapter.singleWithThrobber<T>()
 
-    fun <T> observableWithThrobber() = ObservableTransformer<T, T> {
-        it
-                .doOnSubscribe { _ -> baseAdapter.showThrobber() }
-                .doFinally({ baseAdapter.hideThrobber() })
-    }
+    fun <T> observableWithThrobber() = baseAdapter.observableWithThrobber<T>()
 
-    fun <T> maybeWithThrobber() =
-            MaybeTransformer<T, T> {
-                it
-                        .doOnSubscribe({ _ -> baseAdapter.showThrobber() })
-                        .doFinally({ baseAdapter.hideThrobber() })
-            }
+    fun <T> maybeWithThrobber() = baseAdapter.maybeWithThrobber<T>()
 
-    fun completableWithThrobber() =
-            CompletableTransformer {
-                it
-                        .doOnSubscribe({ baseAdapter.showThrobber() })
-                        .doFinally({ baseAdapter.hideThrobber() })
-            }
+    fun completableWithThrobber() = baseAdapter.completableWithThrobber()
 }

@@ -9,6 +9,7 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.TextView
 import io.reactivex.CompletableTransformer
+import io.reactivex.MaybeTransformer
 import io.reactivex.ObservableTransformer
 import io.reactivex.SingleTransformer
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -18,6 +19,7 @@ import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplication
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonApplicationComponent
 import pl.edu.amu.wmi.erykandroidcommon.di.CommonInjector
 import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgCompletableSchedulers
+import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgMaybeSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgObservableSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.rx.ObservableUtils.bgSingleSchedulers
 import pl.edu.amu.wmi.erykandroidcommon.ui.progress.ButteryProgressBar
@@ -59,6 +61,14 @@ abstract class BaseActivity : AppCompatActivity(), BaseAdapter {
     override fun completableWithThrobber() = CompletableTransformer {
         it
                 .compose(bgCompletableSchedulers())
+                .doOnSubscribe { showThrobber() }
+                .observeOn(AndroidSchedulers.mainThread())
+                .doFinally({ hideThrobber() })
+    }
+
+    override fun <T> maybeWithThrobber() = MaybeTransformer<T, T> {
+        it
+                .compose(bgMaybeSchedulers())
                 .doOnSubscribe { showThrobber() }
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally({ hideThrobber() })

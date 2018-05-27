@@ -41,7 +41,7 @@ open class MySpinnerAdapter<T : UniqueItem>(context: Context) : ArrayAdapter<T>(
 
     open fun getLabel(item: T): String = item.name
 
-    fun getItemLabel(position: Int): String = getLabel(getItem(position))
+    fun getItemLabel(position: Int): String? = if (position >= 0) getLabel(getItem(position)) else null
 
     fun setSelection(spinner: Spinner, item: T): Int = setSelection(spinner, getLabel(item))
 
